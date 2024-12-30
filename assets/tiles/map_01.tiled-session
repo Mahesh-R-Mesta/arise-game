@@ -1,0 +1,195 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map_level_01.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/mahes/Downloads/oak_woods_v1.0/oak_woods_v1.0/background_layer_1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/Downloads/oak_woods_v1.0/oak_woods_v1.0/background_layer_2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/Downloads/oak_woods_v1.0/oak_woods_v1.0/background_layer_3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/Downloads/oak_woods_v1.0/oak_woods_v1.0/untitled.tmx": {
+            "scale": 0.62225,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 799.517878666131,
+                "y": 79.55002008838892
+            }
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_deathDrown.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_deathFaint.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_deathPit.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_edgeGrab.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_flap.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_idle.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_jump.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_run.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_dash_slide.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_enemy_beetle.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_enemy_butterfly.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_fx_large.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_fx_small.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_item_egg.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_item_feather.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_phoenixDash_doublejump.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_phoenixDash_idle.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_phoenixDash_jump.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_phoenixDash_run.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_poof.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/anim/spritesheet_poof_orange.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/flutter_runnergame_map_A.tmx": {
+            "expandedGroupLayers": [
+                20
+            ],
+            "scale": 0.33,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 2334.848484848485,
+                "y": 2143.939393939394
+            }
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/objects/tile_enemies_v2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/objects/tile_forest_trees_back_v02.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/objects/tile_forest_trees_front_v02.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/objects/tile_items_v2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/tiles/tile_decorations_v01.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/tiles/tile_forest_bushes_v02.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/tiles/tile_forest_bushes_v03.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/tiles/tile_forest_ground_v04.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/tiles/tile_treehouse.tsx": {
+            "scaleInDock": 1
+        },
+        "background_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "background_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "background_3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "grass_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "ground_utls.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "lamp.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map_level_01.tmx": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 227,
+                "y": 110.99999999999997
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/mahes/OneDrive/Documents/project/arise_game/assets/images/background/decorations",
+    "map.height": 7,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 40,
+    "openFiles": [
+        "background_1.tsx",
+        "background_2.tsx",
+        "background_3.tsx",
+        "map_level_01.tmx",
+        "lamp.tsx",
+        "grass_2.tsx"
+    ],
+    "project": "map_01.tiled-project",
+    "recentFiles": [
+        "map_level_01.tmx",
+        "lamp.tsx",
+        "background_1.tsx",
+        "background_2.tsx",
+        "background_3.tsx",
+        "grass_2.tsx",
+        "ground_utls.tsx",
+        "C:/Users/mahes/OneDrive/Desktop/poc/super_dash/assets/map/flutter_runnergame_map_A.tmx",
+        "C:/Users/mahes/Downloads/oak_woods_v1.0/oak_woods_v1.0/untitled.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 19,
+        "width": 73
+    }
+}
