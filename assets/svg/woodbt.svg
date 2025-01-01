@@ -1,0 +1,27 @@
+<svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Button base with wooden texture -->
+  <rect x="2" y="2" width="116" height="36" rx="8" fill="#8B4513"/>
+  
+  <!-- Wood grain texture -->
+  <path d="M10 8 Q60 12, 110 8" stroke="#723710" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M10 14 Q60 18, 110 14" stroke="#723710" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M10 20 Q60 24, 110 20" stroke="#723710" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M10 26 Q60 30, 110 26" stroke="#723710" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M10 32 Q60 36, 110 32" stroke="#723710" stroke-width="1" fill="none" opacity="0.3"/>
+  
+  <!-- Light reflection -->
+  <path d="M10 6 Q60 12, 110 6" stroke="#A0522D" stroke-width="4" fill="none" opacity="0.2"/>
+  
+  <!-- Button outline -->
+  <rect x="2" y="2" width="116" height="36" rx="8" 
+        fill="none" 
+        stroke="#5C2E0E" 
+        stroke-width="2"/>
+  
+  <!-- Highlight edge -->
+  <rect x="4" y="4" width="112" height="32" rx="6" 
+        fill="none" 
+        stroke="#CD853F" 
+        stroke-width="1" 
+        opacity="0.3"/>
+</svg>

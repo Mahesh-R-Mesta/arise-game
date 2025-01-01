@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 
 class MovementButton extends SpriteComponent {
   MovementButton({super.size, super.position});

@@ -1,31 +1,54 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+import 'package:arise_game/game/component/helper/ground_character.dart';
+import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/game/game.dart';
+import 'package:arise_game/game/arise_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:get_it/get_it.dart';
 
-class JungleBoar extends SpriteAnimationComponent with CollisionCallbacks, HasGameRef<AriseGame> {
-  JungleBoar({super.position, super.size});
+enum Boar {
+  normal("character/boar_run.png", "character/boar_death.png"),
+  medium("character/boar_run_2.png", "character/boar_death_2.png"),
+  danger("character/boar_run_3.png", "character/boar_death_3.png");
 
-  int damageCapacity = 10;
+  final String runAsset;
+  final String deathAsset;
+  const Boar(this.runAsset, this.deathAsset);
+}
 
-  bool isOnGround = false;
-  double speed = 70;
-  int horizontalMovement = -1;
+class JungleBoar extends GroundCharacter with HasGameRef<AriseGame> {
+  final Boar boar;
+  final double damageCapacity;
+  final int damageReward;
+  double speed; // = 70;
+  JungleBoar({required this.boar, required this.damageCapacity, required this.damageReward, required this.speed, super.position, super.size});
+
+  late Lifeline lifeline;
+  late HarmZone harmZone;
 
   final assetSize = Vector2(48, 32);
-  late Vector2 startPosition;
+  final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
   @override
   FutureOr<void> onLoad() {
-    startPosition = position.clone();
+    horizontalMovement = -1;
     size = Vector2(assetSize.x * 1.5, assetSize.y * 1.5);
-    animation = SpriteAnimation.fromFrameData(
-        gameRef.images.fromCache("character/boar_run.png"), SpriteAnimationData.sequenced(amount: 6, stepTime: 0.2, textureSize: assetSize));
+    lifeline = Lifeline(playerBoxWidth: width);
+    final runningAnimation = SpriteAnimation.fromFrameData(
+        gameRef.images.fromCache(boar.runAsset), SpriteAnimationData.sequenced(amount: 6, stepTime: 0.2, textureSize: assetSize));
+    final deathAnimation = SpriteAnimation.fromFrameData(
+        gameRef.images.fromCache(boar.deathAsset), SpriteAnimationData.sequenced(amount: 4, stepTime: 0.2, textureSize: assetSize));
+    animations = {PlayerState.running: runningAnimation, PlayerState.death: deathAnimation};
+    current = PlayerState.running;
+    harmZone = HarmZone(playerSize: size);
+    add(harmZone);
     add(RectangleHitbox(size: size));
-    add(Lifeline(position: position, size: Vector2(50, 5)));
+    add(lifeline);
     return super.onLoad();
   }
 
@@ -33,38 +56,60 @@ class JungleBoar extends SpriteAnimationComponent with CollisionCallbacks, HasGa
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       if (other.current == PlayerState.attack) {
-      } else {
-        other.attacked(this);
+        lifeline.reduce(other.damageCapacity);
+        playerEarnedCoin.receivedCoin(damageReward);
+        harmZone.blinkIt();
+        if (lifeline.health == 0) death();
       }
+    }
+    if (other is Player && other.current != PlayerState.attack) {
+      other.attackedBy(this);
     }
 
     if (other is GroundBlock) {
-      if (other.type == GroundType.bottom) {
-        isOnGround = true;
-      }
-      if (other.type == GroundType.left) {
-        if (horizontalMovement == -1) {
-          flipHorizontallyAroundCenter();
-        }
-        horizontalMovement = 1;
-      }
-      if (other.type == GroundType.right) {
-        if (horizontalMovement == 1) {
-          flipHorizontallyAroundCenter();
-        }
-        horizontalMovement = -1;
-      }
+      if (other.type == GroundType.left) _runRight();
+      if (other.type == GroundType.right) _runLeft();
     }
-
     super.onCollision(intersectionPoints, other);
+  }
+
+  void death() {
+    current = PlayerState.death;
+    Future.delayed(Duration(milliseconds: 800), () => removeFromParent());
+  }
+
+  _runRight() {
+    if (horizontalMovement == -1) {
+      flipHorizontallyAroundCenter();
+      horizontalMovement = 1;
+    }
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    if (other is GroundBlock && other.type == GroundType.bottom) {
+      if (horizontalMovement == 1) _runLeft();
+      if (horizontalMovement == -1) _runRight();
+    }
+    super.onCollisionEnd(other);
   }
 
   @override
   void update(double dt) {
-    if (!isOnGround) {
-      position.y = position.y + (5 * dt);
-    }
     position.x = position.x + (speed * dt * horizontalMovement);
     super.update(dt);
   }
+
+  void _runLeft() {
+    if (horizontalMovement == 1) {
+      flipHorizontallyAroundCenter();
+      horizontalMovement = -1;
+    }
+  }
+
+  @override
+  Vector2 getActorPosition() => position;
+
+  @override
+  Size getActorSize() => Size(width, height);
 }

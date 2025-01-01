@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/game/game.dart';
-import 'package:arise_game/game/utils/audio.dart';
+import 'package:arise_game/game/arise_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:get_it/get_it.dart';
@@ -12,13 +11,11 @@ class Coin extends SpriteAnimationComponent with HasGameRef<AriseGame>, Collisio
   final int price;
   Coin({super.position, super.size, required this.price});
 
-  final gameAudio = GetIt.I.get<AudioService>();
   final earnedCoin = GetIt.I.get<EarnedCoin>();
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
-      gameAudio.playCoinReceive();
       earnedCoin.receivedCoin(price);
       removeFromParent();
     }

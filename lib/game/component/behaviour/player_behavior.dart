@@ -6,7 +6,7 @@ import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:get_it/get_it.dart';
 
 class PlayerBehavior extends Behavior<Player> {
-  final double speed = 70;
+  final double speed = 75;
 
   final buttonBridge = GetIt.I.get<GameButtonBridge>();
 
@@ -50,15 +50,20 @@ class PlayerBehavior extends Behavior<Player> {
       }
     };
 
+    Timer? attackTimer;
+
     buttonBridge.onAttack = (pressed) {
       if (pressed) {
+        if (parent.current == PlayerState.attack) return;
+        attackTimer?.cancel();
         parent.current = PlayerState.attack;
         parent.horizontalMovement = 0;
       } else {
-        Future.delayed(const Duration(milliseconds: 100 * 6), () {
+        attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
           if (parent.current == PlayerState.attack) {
             parent.current = PlayerState.idle;
           }
+          t.cancel();
         });
       }
     };

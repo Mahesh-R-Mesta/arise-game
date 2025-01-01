@@ -2,10 +2,12 @@ import 'package:audioplayers/audioplayers.dart';
 
 class AudioService {
   late AudioPlayer backgroundPlayer;
+  late AudioPlayer playerSound;
   late AudioPlayer coinGrabPlayer;
   initialize() {
     backgroundPlayer = AudioPlayer(playerId: "bg");
     coinGrabPlayer = AudioPlayer(playerId: "cn");
+    playerSound = AudioPlayer(playerId: "pl");
   }
 
   playCoinReceive() async {
@@ -20,10 +22,19 @@ class AudioService {
 
   resumeBackground() => backgroundPlayer.resume();
 
+  // attack() => playerSound
+
+  hurt() {
+    if (playerSound.state != PlayerState.playing) {
+      playerSound.play(AssetSource("audio/manhurt.mp3"));
+    }
+  }
+
   dispose() {
     backgroundPlayer.stop();
     coinGrabPlayer.stop();
     backgroundPlayer.release();
     coinGrabPlayer.release();
+    playerSound.release();
   }
 }
