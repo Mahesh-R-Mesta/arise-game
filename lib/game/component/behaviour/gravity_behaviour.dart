@@ -1,7 +1,17 @@
+import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 
-class GravityBehavior extends Behavior<Player> {
+// mixin GravityMixin {
+//   double damageCapacity = 2;
+//   bool playerOnGround = false;
+//   bool isFacingRight = true;
+//   int horizontalMovement = 0;
+//   double jumpForce = 0;
+//   bool isJumped = false;
+// }
+
+class GravityBehavior extends Behavior<GroundCharacter> {
   double yVelocity = 0;
   double gravity = 5.0;
 

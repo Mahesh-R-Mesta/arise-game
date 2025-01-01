@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:arise_game/game/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
@@ -29,7 +30,7 @@ class GroundBlock extends RectangleComponent with EntityMixin {
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
+    debugMode = GameViewConfig.debugMode;
     add(RectangleHitbox());
     return super.onLoad();
   }
