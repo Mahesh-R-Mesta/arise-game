@@ -8,14 +8,13 @@ import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 
 abstract class GroundCharacter extends SpriteAnimationGroupComponent with EntityMixin, CollisionCallbacks {
-  GroundCharacter({super.position, super.size, super.anchor});
+  GroundCharacter({super.position, super.size, super.anchor, super.scale});
 
   bool playerOnGround = false;
   bool isFacingRight = true;
   int horizontalMovement = 0;
   double jumpForce = 0;
   bool isJumped = false;
-
   bool hittingLeftWall = false;
   bool hittingRightWall = false;
 

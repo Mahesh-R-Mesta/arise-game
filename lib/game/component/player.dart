@@ -60,7 +60,7 @@ class Player extends GroundCharacter with HasGameRef<AriseGame>, KeyboardHandler
     return super.onLoad();
   }
 
-  void attackedBy(PositionComponent enemy) {
+  void harmedBy(PositionComponent enemy) {
     if (enemy is JungleBoar) {
       lifeline.reduce(enemy.damageCapacity);
       audioService.hurt();

@@ -1,10 +1,9 @@
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/game.dart';
 
 class CameraBehavior extends Component implements ReadOnlyPositionProvider {
-  final GroundCharacterGroupAnime character;
+  final GroundCharacter character;
   final double gap;
   CameraBehavior({required this.character, required this.gap});
 
