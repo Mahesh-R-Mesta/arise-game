@@ -2,7 +2,7 @@ import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 
-class GravityBehavior extends Behavior<GroundCharacterGroupAnime> {
+class GravityBehavior extends Behavior<GroundCharacter> {
   double yVelocity = 0;
   double gravity = 5.0;
 
@@ -12,10 +12,10 @@ class GravityBehavior extends Behavior<GroundCharacterGroupAnime> {
     if (parent.isJumped) {
       yVelocity = -parent.jumpForce;
       parent.isJumped = false;
-      parent.isOnGround = false;
+      parent.playerOnGround = false;
     }
     // if player not on ground gravity works
-    if (!parent.isOnGround) {
+    if (!parent.playerOnGround) {
       yVelocity += (gravity * dt);
       parent.position.y += yVelocity;
     } else {

@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
-import 'package:arise_game/game/component/items/bomb.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:flame/collisions.dart';
@@ -11,7 +10,7 @@ import 'package:flame/components.dart';
 
 enum GoblinState { idle, bombing }
 
-class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
+class Goblin extends GroundCharacter with HasGameRef<AriseGame> {
   Goblin({super.position, super.size}) : super(anchor: Anchor.center, scale: Vector2(1.5, 1.5));
 
   double bombingTime = 5;
@@ -22,7 +21,7 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
 
   @override
   async.FutureOr<void> onLoad() {
-    lifeline = Lifeline(playerBoxWidth: 250, scale: Vector2(0.7, 0.7));
+    lifeline = Lifeline(playerBoxWidth: 250, scale: Vector2(0.5, 0.5));
     final facingRightAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("character/goblin.png"),
         SpriteAnimationData.sequenced(texturePosition: Vector2(0, 60), amount: 2, stepTime: 0.8, textureSize: Vector2(150, 40)));
     attackAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("character/goblin.png"),
@@ -60,11 +59,11 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   }
 
   void bomb() async {
-    if (GoblinState.bombing != current) return;
-    final bomb = Bomb(3, posAdjust: Vector2(32, -40));
-    bomb.behavior.applyForce(3, 20, isRight: false, isOnGround: false);
+    // if (GoblinState.bombing != current) return;
+    // final bomb = Bomb(3, posAdjust: Vector2(32, -40));
+    // bomb.behavior.applyForce(3, 20, isRight: false, isOnGround: false);
 
-    await add(bomb);
+    // await add(bomb);
   }
 
   // void faceShift() {

@@ -3,7 +3,7 @@ import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 
-class GroundCollision extends CollisionBehavior<GroundBlock, GroundCharacterGroupAnime> {
+class GroundCollision extends CollisionBehavior<GroundBlock, GroundCharacter> {
   @override
   void onCollision(Set<Vector2> intersectionPoints, GroundBlock other) {
     print("$other");

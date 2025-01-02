@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:arise_game/game/component/helper/object.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 
