@@ -19,10 +19,12 @@ class PlayerBehavior extends Behavior<Player> {
           parent.flipHorizontallyAroundCenter();
           parent.isFacingRight = false;
         }
-        parent.horizontalMovement = -1;
+        parent.behavior
+          ..xVelocity = 75
+          ..horizontalMovement = -1;
       } else {
         parent.current = PlayerState.idle;
-        parent.horizontalMovement = 0;
+        parent.behavior.horizontalMovement = 0;
       }
     };
 
@@ -34,19 +36,23 @@ class PlayerBehavior extends Behavior<Player> {
           parent.flipHorizontallyAroundCenter();
           parent.isFacingRight = true;
         }
-        parent.horizontalMovement = 1;
+        parent.behavior
+          ..xVelocity = 75
+          ..horizontalMovement = 1;
       } else {
         parent.current = PlayerState.idle;
-        parent.horizontalMovement = 0;
+        parent.behavior
+          ..xVelocity = 75
+          ..horizontalMovement = 0;
       }
     };
 
     buttonBridge.onPressJump = (pressed) {
-      if (pressed && parent.isOnGround) {
+      if (pressed && parent.behavior.isOnGround) {
         parent.current = PlayerState.jumping;
-        parent.jumpForce = 4;
+        parent.behavior.applyForce(5, 90, isOnGround: false);
         parent.isJumped = true;
-        parent.isOnGround = false;
+        // parent.isOnGround = false;
       }
     };
 
@@ -57,7 +63,7 @@ class PlayerBehavior extends Behavior<Player> {
         if (parent.current == PlayerState.attack) return;
         attackTimer?.cancel();
         parent.current = PlayerState.attack;
-        parent.horizontalMovement = 0;
+        parent.behavior.horizontalMovement = 0;
       } else {
         attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
           if (parent.current == PlayerState.attack) {
@@ -69,13 +75,5 @@ class PlayerBehavior extends Behavior<Player> {
     };
 
     return super.onLoad();
-  }
-
-  @override
-  void update(double dt) {
-    if (!parent.hittingRightWall && parent.horizontalMovement == 1 || !parent.hittingLeftWall && parent.horizontalMovement == -1) {
-      parent.position.x += speed * dt * parent.horizontalMovement;
-    }
-    super.update(dt);
   }
 }

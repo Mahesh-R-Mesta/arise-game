@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
-import 'package:arise_game/game/component/behaviour/gravity_behaviour.dart';
-import 'package:arise_game/game/component/behaviour/ground_collision_behaviour.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
-import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
+import 'package:arise_game/game/component/items/bomb.dart';
 import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/items/shape.dart';
@@ -14,7 +11,6 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/utils/audio.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/services/hardware_keyboard.dart';
@@ -22,7 +18,7 @@ import 'package:get_it/get_it.dart';
 
 enum PlayerState { idle, running, jumping, attack, death }
 
-class Player extends GroundCharacter with HasGameRef<AriseGame>, KeyboardHandler {
+class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, KeyboardHandler {
   Player({super.position, super.size}) : super(anchor: Anchor.center);
   double damageCapacity = 1;
   late Lifeline lifeline;
@@ -33,6 +29,9 @@ class Player extends GroundCharacter with HasGameRef<AriseGame>, KeyboardHandler
 
   @override
   FutureOr<void> onLoad() async {
+    behavior
+      ..xVelocity = 75
+      ..drag = 0.005;
     final idleAnimation = spriteAnimationSequence(amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
     final attackAnimation =
         spriteAnimationSequence(texturePosition: Vector2(0, 56), amount: 6, amountPerRow: 6, stepTime: 0.1, textureSize: Vector2(56, 56));
@@ -60,19 +59,24 @@ class Player extends GroundCharacter with HasGameRef<AriseGame>, KeyboardHandler
     return super.onLoad();
   }
 
-  void attackedBy(PositionComponent enemy) {
+  void harmedBy(PositionComponent enemy) {
     if (enemy is JungleBoar) {
       lifeline.reduce(enemy.damageCapacity);
       audioService.hurt();
       harmZone.blinkIt();
-      if (lifeline.health == 0) {
-        current = PlayerState.death;
-        gameRef.overlays.remove("controller");
-        Future.delayed(const Duration(seconds: 2), () {
-          gameRef.overlays.add("gameLost");
-          removeFromParent();
-        });
-      }
+    } else if (enemy is Bomb) {
+      lifeline.reduce(enemy.damageCapacity);
+      audioService.hurt();
+      harmZone.blinkIt();
+    }
+
+    if (lifeline.health == 0) {
+      current = PlayerState.death;
+      gameRef.overlays.remove("controller");
+      Future.delayed(const Duration(seconds: 2), () {
+        gameRef.overlays.add("gameLost");
+        removeFromParent();
+      });
     }
   }
 
@@ -103,11 +107,11 @@ class Player extends GroundCharacter with HasGameRef<AriseGame>, KeyboardHandler
 
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (keysPressed.contains(LogicalKeyboardKey.space) && playerOnGround) {
+    if (keysPressed.contains(LogicalKeyboardKey.space) && isOnGround) {
       current = PlayerState.jumping;
-      jumpForce = 4;
+      jumpForce = 5;
       isJumped = true;
-      playerOnGround = false;
+      isOnGround = false;
     } else if (keysPressed.contains(LogicalKeyboardKey.keyD) && !hittingRightWall) {
       if (current != PlayerState.jumping) current = PlayerState.running;
       if (!isFacingRight) {

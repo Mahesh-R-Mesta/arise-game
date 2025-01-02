@@ -3,14 +3,15 @@ import 'dart:ui';
 
 import 'package:arise_game/game/component/behaviour/gravity_behaviour.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+import 'package:arise_game/game/component/helper/object.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 
-abstract class GroundCharacter extends SpriteAnimationGroupComponent with EntityMixin, CollisionCallbacks {
-  GroundCharacter({super.position, super.size, super.anchor});
+abstract class GroundCharacterGroupAnime extends GameObjectAnimeGroup {
+  GroundCharacterGroupAnime({super.position, super.size, super.anchor, super.scale});
 
-  bool playerOnGround = false;
+  bool isOnGround = false;
   bool isFacingRight = true;
   int horizontalMovement = 0;
   double jumpForce = 0;
@@ -21,7 +22,9 @@ abstract class GroundCharacter extends SpriteAnimationGroupComponent with Entity
 
   @override
   FutureOr<void> onLoad() {
-    add(GravityBehavior());
+    behavior.isOnGround = false;
+    // add(GravityBehavior());
+    // add(GroundCollision());
     return super.onLoad();
   }
 
@@ -32,12 +35,6 @@ abstract class GroundCharacter extends SpriteAnimationGroupComponent with Entity
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is GroundBlock) {
-      // ground collision
-      final hitBoxSize = getActorSize();
-      final hitBoxPos = getActorPosition();
-      if (other.type == GroundType.bottom && hitBoxPos.y + hitBoxSize.height > other.y) {
-        playerOnGround = true;
-      }
       if (other.type == GroundType.left) {
         hittingLeftWall = true;
       }
@@ -49,18 +46,6 @@ abstract class GroundCharacter extends SpriteAnimationGroupComponent with Entity
   }
 
   @override
-  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is GroundBlock) {
-      final hitBoxSize = getActorSize();
-      final hitBoxPos = getActorPosition();
-      if (other.type == GroundType.bottom && hitBoxPos.y + hitBoxSize.height >= other.y) {
-        playerOnGround = true;
-      }
-    }
-    super.onCollisionStart(intersectionPoints, other);
-  }
-
-  @override
   void onCollisionEnd(PositionComponent other) {
     if (other is GroundBlock) {
       if (other.type == GroundType.left) {
@@ -69,10 +54,10 @@ abstract class GroundCharacter extends SpriteAnimationGroupComponent with Entity
       if (other.type == GroundType.right) {
         hittingRightWall = false;
       }
-      if (other.type == GroundType.bottom) {
-        // jumpForce = 0;
-        playerOnGround = false;
-      }
+      // if (other.type == GroundType.bottom) {
+      //   // jumpForce = 0;
+      //   behavior.isOnGround = false;
+      // }
     }
     super.onCollisionEnd(other);
   }

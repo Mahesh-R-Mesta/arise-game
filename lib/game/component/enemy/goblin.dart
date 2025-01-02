@@ -14,7 +14,7 @@ enum GoblinState { idle, bombing }
 class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   Goblin({super.position, super.size}) : super(anchor: Anchor.center, scale: Vector2(1.5, 1.5));
 
-  double bombingTime = 5;
+  double bombingTime = 9.8;
 
   late Lifeline lifeline;
 
@@ -62,7 +62,10 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   void bomb() async {
     if (GoblinState.bombing != current) return;
     final bomb = Bomb(3, posAdjust: Vector2(32, -40));
-    bomb.behavior.applyForce(3, 20, isRight: false, isOnGround: false);
+    bomb.behavior
+      ..mass = 0.3
+      ..applyForce(30, 5, isRight: true, isOnGround: false);
+    print(" X:${bomb.behavior.xVelocity} Y:${bomb.behavior.yVelocity}  ${bomb.behavior.horizontalMovement} ");
 
     await add(bomb);
   }
