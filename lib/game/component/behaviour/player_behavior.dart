@@ -42,11 +42,11 @@ class PlayerBehavior extends Behavior<Player> {
     };
 
     buttonBridge.onPressJump = (pressed) {
-      if (pressed && parent.playerOnGround) {
+      if (pressed && parent.isOnGround) {
         parent.current = PlayerState.jumping;
         parent.jumpForce = 4;
         parent.isJumped = true;
-        parent.playerOnGround = false;
+        parent.isOnGround = false;
       }
     };
 

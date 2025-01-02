@@ -22,6 +22,8 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   final gameAudio = GetIt.I.get<AudioService>();
 
+  Key gameWidgetKey = UniqueKey();
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
@@ -51,14 +53,22 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget.controlled(gameFactory: () => AriseGame(tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()), overlayBuilderMap: {
-      "startGame": (context, game) => GameStartIntro(game: game as AriseGame),
-      "controller": (context, game) => GameControls(),
-      "gameWon": (context, game) => GameWon(game: game as AriseGame),
-      "gameLost": (context, game) => GameLost(game: game as AriseGame),
-    }, initialActiveOverlays: [
-      "startGame"
-    ]);
+    return GameWidget.controlled(
+        key: gameWidgetKey,
+        gameFactory: () => AriseGame(tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
+        overlayBuilderMap: {
+          "startGame": (context, game) => GameStartIntro(game: game as AriseGame),
+          "controller": (context, game) => GameControls(),
+          "gameWon": (context, game) => GameWon(game: game as AriseGame),
+          "gameLost": (context, game) => GameLost(
+              game: game as AriseGame,
+              restart: () => setState(() {
+                    gameWidgetKey = UniqueKey();
+                  })),
+        },
+        initialActiveOverlays: [
+          "startGame"
+        ]);
   }
 
   Widget earningView() {

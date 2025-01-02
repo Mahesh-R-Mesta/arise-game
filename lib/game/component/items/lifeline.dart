@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class Lifeline extends PositionComponent {
   final double playerBoxWidth;
-  Lifeline({required this.playerBoxWidth}) : super(anchor: Anchor.topCenter, size: Vector2(50, 5));
+  Lifeline({required this.playerBoxWidth, super.scale}) : super(anchor: Anchor.topCenter, size: Vector2(50, 5));
 
   double _health = 100;
 

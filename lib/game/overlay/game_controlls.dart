@@ -37,7 +37,7 @@ class GameControls extends StatelessWidget {
               child: GestureDetector(
                   onTapDown: (_) => buttonBridge.onMoveLeftDown(),
                   onTapUp: (_) => buttonBridge.onMoveLeftUp(),
-                  child: Image.asset("assets/images/arrow_right.png"))),
+                  child: RotatedBox(quarterTurns: 2, child: Image.asset("assets/images/arrow_left.png")))),
           Positioned(
               bottom: 20,
               left: 150,

@@ -22,7 +22,7 @@ enum Boar {
   const Boar(this.runAsset, this.deathAsset);
 }
 
-class JungleBoar extends GroundCharacter with HasGameRef<AriseGame> {
+class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   final Boar boar;
   final double damageCapacity;
   final int damageReward;
@@ -63,7 +63,7 @@ class JungleBoar extends GroundCharacter with HasGameRef<AriseGame> {
       }
     }
     if (other is Player && other.current != PlayerState.attack) {
-      other.attackedBy(this);
+      other.harmedBy(this);
     }
 
     if (other is GroundBlock) {
