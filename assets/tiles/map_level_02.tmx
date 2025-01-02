@@ -73,15 +73,15 @@
  </objectgroup>
  <objectgroup id="6" name="ground_layer">
   <object id="7" name="ground" type="ground" x="3.83333" y="129.5" width="90.417" height="5.75"/>
-  <object id="12" name="ground" type="ground" x="515.182" y="129" width="60.7121" height="5.75"/>
+  <object id="12" name="ground" type="ground" x="515.182" y="129" width="59.0454" height="5.75"/>
   <object id="13" name="ground" type="ground" x="576.364" y="160.5" width="132.727" height="6.83333"/>
-  <object id="14" name="ground" type="ground" x="705.864" y="128.667" width="314.348" height="5.83333"/>
+  <object id="14" name="ground" type="ground" x="705.864" y="128.667" width="315.257" height="5.83333"/>
   <object id="15" name="ground" type="ground" x="1019.15" y="160.333" width="139.242" height="6.83333"/>
   <object id="16" name="ground" type="ground" x="1155.79" y="127.333" width="123.879" height="8.66667"/>
   <object id="23" name="leftGroundWall" type="leftGroundWall" x="702.333" y="131" width="6.33333" height="36.3333"/>
-  <object id="24" name="leftGroundWall" type="leftGroundWall" x="1018.03" y="129.424" width="5.51515" height="38.2424"/>
+  <object id="24" name="leftGroundWall" type="leftGroundWall" x="1018.03" y="132.424" width="5.51515" height="35.2424"/>
   <object id="29" name="rightGroundWall" type="rightGroundWall" x="512.667" y="131.212" width="5.33333" height="34.4545"/>
-  <object id="30" name="rightGroundWall" type="rightGroundWall" x="571.833" y="132.333" width="5.66667" height="36.6667"/>
+  <object id="30" name="rightGroundWall" type="rightGroundWall" x="571.833" y="132.333" width="5.33334" height="36.6667"/>
   <object id="32" name="rightGroundWall" type="rightGroundWall" x="1152.67" y="129.667" width="6" height="37"/>
   <object id="51" name="leftGroundWall" type="leftGroundWall" x="0.5" y="74.25" width="4.75" height="89.75"/>
   <object id="53" name="rightGroundWall" type="rightGroundWall" x="3194.55" y="66.2727" width="5.27273" height="94"/>
@@ -175,7 +175,7 @@
   </object>
  </objectgroup>
  <objectgroup id="5" name="spawn">
-  <object id="6" name="Player" type="Player" x="53.6667" y="63.333">
+  <object id="6" name="Player" type="Player" x="52.1667" y="86.333">
    <point/>
   </object>
  </objectgroup>

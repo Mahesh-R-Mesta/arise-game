@@ -23,6 +23,10 @@ class ObjectBehavior<T extends EntityMixin> extends Behavior<T> {
       this.mass = 0.5,
       this.horizontalMovement = 0});
 
+  applyForceY(double force) => yVelocity = force / mass;
+
+  applyForceX(double force) => xVelocity = force / mass;
+
   applyForce(double force, double angle, {bool isRight = true, bool isOnGround = true}) {
     horizontalMovement = angle == 90
         ? 0

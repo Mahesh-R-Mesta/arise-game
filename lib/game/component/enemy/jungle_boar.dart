@@ -36,7 +36,9 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
   @override
   FutureOr<void> onLoad() {
-    horizontalMovement = -1;
+    isFacingRight = false;
+    behavior.xVelocity = speed;
+    behavior.horizontalMovement = -1;
     size = Vector2(assetSize.x * 1.5, assetSize.y * 1.5);
     lifeline = Lifeline(playerBoxWidth: width);
     final runningAnimation = SpriteAnimation.fromFrameData(
@@ -65,12 +67,22 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
     if (other is Player && other.current != PlayerState.attack) {
       other.harmedBy(this);
     }
-
-    if (other is GroundBlock) {
-      if (other.type == GroundType.left) _runRight();
-      if (other.type == GroundType.right) _runLeft();
-    }
     super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onCollideOnWall(GroundType type) {
+    if (type == GroundType.left && !isFacingRight) {
+      flipHorizontallyAroundCenter();
+      behavior.horizontalMovement = 1;
+      isFacingRight = true;
+    }
+    if (type == GroundType.right && isFacingRight) {
+      flipHorizontallyAroundCenter();
+      behavior.horizontalMovement = -1;
+      isFacingRight = false;
+    }
+    super.onCollideOnWall(type);
   }
 
   void death() {
@@ -79,31 +91,31 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   }
 
   _runRight() {
-    if (horizontalMovement == -1) {
+    if (behavior.horizontalMovement == -1) {
       flipHorizontallyAroundCenter();
-      horizontalMovement = 1;
+      behavior.horizontalMovement = 1;
     }
   }
 
   @override
   void onCollisionEnd(PositionComponent other) {
     if (other is GroundBlock && other.type == GroundType.bottom) {
-      if (horizontalMovement == 1) _runLeft();
-      if (horizontalMovement == -1) _runRight();
+      if (behavior.horizontalMovement == 1) _runLeft();
+      if (behavior.horizontalMovement == -1) _runRight();
     }
     super.onCollisionEnd(other);
   }
 
   @override
   void update(double dt) {
-    position.x = position.x + (speed * dt * horizontalMovement);
+    position.x += (speed * dt * behavior.horizontalMovement);
     super.update(dt);
   }
 
   void _runLeft() {
-    if (horizontalMovement == 1) {
+    if (behavior.horizontalMovement == 1) {
       flipHorizontallyAroundCenter();
-      horizontalMovement = -1;
+      behavior.horizontalMovement = -1;
     }
   }
 

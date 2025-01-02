@@ -39,18 +39,35 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is GameObjectAnime) {
-      if (type == GroundType.bottom) other.behavior.isOnGround = true;
+      if (type == GroundType.bottom) {
+        other.behavior.isOnGround = true;
+        other.behavior.yVelocity = 0;
+      }
       if (type == GroundType.right || type == GroundType.left) {
-        other.behavior.horizontalMovement = 0;
+        other.onCollideOnWall(type);
       }
     }
     if (other is GameObjectAnimeGroup) {
-      if (type == GroundType.bottom) other.behavior.isOnGround = true;
+      if (type == GroundType.bottom) {
+        other.behavior.isOnGround = true;
+        other.behavior.yVelocity = 0;
+      }
       if (type == GroundType.right || type == GroundType.left) {
-        other.behavior.horizontalMovement = 0;
+        other.onCollideOnWall(type);
       }
     }
     super.onCollisionStart(intersectionPoints, other);
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    // if (type == GroundType.bottom) {
+    //   if (other.position.y + other.height > po sition.y) {
+    //     final diff = (other.position.y + other.height) - position.y - 1;
+    //     other.position.y -= diff;
+    //   }
+    // }
+    super.onCollision(intersectionPoints, other);
   }
 
   @override

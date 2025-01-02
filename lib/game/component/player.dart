@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
+import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/bomb.dart';
@@ -134,6 +135,13 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
       horizontalMovement = 0;
     }
     return super.onKeyEvent(event, keysPressed);
+  }
+
+  @override
+  void onCollideOnWall(GroundType type) {
+    if (type == GroundType.left && behavior.horizontalMovement == -1) behavior.horizontalMovement = 0;
+    if (type == GroundType.right && behavior.horizontalMovement == 1) behavior.horizontalMovement = 0;
+    super.onCollideOnWall(type);
   }
 
   @override
