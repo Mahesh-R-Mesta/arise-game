@@ -1,7 +1,9 @@
 import 'dart:async' as async;
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:arise_game/game/arise_game.dart';
+import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/bomb.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
@@ -22,7 +24,7 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
 
   @override
   async.FutureOr<void> onLoad() {
-    lifeline = Lifeline(playerBoxWidth: 250, scale: Vector2(0.7, 0.7));
+    lifeline = Lifeline(playerBoxWidth: 250, scale: Vector2(0.6, 0.6));
     final facingRightAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("character/goblin.png"),
         SpriteAnimationData.sequenced(texturePosition: Vector2(0, 60), amount: 2, stepTime: 0.8, textureSize: Vector2(150, 40)));
     attackAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("character/goblin.png"),
@@ -62,9 +64,13 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   void bomb() async {
     if (GoblinState.bombing != current) return;
     final bomb = Bomb(3, posAdjust: Vector2(32, -40));
+    // print(" ${sin(radians(5))}  ${cos(radians(5))}");
     bomb.behavior
       ..mass = 0.3
-      ..applyForce(30, 5, isRight: true, isOnGround: false);
+      ..isOnGround = false
+      ..applyForceY(-1.5)
+      ..applyForceX(40)
+      ..horizontalMovement = 1;
     print(" X:${bomb.behavior.xVelocity} Y:${bomb.behavior.yVelocity}  ${bomb.behavior.horizontalMovement} ");
 
     await add(bomb);
@@ -81,6 +87,12 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   //     isFacingRight = true;
   //   }
   // }
+
+  @override
+  void onCollideOnWall(GroundType type) {
+    behavior.horizontalMovement = 0;
+    super.onCollideOnWall(type);
+  }
 
   @override
   Vector2 getActorPosition() => position;

@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:arise_game/game/component/behaviour/gravity_behaviour.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/helper/object.dart';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_behaviors/flame_behaviors.dart';
 
 abstract class GroundCharacterGroupAnime extends GameObjectAnimeGroup {
   GroundCharacterGroupAnime({super.position, super.size, super.anchor, super.scale});
@@ -41,6 +38,10 @@ abstract class GroundCharacterGroupAnime extends GameObjectAnimeGroup {
       if (other.type == GroundType.right) {
         hittingRightWall = true;
       }
+      if (other.type == GroundType.bottom) {
+        // jumpForce = 0;
+        behavior.isOnGround = true;
+      }
     }
     super.onCollision(intersectionPoints, other);
   }
@@ -54,10 +55,10 @@ abstract class GroundCharacterGroupAnime extends GameObjectAnimeGroup {
       if (other.type == GroundType.right) {
         hittingRightWall = false;
       }
-      // if (other.type == GroundType.bottom) {
-      //   // jumpForce = 0;
-      //   behavior.isOnGround = false;
-      // }
+      if (other.type == GroundType.bottom) {
+        // jumpForce = 0;
+        behavior.isOnGround = false;
+      }
     }
     super.onCollisionEnd(other);
   }

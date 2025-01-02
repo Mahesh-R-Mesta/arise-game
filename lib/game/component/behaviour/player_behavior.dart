@@ -37,12 +37,12 @@ class PlayerBehavior extends Behavior<Player> {
           parent.isFacingRight = true;
         }
         parent.behavior
-          ..xVelocity = 75
+          ..applyForceX(37)
           ..horizontalMovement = 1;
       } else {
         parent.current = PlayerState.idle;
         parent.behavior
-          ..xVelocity = 75
+          ..applyForceX(37)
           ..horizontalMovement = 0;
       }
     };
@@ -50,7 +50,9 @@ class PlayerBehavior extends Behavior<Player> {
     buttonBridge.onPressJump = (pressed) {
       if (pressed && parent.behavior.isOnGround) {
         parent.current = PlayerState.jumping;
-        parent.behavior.applyForce(5, 90, isOnGround: false);
+        parent.behavior
+          ..applyForceY(-2.8)
+          ..isOnGround = false;
         parent.isJumped = true;
         // parent.isOnGround = false;
       }
@@ -75,5 +77,17 @@ class PlayerBehavior extends Behavior<Player> {
     };
 
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    if (parent.behavior.isOnGround && parent.current == PlayerState.jumping) {
+      if (parent.behavior.horizontalMovement != 0) {
+        parent.current = PlayerState.running;
+      } else {
+        parent.current = PlayerState.idle;
+      }
+    }
+    super.update(dt);
   }
 }
