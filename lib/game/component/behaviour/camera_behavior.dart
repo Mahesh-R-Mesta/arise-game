@@ -4,7 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 
 class CameraBehavior extends Component implements ReadOnlyPositionProvider {
-  final GroundCharacter character;
+  final GroundCharacterGroupAnime character;
   final double gap;
   CameraBehavior({required this.character, required this.gap});
 

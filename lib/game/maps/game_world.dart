@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+import 'package:arise_game/game/component/enemy/goblin.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/items/coin.dart';
 import 'package:arise_game/game/component/items/shape.dart';
@@ -72,6 +73,8 @@ class GameWorld extends LeapWorld {
             damageReward: reward,
             speed: speed,
             position: Vector2(enemy.x * GameViewConfig.incValue(), enemy.y * GameViewConfig.incValue())));
+      } else if (enemy.class_ == "goblin") {
+        add(Goblin(position: Vector2(enemy.x * GameViewConfig.incValue(), enemy.y * GameViewConfig.incValue())));
       }
     }
   }

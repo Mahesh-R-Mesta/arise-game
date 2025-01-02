@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameLost extends StatelessWidget {
   final AriseGame game;
-  const GameLost({super.key, required this.game});
+  final Function() restart;
+  const GameLost({super.key, required this.game, required this.restart});
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +32,12 @@ class GameLost extends StatelessWidget {
             WoodenButton(
                 size: Size(170, 55),
                 onTap: () async {
-                  await game.restartGame();
-                  game.overlays
-                    ..remove("gameLost")
-                    ..add("startGame");
+                  // await game.restartGame();
+                  // game.overlays
+                  //   ..remove("gameLost")
+                  //   ..add("startGame");
 
-                  // ..add("startGame");
-                  // Navigator.of(context).pop();
+                  restart();
                 },
                 text: "RESTART"),
             WoodenButton(

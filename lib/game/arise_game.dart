@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
-import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/game/maps/game_world.dart';
 import 'package:flame/components.dart';
@@ -15,12 +14,15 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
   late GameWorld gameWorld;
   AriseGame({required super.tileSize, required super.world});
 
+  int level = 1;
+  List<String> tileMapAsset = ["map_level_01.tmx", "map_level_02.tmx"];
+
   @override
   Color backgroundColor() => const Color(0xFFBBDEFB);
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
-    await loadWorldAndMap(tiledMapPath: "map_level_01.tmx");
+    await loadWorldAndMap(tiledMapPath: tileMapAsset[level - 1]);
     gameWorld = GameWorld();
     debugMode = GameViewConfig.debugMode;
     // leapMap.tiledMap.position;
@@ -36,13 +38,13 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
 
   @override
   void onMapLoaded(LeapMap map) async {
-    remove(gameWorld);
-    // gameWorld.addPlayer();
-    add(GameWorld());
+    // remove(gameWorld);
+    // // gameWorld.addPlayer();
+    // add(GameWorld());
   }
 
-  restartGame() async {
-    await loadWorldAndMap(tiledMapPath: "map_level_01.tmx");
-    GetIt.I.get<EarnedCoin>().reset();
-  }
+  // restartGame() async {
+  //   await loadWorldAndMap(tiledMapPath: "map_level_01.tmx");
+  //   GetIt.I.get<EarnedCoin>().reset();
+  // }
 }

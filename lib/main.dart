@@ -15,7 +15,7 @@ void main() async {
 
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
-  GameViewConfig.debugMode = false; //kDebugMode;
+  GameViewConfig.debugMode = true;
   GetIt.I
     ..registerLazySingleton(GameButtonBridge.new)
     ..registerLazySingleton(AudioService.new)
