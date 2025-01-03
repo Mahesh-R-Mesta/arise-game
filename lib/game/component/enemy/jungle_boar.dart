@@ -59,7 +59,7 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
     if (other is Player) {
       if (other.current == PlayerState.attack) {
         lifeline.reduce(other.damageCapacity);
-        playerEarnedCoin.receivedCoin(damageReward);
+
         harmZone.blinkIt();
         if (lifeline.health == 0) death();
       }
@@ -87,6 +87,7 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
 
   void death() {
     current = PlayerState.death;
+    playerEarnedCoin.receivedCoin(damageReward);
     Future.delayed(Duration(milliseconds: 800), () => removeFromParent());
   }
 

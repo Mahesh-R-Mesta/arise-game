@@ -22,6 +22,9 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   final gameAudio = GetIt.I.get<AudioService>();
 
+  List<String> tileMapAsset = ["map_level_01.tmx", "map_level_02.tmx"];
+  int level = 0;
+
   Key gameWidgetKey = UniqueKey();
 
   @override
@@ -55,11 +58,16 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return GameWidget.controlled(
         key: gameWidgetKey,
-        gameFactory: () => AriseGame(tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
+        gameFactory: () => AriseGame(gameMap: tileMapAsset[level], tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
         overlayBuilderMap: {
           "startGame": (context, game) => GameStartIntro(game: game as AriseGame),
           "controller": (context, game) => GameControls(),
-          "gameWon": (context, game) => GameWon(game: game as AriseGame),
+          "gameWon": (context, game) => GameWon(
+              game: game as AriseGame,
+              nexLevel: () => setState(() {
+                    level += 1;
+                    gameWidgetKey = UniqueKey();
+                  })),
           "gameLost": (context, game) => GameLost(
               game: game as AriseGame,
               restart: () => setState(() {

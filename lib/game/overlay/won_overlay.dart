@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameWon extends StatelessWidget {
   final AriseGame game;
-  const GameWon({super.key, required this.game});
+  final Function() nexLevel;
+  const GameWon({super.key, required this.game, required this.nexLevel});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +30,15 @@ class GameWon extends StatelessWidget {
               ]),
             ),
 
+            WoodenButton(size: Size(170, 55), onTap: nexLevel, text: "NEXT"),
+
             WoodenButton(
                 size: Size(170, 55),
                 onTap: () {
                   game.overlays.remove("gameWon");
                   Navigator.of(context).pop();
                 },
-                text: "Go Back"),
+                text: "BACK"),
             // ElevatedButton(
             //     onPressed: () {
             //       game.overlays.remove("gameWon");

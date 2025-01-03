@@ -11,18 +11,16 @@ import 'package:get_it/get_it.dart';
 import 'package:leap/leap.dart';
 
 class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollisionDetection {
+  final String gameMap;
   late GameWorld gameWorld;
-  AriseGame({required super.tileSize, required super.world});
-
-  int level = 1;
-  List<String> tileMapAsset = ["map_level_01.tmx", "map_level_02.tmx"];
+  AriseGame({required this.gameMap, required super.tileSize, required super.world});
 
   @override
   Color backgroundColor() => const Color(0xFFBBDEFB);
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
-    await loadWorldAndMap(tiledMapPath: tileMapAsset[level - 1]);
+    await loadWorldAndMap(tiledMapPath: gameMap);
     gameWorld = GameWorld();
     debugMode = GameViewConfig.debugMode;
     // leapMap.tiledMap.position;
@@ -43,8 +41,8 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
     // add(GameWorld());
   }
 
-  // restartGame() async {
-  //   await loadWorldAndMap(tiledMapPath: "map_level_01.tmx");
-  //   GetIt.I.get<EarnedCoin>().reset();
+  // nextLevelGame() async {
+  //   await loadWorldAndMap(tiledMapPath: tileMapAsset[level - 1]);
+  //   // GetIt.I.get<EarnedCoin>().reset();
   // }
 }

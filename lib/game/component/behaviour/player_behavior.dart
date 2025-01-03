@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:arise_game/game/component/player.dart';
+import 'package:arise_game/game/utils/audio.dart';
 import 'package:arise_game/game/utils/controller.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:get_it/get_it.dart';
@@ -9,6 +10,7 @@ class PlayerBehavior extends Behavior<Player> {
   final double speed = 75;
 
   final buttonBridge = GetIt.I.get<GameButtonBridge>();
+  final audioService = GetIt.I.get<AudioService>();
 
   @override
   FutureOr<void> onLoad() {
@@ -59,6 +61,7 @@ class PlayerBehavior extends Behavior<Player> {
     };
 
     Timer? attackTimer;
+    Timer? _timer;
 
     buttonBridge.onAttack = (pressed) {
       if (pressed) {
@@ -66,6 +69,8 @@ class PlayerBehavior extends Behavior<Player> {
         attackTimer?.cancel();
         parent.current = PlayerState.attack;
         parent.behavior.horizontalMovement = 0;
+        audioService.playSwordSound();
+        _timer = Timer.periodic(const Duration(milliseconds: 300), (_) => audioService.playSwordSound());
       } else {
         attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
           if (parent.current == PlayerState.attack) {
@@ -73,6 +78,7 @@ class PlayerBehavior extends Behavior<Player> {
           }
           t.cancel();
         });
+        _timer?.cancel();
       }
     };
 

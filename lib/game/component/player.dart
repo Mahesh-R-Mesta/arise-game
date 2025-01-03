@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
+import 'package:arise_game/game/component/collisions/bomb_zone.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
@@ -16,6 +17,8 @@ import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/services/hardware_keyboard.dart';
 import 'package:get_it/get_it.dart';
+
+import 'dart:async' as async;
 
 enum PlayerState { idle, running, jumping, attack, death }
 
@@ -57,6 +60,7 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     add(harmZone);
     gameRef.camera.follow(CameraBehavior(character: this, gap: 150));
     current = PlayerState.idle;
+
     return super.onLoad();
   }
 
