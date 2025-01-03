@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:arise_game/game/arise_game.dart';
+import 'package:arise_game/game/component/collisions/bomb_zone.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/helper/object.dart';
 import 'package:arise_game/game/component/player.dart';
@@ -9,7 +8,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 class Bomb extends GameObjectAnime with HasGameRef<AriseGame> {
-  final damageCapacity = 0.5;
+  double damageCapacity = 0.1;
 
   final double timer;
   Vector2 posAdjust;
@@ -21,7 +20,7 @@ class Bomb extends GameObjectAnime with HasGameRef<AriseGame> {
     animation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("character/bombing.png"),
         SpriteAnimationData.sequenced(amount: 19, stepTime: timer / 19, textureSize: Vector2.all(100)));
     add(RectangleHitbox(position: Vector2(48, 48), size: hitBoxSize));
-    // add(BombingZone());
+    add(BombingZone(this));
     Future.delayed(Duration(seconds: timer.toInt()), () => removeFromParent());
     return super.onLoad();
   }
@@ -38,23 +37,5 @@ class Bomb extends GameObjectAnime with HasGameRef<AriseGame> {
   void onCollideOnWall(GroundType type) {
     behavior.horizontalMovement = 0;
     super.onCollideOnWall(type);
-  }
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Player && animationTicker!.currentIndex > 11) {
-      // hitBoxSize.x += animationTicker!.currentIndex * 10;
-      other.harmedBy(this);
-    }
-    super.onCollision(intersectionPoints, other);
-  }
-}
-
-class BombingZone extends Component {
-  @override
-  FutureOr<void> onLoad() {
-    debugMode = true;
-    add(CircleHitbox(position: Vector2(30, 30), radius: 30, collisionType: CollisionType.inactive));
-    return super.onLoad();
   }
 }

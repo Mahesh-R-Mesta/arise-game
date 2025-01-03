@@ -1,8 +1,8 @@
 import 'dart:async' as async;
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:arise_game/game/arise_game.dart';
+import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/bomb.dart';
@@ -10,6 +10,7 @@ import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:get_it/get_it.dart';
 
 enum GoblinState { idle, bombing }
 
@@ -21,6 +22,7 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   late Lifeline lifeline;
 
   late SpriteAnimation attackAnimation;
+  final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
 
   @override
   async.FutureOr<void> onLoad() {
@@ -55,6 +57,7 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
     if (other is Player && other.current == PlayerState.attack) {
       lifeline.reduce(other.damageCapacity);
       if (lifeline.health == 0) {
+        playerEarnedCoin.receivedCoin(20);
         removeFromParent();
       }
     }
@@ -64,6 +67,7 @@ class Goblin extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   void bomb() async {
     if (GoblinState.bombing != current) return;
     final bomb = Bomb(3, posAdjust: Vector2(32, -40));
+
     // print(" ${sin(radians(5))}  ${cos(radians(5))}");
     bomb.behavior
       ..mass = 0.3

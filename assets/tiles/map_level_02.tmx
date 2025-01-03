@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="69">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="70">
  <tileset firstgid="1" source="background_1.tsx"/>
  <tileset firstgid="51" source="background_2.tsx"/>
  <tileset firstgid="101" source="background_3.tsx"/>
@@ -12,8 +12,7 @@
  <tileset firstgid="321" source="rock_2.tsx"/>
  <tileset firstgid="322" source="grass_3.tsx"/>
  <tileset firstgid="323" source="dark_tree.tsx"/>
- <tileset firstgid="767" source="dark_tree.tsx"/>
- <tileset firstgid="1211" source="ground_utlis.tsx"/>
+ <tileset firstgid="767" source="ground_utlis.tsx"/>
  <layer id="1" name="background_1" width="100" height="9" parallaxx="0.7">
   <data encoding="csv">
 1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,671,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,
@@ -60,7 +59,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,322,0,0,0,0,0,0,322,0,0,0,0,169,0,0,0,0,0,0,0,0,0,322,0,0,0,0,0,0,322,0,0,0,0,0,322,0,0,321,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 151,151,151,0,0,0,0,0,0,0,317,0,322,169,0,322,151,151,0,0,0,0,151,151,151,151,151,151,151,151,151,151,322,0,322,0,151,151,151,151,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,287,287,287,287,287,287,287,287,287,287,287,287,287,287,287,287,151,151,151,151,287,287,287,287,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
+286,286,286,151,151,151,151,151,151,151,151,151,151,151,151,151,287,287,287,287,287,287,287,287,287,287,287,287,287,287,287,287,151,151,151,151,287,287,287,287,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,
 286,286,287,288,286,287,288,286,286,286,286,287,288,286,287,288,305,286,286,287,288,288,286,287,288,288,288,288,286,287,288,288,288,288,308,286,286,286,286,287,288,287,286,287,288,286,287,288,286,287,286,287,286,287,286,287,288,288,288,288,288,288,288,287,288,286,287,288,288,288,288,286,287,288,288,288,288,288,288,288,288,288,288,286,287,288,286,287,288,288,288,288,288,288,288,286,287,288,288,288,
 286,287,288,287,288,288,287,288,286,287,288,287,288,286,286,287,286,287,286,287,288,287,288,288,288,286,287,288,288,288,288,286,287,288,288,288,288,287,286,286,287,288,286,287,286,287,286,286,286,286,287,286,287,286,286,287,288,287,288,288,286,287,288,288,288,288,288,288,286,287,288,286,287,288,288,288,286,287,288,286,287,288,286,286,287,288,286,287,288,286,287,288,286,287,286,287,288,288,287,286,
 286,286,287,288,286,287,286,287,286,287,288,286,287,286,287,286,286,287,286,287,288,286,287,286,286,287,286,287,288,288,288,286,287,288,286,287,288,288,288,288,288,288,286,287,288,286,287,288,286,287,288,286,287,286,286,286,287,288,286,286,286,286,286,286,286,286,286,286,286,286,286,286,287,288,286,286,286,287,288,286,287,288,286,286,286,286,286,286,287,288,287,288,287,288,286,286,286,286,286,286
@@ -88,88 +87,88 @@
   <object id="67" name="leftGroundWall" type="leftGroundWall" x="91.125" y="131.625" width="4.75" height="35.75"/>
   <object id="68" name="ground" type="ground" x="93.2915" y="161.625" width="422.417" height="5.75"/>
  </objectgroup>
- <objectgroup id="7" name="coins" visible="0">
+ <objectgroup id="7" name="coins">
   <object id="37" type="coin" x="337.667" y="140">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="5"/>
    </properties>
    <point/>
   </object>
   <object id="38" type="coin" x="370" y="140">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="5"/>
    </properties>
    <point/>
   </object>
   <object id="39" type="coin" x="403" y="139.667">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="5"/>
    </properties>
    <point/>
   </object>
   <object id="40" type="coin" x="466" y="121.333">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="41" type="coin" x="496" y="89.6667">
    <properties>
-    <property name="amount" value="10"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="43" type="coin" x="571.333" y="31.6667">
    <properties>
-    <property name="amount" value="10"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="44" type="coin" x="601.333" y="76.6667">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="46" type="coin" x="1042.67" y="138.333">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="5"/>
    </properties>
    <point/>
   </object>
   <object id="55" type="coin" x="745.5" y="117.5">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="56" type="coin" x="819" y="116">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="57" type="coin" x="886.5" y="116.5">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="58" type="coin" x="970" y="117">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
   <object id="65" type="coin" x="171.333" y="150.333">
    <properties>
-    <property name="amount" value="5"/>
+    <property name="amount" type="int" value="5"/>
    </properties>
    <point/>
   </object>
   <object id="66" type="coin" x="531.5" y="25">
    <properties>
-    <property name="amount" value="10"/>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>

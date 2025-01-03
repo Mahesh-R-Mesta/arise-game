@@ -54,7 +54,8 @@ class GameWorld extends LeapWorld {
     final coinsLayer = gameRef.leapMap.tiledMap.tileMap.getLayer<ObjectGroup>("coins");
     if (coinsLayer == null) return;
     for (final coin in coinsLayer.objects) {
-      add(Coin(price: 5, position: Vector2(coin.x * GameViewConfig.incValue(), coin.y * GameViewConfig.incValue()), size: Vector2.all(16)));
+      final amount = coin.properties.byName["amount"]!.value as int;
+      add(Coin(price: amount, position: Vector2(coin.x * GameViewConfig.incValue(), coin.y * GameViewConfig.incValue()), size: Vector2.all(16)));
     }
   }
 
