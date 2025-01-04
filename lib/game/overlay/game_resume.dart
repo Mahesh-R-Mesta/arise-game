@@ -1,25 +1,27 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
-import 'package:arise_game/util/widget/wooden_button.dart';
+import 'package:arise_game/game/utils/audio.dart';
+import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-class GameLost extends StatelessWidget {
+class GameResumeOverlay extends StatelessWidget {
   final AriseGame game;
-  final Function() restart;
-  const GameLost({super.key, required this.game, required this.restart});
+  const GameResumeOverlay({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
+    final gameAudio = GetIt.I.get<AudioService>();
     return Material(
       color: Colors.black54,
       child: SizedBox.expand(
         child: Column(
-          spacing: 15,
+          spacing: 20,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset("assets/images/app/logo.png", width: 150, height: 150),
-            Text("You Lost", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38, color: Colors.white)),
             SizedBox(
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Image.asset("assets/images/coin.png", width: 25, height: 25),
@@ -29,24 +31,22 @@ class GameLost extends StatelessWidget {
                 })
               ]),
             ),
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () async {
-                  // await game.restartGame();
-                  // game.overlays
-                  //   ..remove("gameLost")
-                  //   ..add("startGame");
-
-                  restart();
-                },
-                text: "RESTART"),
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () {
-                  game.overlays.remove("gameLost");
-                  Navigator.of(context).pop();
-                },
-                text: "GO BACK"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                WoodenSquareButton(
+                    size: Size.square(70),
+                    onTap: () {
+                      game.resumeEngine();
+                      // }
+                      if (gameAudio.isBGPaused()) {
+                        gameAudio.resumeBackground();
+                      }
+                      game.overlays.remove("resumeGame");
+                    },
+                    widget: Icon(Icons.play_arrow, color: Colors.white, size: 40)),
+              ],
+            )
           ],
         ),
       ),

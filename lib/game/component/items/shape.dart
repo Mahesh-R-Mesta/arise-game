@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:arise_game/game/arise_game.dart';
+import 'package:arise_game/game/component/helper/object.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
-class GameShop extends SpriteAnimationComponent with HasGameRef<AriseGame> {
+class GameShop extends GameObjectAnime with HasGameRef<AriseGame> {
   GameShop({super.position, super.size});
 
   @override

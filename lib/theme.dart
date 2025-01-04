@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-ThemeData theme() => ThemeData(elevatedButtonTheme: ElevatedButtonThemeData());
+ThemeData theme() => ThemeData(fontFamily: 'VCR', elevatedButtonTheme: ElevatedButtonThemeData());

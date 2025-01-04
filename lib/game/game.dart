@@ -4,6 +4,7 @@ import 'package:arise_game/game/config.dart';
 import 'package:arise_game/game/maps/game_world.dart';
 import 'package:arise_game/game/overlay/game_controlls.dart';
 import 'package:arise_game/game/overlay/game_lost.dart';
+import 'package:arise_game/game/overlay/game_resume.dart';
 import 'package:arise_game/game/overlay/game_start_intro.dart';
 import 'package:arise_game/game/overlay/won_overlay.dart';
 import 'package:arise_game/game/utils/audio.dart';
@@ -61,7 +62,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         gameFactory: () => AriseGame(gameMap: tileMapAsset[level], tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
         overlayBuilderMap: {
           "startGame": (context, game) => GameStartIntro(game: game as AriseGame),
-          "controller": (context, game) => GameControls(),
+          "controller": (context, game) => GameControls(game: game as AriseGame),
           "gameWon": (context, game) => GameWon(
               game: game as AriseGame,
               nexLevel: () => setState(() {
@@ -73,6 +74,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
               restart: () => setState(() {
                     gameWidgetKey = UniqueKey();
                   })),
+          "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
         },
         initialActiveOverlays: [
           "startGame"
