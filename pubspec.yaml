@@ -83,6 +83,10 @@ flutter:
     - assets/images/app/
     - assets/images/background/
     - assets/images/background/decorations/
+    - assets/images/character/Skeleton/
+    - assets/images/character/Mushroom/
+    - assets/images/character/Goblin/
+    - assets/images/character/Flying_eye/
     - assets/images/character/
     - assets/tiles/
     - assets/audio/
@@ -99,12 +103,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: VCR
+      fonts:
+        - asset: assets/font/VCR_OSD_MONO.ttf
+        - asset: assets/font/VCR_OSD_MONO.ttf
+          style: italic
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

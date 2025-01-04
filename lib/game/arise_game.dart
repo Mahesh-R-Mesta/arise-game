@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/game/maps/game_world.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:leap/leap.dart';
 
 class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollisionDetection {
@@ -32,14 +30,11 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
   }
 
   // @override
-  // void onMapUnload(LeapMap map) {}
-
-  @override
-  void onMapLoaded(LeapMap map) async {
-    // remove(gameWorld);
-    // // gameWorld.addPlayer();
-    // add(GameWorld());
-  }
+  // void onMapLoaded(LeapMap map) async {
+  //   // remove(gameWorld);
+  //   // // gameWorld.addPlayer();
+  //   // add(GameWorld());
+  // }
 
   // nextLevelGame() async {
   //   await loadWorldAndMap(tiledMapPath: tileMapAsset[level - 1]);

@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 class Lifeline extends PositionComponent {
   final double playerBoxWidth;
-  Lifeline({required this.playerBoxWidth, super.scale}) : super(anchor: Anchor.topCenter, size: Vector2(50, 5));
+  final double yPosition;
+  Lifeline({required this.playerBoxWidth, this.yPosition = 0, super.scale}) : super(anchor: Anchor.topCenter, size: Vector2(50, 5));
 
   double _health = 100;
 
@@ -34,9 +35,11 @@ class Lifeline extends PositionComponent {
     final fillPaint = Paint()..color = _health < 50 ? Colors.red : Colors.green;
     final halfBox = playerBoxWidth / 2;
     canvas.drawRRect(
-        RRect.fromLTRBR(halfBox + position.x, position.y, halfBox + position.x + width, position.y + 5, Radius.circular(6)), borderPaint);
+        RRect.fromLTRBR(halfBox + position.x, position.y + yPosition, halfBox + position.x + width, position.y + 5 + yPosition, Radius.circular(6)),
+        borderPaint);
     canvas.drawRRect(
-        RRect.fromLTRBR(halfBox + position.x, position.y, halfBox + position.x + ((_health) * width / 100), position.y + 5, Radius.circular(6)),
+        RRect.fromLTRBR(halfBox + position.x, position.y + yPosition, halfBox + position.x + ((_health) * width / 100), position.y + 5 + yPosition,
+            Radius.circular(6)),
         fillPaint); // canvas.drawRRect(RRect.fromLTRBR(position.x, position.y, position.x + 100, position.y + 10, Radius.circular(6)), borderPaint);
     super.render(canvas);
   }

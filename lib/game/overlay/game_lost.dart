@@ -19,7 +19,7 @@ class GameLost extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset("assets/images/app/logo.png", width: 150, height: 150),
-            Text("You lost", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38, color: Colors.white)),
+            Text("You Lost", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38, color: Colors.white)),
             SizedBox(
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Image.asset("assets/images/coin.png", width: 25, height: 25),

@@ -24,6 +24,7 @@ class InfoPopup extends StatelessWidget {
             Text("Game by: Mahesh mesta", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
             //Sound Effect by <a href="https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=86585">freesound_community</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=86585">Pixabay</a>
             //Sound Effect by <a href="https://pixabay.com/users/karim-nessim-40448081/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=260274">karim nessim</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=260274">Pixabay</a>
+            // Sound Effect by <a href="https://pixabay.com/users/cyberwave-orchestra-23801316/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=241821">Cyberwave Orchestra</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=241821">Pixabay</a>
           ]),
         ),
       ),

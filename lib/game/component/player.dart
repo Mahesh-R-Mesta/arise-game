@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
-import 'package:arise_game/game/component/collisions/bomb_zone.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
+import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
-import 'package:arise_game/game/component/items/bomb.dart';
+import 'package:arise_game/game/component/items/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/items/shape.dart';
@@ -20,7 +21,7 @@ import 'package:get_it/get_it.dart';
 
 import 'dart:async' as async;
 
-enum PlayerState { idle, running, jumping, attack, death }
+enum PlayerState { idle, running, jumping, lightning, shield, attack, attack1, attack2, neal, death }
 
 class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, KeyboardHandler {
   Player({super.position, super.size}) : super(anchor: Anchor.center);
@@ -36,21 +37,50 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     behavior
       ..xVelocity = 75
       ..drag = 0.005;
-    final idleAnimation = spriteAnimationSequence(amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
-    final attackAnimation =
-        spriteAnimationSequence(texturePosition: Vector2(0, 56), amount: 6, amountPerRow: 6, stepTime: 0.1, textureSize: Vector2(56, 56));
-    final runningAnimation =
-        spriteAnimationSequence(texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56));
-    final jumpingAnimation =
-        spriteAnimationSequence(texturePosition: Vector2(0, 56 * 3), amount: 16, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
-    final deathAnimation =
-        spriteAnimationSequence(texturePosition: Vector2(0, 56 * 5), amount: 16, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+    final idleAnimation =
+        spriteAnimationSequence(imagePath: "character/char_blue.png", amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
+    final attackAnimation = spriteAnimationSequence(
+        imagePath: "character/char_blue.png",
+        texturePosition: Vector2(0, 56),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.1,
+        textureSize: Vector2(56, 56));
+    final runningAnimation = spriteAnimationSequence(
+        imagePath: "character/char_blue.png",
+        texturePosition: Vector2(0, 56 * 2),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.1,
+        textureSize: Vector2(56, 56));
+    final jumpingAnimation = spriteAnimationSequence(
+        imagePath: "character/char_blue.png",
+        texturePosition: Vector2(0, 56 * 3),
+        amount: 16,
+        amountPerRow: 8,
+        stepTime: 0.2,
+        textureSize: Vector2(56, 56));
+    final deathAnimation = spriteAnimationSequence(
+        imagePath: "character/char_blue.png",
+        texturePosition: Vector2(0, 56 * 6),
+        amount: 12,
+        amountPerRow: 8,
+        stepTime: 0.2,
+        textureSize: Vector2(56, 56));
+    final lightningAnime = spriteAnimationSequence(
+        imagePath: "character/char_blue.png",
+        texturePosition: Vector2(0, 56 * 8),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.3,
+        textureSize: Vector2(56, 56));
     animations = {
       PlayerState.idle: idleAnimation,
       PlayerState.running: runningAnimation,
       PlayerState.jumping: jumpingAnimation,
       PlayerState.attack: attackAnimation,
-      PlayerState.death: deathAnimation
+      PlayerState.death: deathAnimation,
+      PlayerState.lightning: lightningAnime,
     };
     lifeline = Lifeline(playerBoxWidth: width);
     harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
@@ -59,7 +89,7 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     add(playerHitBox);
     add(harmZone);
     gameRef.camera.follow(CameraBehavior(character: this, gap: 150));
-    current = PlayerState.idle;
+    current = PlayerState.lightning;
 
     return super.onLoad();
   }
@@ -69,7 +99,11 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
       lifeline.reduce(enemy.damageCapacity);
       audioService.hurt();
       harmZone.blinkIt();
-    } else if (enemy is Bomb) {
+    } else if (enemy is ProjectileWeapon && enemy.isStarted()) {
+      lifeline.reduce(enemy.damageCapacity);
+      audioService.hurt();
+      harmZone.blinkIt();
+    } else if (enemy is Fire) {
       lifeline.reduce(enemy.damageCapacity);
       audioService.hurt();
       harmZone.blinkIt();
@@ -87,17 +121,21 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is GameShop) {
+    if (other is WormHole && other.type == Worm.incoming) {
       Future.delayed(const Duration(seconds: 2), () {
-        gameRef.overlays
-          ..remove("controller")
-          ..add("gameWon");
+        gameRef.overlays.remove("controller");
+        removeFromParent();
+        Future.delayed(const Duration(seconds: 2), () {
+          gameRef.overlays.add("gameWon");
+          other.removeFromParent();
+        });
       });
     }
     super.onCollisionStart(intersectionPoints, other);
   }
 
   SpriteAnimation spriteAnimationSequence({
+    required String imagePath,
     required int amount,
     required double stepTime,
     required Vector2 textureSize,

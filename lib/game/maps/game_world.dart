@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/goblin.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
+import 'package:arise_game/game/component/enemy/moster_character.dart';
+import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
 import 'package:arise_game/game/component/items/shape.dart';
 import 'package:arise_game/game/component/player.dart';
@@ -31,7 +34,8 @@ class GameWorld extends LeapWorld {
     if (spawnPoint != null) {
       for (final spawn in spawnPoint.objects) {
         if (spawn.class_ == "Player") {
-          player = Player(position: Vector2(spawn.x, spawn.y), size: playerSize);
+          final tileViewInc = GameViewConfig.incValue();
+          player = Player(position: Vector2(spawn.x * tileViewInc, spawn.y * tileViewInc), size: playerSize);
           add(player);
         }
       }
@@ -63,19 +67,19 @@ class GameWorld extends LeapWorld {
     final enemies = gameRef.leapMap.tiledMap.tileMap.getLayer<ObjectGroup>("enemy");
     if (enemies == null) return;
     for (final enemy in enemies.objects) {
+      final position = Vector2(enemy.x * GameViewConfig.incValue(), enemy.y * GameViewConfig.incValue());
       if (enemy.class_ == "boar") {
         final type = enemy.properties.byName["type"]!.value as int;
         final reward = enemy.properties.byName["damageReward"]!.value as int;
         final speed = enemy.properties.byName["speed"]!.value as double;
         final harmCapacity = enemy.properties.byName["damageCapacity"]!.value as double;
-        add(JungleBoar(
-            boar: Boar.values[type - 1],
-            damageCapacity: harmCapacity,
-            damageReward: reward,
-            speed: speed,
-            position: Vector2(enemy.x * GameViewConfig.incValue(), enemy.y * GameViewConfig.incValue())));
-      } else if (enemy.class_ == "goblin") {
-        add(Goblin(position: Vector2(enemy.x * GameViewConfig.incValue(), enemy.y * GameViewConfig.incValue())));
+        add(JungleBoar(boar: Boar.values[type - 1], damageCapacity: harmCapacity, damageReward: reward, speed: speed, position: position));
+      } else if (["goblin", "skeleton", "mushroom", "flyingEye"].contains(enemy.class_)) {
+        final damage = enemy.properties.byName["damage"]!.value as double;
+        final reward = enemy.properties.byName["reward"]!.value as int;
+        add(MonsterCharacter(monster: Monster.parse(enemy.class_), damage: damage, reward: reward, position: position));
+      } else if (enemy.class_ == "Fire") {
+        add(Fire(position: position));
       }
     }
   }
@@ -84,8 +88,13 @@ class GameWorld extends LeapWorld {
     final items = gameRef.leapMap.tiledMap.tileMap.getLayer<ObjectGroup>("items");
     if (items == null) return;
     for (final item in items.objects) {
+      final position = Vector2(item.x * GameViewConfig.incValue(), item.y * GameViewConfig.incValue());
       if (item.class_ == "Shop") {
-        add(GameShop(position: Vector2(item.x * GameViewConfig.incValue(), item.y * GameViewConfig.incValue())));
+        add(GameShop(position: position));
+      }
+      if (item.class_ == "wormhole") {
+        final type = item.properties.byName["type"]!.value as String;
+        add(WormHole(type: Worm.parse(type), position: position));
       }
     }
   }

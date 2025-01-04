@@ -2,7 +2,8 @@
     <application
         android:label="arise_game"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        android:isGame="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

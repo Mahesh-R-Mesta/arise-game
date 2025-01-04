@@ -1,18 +1,22 @@
+import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/utils/audio.dart';
 import 'package:arise_game/game/utils/controller.dart';
+import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class GameControls extends StatelessWidget {
-  const GameControls({super.key});
+  final AriseGame game;
+  const GameControls({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final audioPlayNotifier = ValueNotifier<bool>(true);
-    final buttonBridge = GetIt.I.get<GameButtonBridge>();
     final gameAudio = GetIt.I.get<AudioService>();
+    final audioPlayNotifier = ValueNotifier<bool>(gameAudio.isBGPlaying());
+    final buttonBridge = GetIt.I.get<GameButtonBridge>();
+
     return SizedBox.expand(
       child: Stack(
         children: [
@@ -60,23 +64,41 @@ class GameControls extends StatelessWidget {
                   onTapUp: (details) => buttonBridge.attackUp(),
                   child: Image.asset("assets/images/attack.png"))),
           Positioned(
-              right: 10,
+              right: 80,
               top: 10,
-              child: IconButton(
-                  onPressed: () {
+              child: WoodenSquareButton(
+                  size: Size.square(60),
+                  onTap: () {
+                    if (!game.paused) {
+                      game.pauseEngine();
+                    }
                     if (audioPlayNotifier.value) {
                       gameAudio.pauseBackground();
-                      audioPlayNotifier.value = false;
-                    } else {
-                      gameAudio.resumeBackground();
-                      audioPlayNotifier.value = true;
                     }
+
+                    game.overlays.add("resumeGame");
                   },
-                  icon: ValueListenableBuilder<bool>(
-                      valueListenable: audioPlayNotifier,
-                      builder: (context, running, _) {
-                        return running ? Icon(Icons.volume_up, color: Colors.white, size: 35) : Icon(Icons.volume_off, color: Colors.white, size: 35);
-                      })))
+                  widget: Icon(Icons.pause, color: Colors.white, size: 35))),
+          Positioned(
+              right: 10,
+              top: 10,
+              child: WoodenSquareButton(
+                size: Size.square(60),
+                onTap: () {
+                  if (gameAudio.isBGPlaying()) {
+                    gameAudio.pauseBackground();
+                    audioPlayNotifier.value = false;
+                  } else {
+                    gameAudio.resumeBackground();
+                    audioPlayNotifier.value = true;
+                  }
+                },
+                widget: ValueListenableBuilder<bool>(
+                    valueListenable: audioPlayNotifier,
+                    builder: (context, running, _) {
+                      return running ? Icon(Icons.volume_up, color: Colors.white, size: 35) : Icon(Icons.volume_off, color: Colors.white, size: 35);
+                    }),
+              ))
         ],
       ),
     );
