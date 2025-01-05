@@ -61,7 +61,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         key: gameWidgetKey,
         gameFactory: () => AriseGame(gameMap: tileMapAsset[level], tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
         overlayBuilderMap: {
-          "startGame": (context, game) => GameStartIntro(game: game as AriseGame),
+          "startGame": (context, game) => GameStartIntro(gameLevel: level + 1, game: game as AriseGame),
           "controller": (context, game) => GameControls(game: game as AriseGame),
           "gameWon": (context, game) => GameWon(
               game: game as AriseGame,

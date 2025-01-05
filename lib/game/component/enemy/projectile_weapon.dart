@@ -5,7 +5,7 @@ import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/helper/object.dart';
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/game/utils/audio.dart';
+import 'package:arise_game/util/audio.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:get_it/get_it.dart';
@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart';
 enum Projectile {
   bomb("character/Goblin/bombing.png", 19, 11, 3, 100),
   mushroomBomb("character/Mushroom/Projectile_sprite.png", 8, 4, 2, 50),
-  swordSwing("character/Skeleton/Sword_sprite.png", 8, 0, 3, 102),
+  swordSwing("character/Skeleton/Sword_sprite.png", 8, 0, 3, 92),
   eyeBomb("character/Flying_eye/projectile_sprite.png", 8, 3, 2, 48);
 
   final String asset;
@@ -40,7 +40,7 @@ class ProjectileWeapon extends GameObjectAnime with HasGameRef<AriseGame> {
         SpriteAnimationData.sequenced(
             amount: projectile.frameCount, stepTime: projectile.blastInt / projectile.frameCount, textureSize: Vector2.all(projectile.size)));
     add(CircleHitbox(position: Vector2(projectile.size / 2, projectile.size / 2), radius: hitBoxSize.x, anchor: Anchor.center));
-    add(BombingZone(this, projectile));
+    add(BombingZone(this, damageCapacity, projectile));
     animationTicker?.onFrame = (frame) {
       if (frame == projectile.damageFrame) audioPlayer.playBlastSound();
     };

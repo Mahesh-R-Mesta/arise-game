@@ -1,7 +1,7 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
-import 'package:arise_game/game/utils/audio.dart';
-import 'package:arise_game/game/utils/controller.dart';
+import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +29,7 @@ class GameControls extends StatelessWidget {
                   child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                     Image.asset("assets/images/coin.png", width: 25, height: 25),
                     const SizedBox(width: 5),
-                    BlocBuilder<EarnedCoin, int>(builder: (ctx, amount) {
+                    BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
                       return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
                     })
                   ]),
@@ -60,6 +60,7 @@ class GameControls extends StatelessWidget {
               bottom: 100,
               right: 30,
               child: GestureDetector(
+                  onDoubleTap: () => buttonBridge.attackDoubleTap(),
                   onTapDown: (_) => buttonBridge.attackDown(),
                   onTapUp: (details) => buttonBridge.attackUp(),
                   child: Image.asset("assets/images/attack.png"))),
@@ -72,7 +73,7 @@ class GameControls extends StatelessWidget {
                     if (!game.paused) {
                       game.pauseEngine();
                     }
-                    if (audioPlayNotifier.value) {
+                    if (gameAudio.isBGPlaying()) {
                       gameAudio.pauseBackground();
                     }
 
@@ -88,7 +89,7 @@ class GameControls extends StatelessWidget {
                   if (gameAudio.isBGPlaying()) {
                     gameAudio.pauseBackground();
                     audioPlayNotifier.value = false;
-                  } else {
+                  } else if (gameAudio.isBGNotPlaying()) {
                     gameAudio.resumeBackground();
                     audioPlayNotifier.value = true;
                   }

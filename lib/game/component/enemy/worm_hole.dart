@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/helper/object.dart';
-import 'package:arise_game/game/component/player.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 

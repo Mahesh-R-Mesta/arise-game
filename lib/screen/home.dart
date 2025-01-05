@@ -1,10 +1,47 @@
 import 'package:arise_game/game/game.dart';
+import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
+import 'package:arise_game/screen/quit_confirm_popup.dart';
+import 'package:arise_game/screen/sertting_popup.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
+import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  final gameAudio = GetIt.I.get<AudioService>();
+
+  @override
+  void initState() {
+    gameAudio.initialize();
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      gameAudio.pauseBackground();
+    } else if (state == AppLifecycleState.resumed) {
+      gameAudio.resumeBackground();
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    gameAudio
+      ..stop()
+      ..dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +51,26 @@ class HomePage extends StatelessWidget {
         child: Stack(
           children: [
             Image.asset("assets/images/background/background_layer_1.png", height: size.height, width: size.width, fit: BoxFit.fill),
+            Positioned(
+                top: 15,
+                right: 15,
+                child: WoodenSquareButton(
+                    size: Size.square(55),
+                    onTap: () => InfoPopup(context: context).show(),
+                    widget: Icon(Icons.info_outline, size: 30, color: Colors.white))),
             SizedBox.expand(
               child: Column(
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/app/logo.png", width: 150, height: 150),
+                  Image.asset("assets/images/app/logo.png", width: 130, height: 130),
                   WoodenButton(
-                      size: Size(150, 55),
+                      size: Size(150, 50),
                       text: 'NEW GAME',
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()))),
-                  WoodenButton(size: Size(100, 55), text: 'INFO', onTap: () => InfoPopup(context: context).show()),
-                  WoodenButton(size: Size(90, 55), text: 'QUIT', onTap: () => Navigator.of(context).pop())
+                  WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
+                  WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
                 ],
               ),
             )

@@ -8,6 +8,7 @@ import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/arise_game.dart';
+import 'package:arise_game/util/audio.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:get_it/get_it.dart';
@@ -33,7 +34,9 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   late HarmZone harmZone;
 
   final assetSize = Vector2(48, 32);
-  final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
+  final playerEarnedCoin = GetIt.I.get<EarnedCoinCubit>();
+  final audioPlayer = GetIt.I.get<AudioService>();
+
   @override
   FutureOr<void> onLoad() {
     isFacingRight = false;
@@ -54,18 +57,25 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
     return super.onLoad();
   }
 
+  harmed(double damage) {
+    lifeline.reduce(damage);
+    harmZone.blinkIt();
+    if (lifeline.health == 0) death();
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       if (other.current == PlayerState.attack) {
-        lifeline.reduce(other.damageCapacity);
-
-        harmZone.blinkIt();
-        if (lifeline.health == 0) death();
+        if (isFacingRight != other.isFacingRight) {
+          audioPlayer.playRoarBoar();
+          harmed(other.damageCapacity);
+        } else {
+          other.harmedBy(this, damageCapacity / 4);
+        }
+      } else if (other.current != PlayerState.attack) {
+        other.harmedBy(this, damageCapacity);
       }
-    }
-    if (other is Player && other.current != PlayerState.attack) {
-      other.harmedBy(this);
     }
     super.onCollision(intersectionPoints, other);
   }
@@ -88,6 +98,7 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   void death() {
     current = PlayerState.death;
     playerEarnedCoin.receivedCoin(damageReward);
+    audioPlayer.boarRoarPlayer.stop();
     Future.delayed(Duration(milliseconds: 800), () => removeFromParent());
   }
 

@@ -2,7 +2,8 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/behaviour/visible_range.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
-import 'package:arise_game/game/component/items/projectile_weapon.dart';
+import 'package:arise_game/game/component/items/flame_throw.dart';
+import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:flame/collisions.dart';
@@ -56,7 +57,7 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
 
   @override
   async.FutureOr<void> onLoad() {
-    debugMode = true;
+    // debugMode = true;
     lifeline = Lifeline(playerBoxWidth: 250, yPosition: 65, scale: Vector2(0.6, 0.6));
     final facingRightAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache(monster.charImage),
         SpriteAnimationData.sequenced(texturePosition: Vector2(0, 0), amount: 2, stepTime: 0.8, textureSize: Vector2(150, 150)));
@@ -102,16 +103,21 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
     super.onCollisionStart(intersectionPoints, other);
   }
 
+  harmed(double damage) {
+    lifeline.reduce(damage);
+    if (lifeline.health == 0) {
+      final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
+      playerEarnedCoin.receivedCoin(reward);
+      removeFromParent();
+    }
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Player && other.current == PlayerState.attack) {
-      lifeline.reduce(other.damageCapacity);
-      if (lifeline.health == 0) {
-        final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
-        playerEarnedCoin.receivedCoin(reward);
-        removeFromParent();
-      }
+    if ((other is Player && other.current == PlayerState.attack)) {
+      harmed(other.damageCapacity);
     }
+
     super.onCollision(intersectionPoints, other);
   }
 

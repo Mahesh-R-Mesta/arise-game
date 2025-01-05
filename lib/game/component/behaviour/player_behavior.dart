@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/game/utils/audio.dart';
-import 'package:arise_game/game/utils/controller.dart';
+import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/util/controller.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,6 +14,13 @@ class PlayerBehavior extends Behavior<Player> {
 
   @override
   FutureOr<void> onLoad() {
+    Timer? attackTimer;
+    Timer? swordPlayTimer;
+
+    stopSwordPlay() {
+      if (swordPlayTimer?.isActive == true) swordPlayTimer?.cancel();
+    }
+
     buttonBridge.onLeftMove = (pressed) {
       if (pressed && !parent.hittingLeftWall) {
         parent.current = PlayerState.running;
@@ -28,6 +35,7 @@ class PlayerBehavior extends Behavior<Player> {
         parent.current = PlayerState.idle;
         parent.behavior.horizontalMovement = 0;
       }
+      stopSwordPlay();
     };
 
     buttonBridge.onRightMove = (pressed) {
@@ -47,6 +55,7 @@ class PlayerBehavior extends Behavior<Player> {
           ..applyForceX(37)
           ..horizontalMovement = 0;
       }
+      stopSwordPlay();
     };
 
     buttonBridge.onPressJump = (pressed) {
@@ -58,10 +67,8 @@ class PlayerBehavior extends Behavior<Player> {
         parent.isJumped = true;
         // parent.isOnGround = false;
       }
+      stopSwordPlay();
     };
-
-    Timer? attackTimer;
-    Timer? _timer;
 
     buttonBridge.onAttack = (pressed) {
       if (pressed) {
@@ -70,7 +77,7 @@ class PlayerBehavior extends Behavior<Player> {
         parent.current = PlayerState.attack;
         parent.behavior.horizontalMovement = 0;
         audioService.playSwordSound();
-        _timer = Timer.periodic(const Duration(milliseconds: 300), (_) => audioService.playSwordSound());
+        swordPlayTimer = Timer.periodic(const Duration(milliseconds: 300), (_) => audioService.playSwordSound());
       } else {
         attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
           if (parent.current == PlayerState.attack) {
@@ -78,8 +85,17 @@ class PlayerBehavior extends Behavior<Player> {
           }
           t.cancel();
         });
-        _timer?.cancel();
+        swordPlayTimer?.cancel();
       }
+    };
+
+    buttonBridge.onDoubleTap = () {
+      stopSwordPlay();
+      parent.current = PlayerState.lightning;
+      Future.delayed(const Duration(milliseconds: 2400), () {
+        parent.thunderAttack();
+        if (parent.current == PlayerState.lightning) parent.current = PlayerState.idle;
+      });
     };
 
     return super.onLoad();
