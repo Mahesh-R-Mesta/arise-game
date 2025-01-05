@@ -1,6 +1,6 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
-import 'package:arise_game/game/utils/audio.dart';
+import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,7 +26,7 @@ class GameResumeOverlay extends StatelessWidget {
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Image.asset("assets/images/coin.png", width: 25, height: 25),
                 const SizedBox(width: 5),
-                BlocBuilder<EarnedCoin, int>(builder: (ctx, amount) {
+                BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
                   return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
                 })
               ]),
@@ -39,14 +39,17 @@ class GameResumeOverlay extends StatelessWidget {
                     onTap: () {
                       game.resumeEngine();
                       // }
-                      if (gameAudio.isBGPaused()) {
+                      if (gameAudio.isBGNotPlaying()) {
                         gameAudio.resumeBackground();
                       }
                       game.overlays.remove("resumeGame");
                     },
                     widget: Icon(Icons.play_arrow, color: Colors.white, size: 40)),
+                const SizedBox(width: 50),
+                WoodenSquareButton(
+                    size: Size.square(70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_forward, color: Colors.white, size: 40))
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -3,8 +3,9 @@ import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
 
 class GameStartIntro extends StatelessWidget {
+  final int gameLevel;
   final AriseGame game;
-  const GameStartIntro({required this.game, super.key});
+  const GameStartIntro({required this.game, super.key, required this.gameLevel});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class GameStartIntro extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/images/app/logo.png", width: 150, height: 150),
-              Text("Level - 1", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
+              Text("Level - $gameLevel", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
               Text("Collect coins", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white)),
               Text("Kill wild animals", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white)),
               const SizedBox(height: 20),
