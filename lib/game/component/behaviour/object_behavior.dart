@@ -24,6 +24,7 @@ class ObjectBehavior<T extends EntityMixin> extends Behavior<T> {
   applyForceY(double force) => yVelocity = force / mass;
 
   applyForceX(double force) => xVelocity = force / mass;
+  // applyDragUtilStop() =>
 
   applyForce(double force, double angle, {bool isRight = true, bool isOnGround = true}) {
     horizontalMovement = angle == 90
