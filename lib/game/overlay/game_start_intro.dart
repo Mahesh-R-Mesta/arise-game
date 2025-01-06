@@ -20,16 +20,19 @@ class GameStartIntro extends StatelessWidget {
               Text("Level - $gameLevel", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
               Text("Collect coins", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white)),
               Text("Kill wild animals", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white)),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               WoodenButton(
                   size: Size(170, 55),
                   onTap: () {
                     game.overlays
                       ..remove("startGame")
                       ..add("controller");
+                    // context.read<EarnedCoinCubit>().reset();
                     // game.gameWorld.addPlayer();
                   },
                   text: "Start game"),
+              const SizedBox(height: 5),
+              WoodenButton(size: Size(120, 55), onTap: () => Navigator.of(context).pop(), text: "Back"),
             ],
           ),
         ));

@@ -1,6 +1,8 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
-import 'package:arise_game/util/widget/wooden_button.dart';
+import 'package:arise_game/game/bloc/player/game_bloc.dart';
+import 'package:arise_game/game/bloc/player/game_event.dart';
+import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,29 +26,27 @@ class GameLost extends StatelessWidget {
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Image.asset("assets/images/coin.png", width: 25, height: 25),
                 const SizedBox(width: 5),
-                BlocBuilder<EarnedCoin, int>(builder: (ctx, amount) {
+                BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
                   return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
                 })
               ]),
             ),
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () async {
-                  // await game.restartGame();
-                  // game.overlays
-                  //   ..remove("gameLost")
-                  //   ..add("startGame");
-
-                  restart();
-                },
-                text: "RESTART"),
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () {
-                  game.overlays.remove("gameLost");
-                  Navigator.of(context).pop();
-                },
-                text: "GO BACK"),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WoodenSquareButton(
+                    size: Size.square(70),
+                    onTap: () async {
+                      final gameBloc = context.read<GameBloc>();
+                      gameBloc.add(GameRestart());
+                      restart();
+                    },
+                    widget: Icon(Icons.replay_outlined, color: Colors.white, size: 40)),
+                const SizedBox(width: 50),
+                WoodenSquareButton(
+                    size: Size.square(70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_forward, color: Colors.white, size: 40))
+              ],
+            ),
           ],
         ),
       ),

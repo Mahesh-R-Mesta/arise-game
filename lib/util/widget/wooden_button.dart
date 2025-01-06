@@ -1,3 +1,4 @@
+import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,7 +18,7 @@ class WoodenButton extends StatelessWidget {
           child: Stack(
             children: [
               SvgPicture.asset(
-                "assets/svg/woodbt.svg",
+                AssetSvg.woodBt,
                 height: size.height,
                 width: size.width,
                 fit: BoxFit.fill,

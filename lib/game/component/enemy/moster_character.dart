@@ -2,7 +2,6 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/behaviour/visible_range.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
-import 'package:arise_game/game/component/items/flame_throw.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
@@ -67,10 +66,7 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
             texturePosition: Vector2(0, 0), amount: monster.charCount, stepTime: projectileTime / monster.charCount, textureSize: Vector2(150, 150)));
     animations = {MonsterState.idle: facingRightAnimation, MonsterState.bombing: attackAnimation};
     current = MonsterState.idle;
-    add(RectangleHitbox(
-      position: Vector2((width / 2) - 16, 60),
-      size: Vector2(32, 80),
-    ));
+    add(RectangleHitbox(position: Vector2((width / 2) - 16, 60), size: Vector2(32, 80)));
 
     final visibleRange = VisibleRange(Vector2(500, 66));
     add(visibleRange);
@@ -91,7 +87,6 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
         animationTicker?.onFrame = null;
       }
     };
-
     return super.onLoad();
   }
 
@@ -106,7 +101,7 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
   harmed(double damage) {
     lifeline.reduce(damage);
     if (lifeline.health == 0) {
-      final playerEarnedCoin = GetIt.I.get<EarnedCoin>();
+      final playerEarnedCoin = GetIt.I.get<EarnedCoinCubit>();
       playerEarnedCoin.receivedCoin(reward);
       removeFromParent();
     }
@@ -117,7 +112,6 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
     if ((other is Player && other.current == PlayerState.attack)) {
       harmed(other.damageCapacity);
     }
-
     super.onCollision(intersectionPoints, other);
   }
 
@@ -131,21 +125,8 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
       ..applyForceX(40)
       ..horizontalMovement = 1;
     print(" X:${bomb.behavior.xVelocity} Y:${bomb.behavior.yVelocity}  ${bomb.behavior.horizontalMovement} ");
-
     await add(bomb);
   }
-
-  // void faceShift() {
-  //   if (isFacingRight) {
-  //     flipHorizontallyAroundCenter();
-  //     bomb();
-  //     isFacingRight = false;
-  //   } else {
-  //     flipHorizontallyAroundCenter();
-  //     bomb();
-  //     isFacingRight = true;
-  //   }
-  // }
 
   @override
   void onCollideOnWall(GroundType type) {
@@ -158,9 +139,4 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
 
   @override
   Size getActorSize() => Size(width, height);
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-  }
 }

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
-import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
@@ -10,10 +9,10 @@ import 'package:arise_game/game/component/items/flame_throw.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
-import 'package:arise_game/game/component/items/shape.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/util/audio.dart';
-import 'package:arise_game/util/constant/constant.dart';
+import 'package:arise_game/util/constant/assets_constant.dart';
+import 'package:arise_game/util/storage.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +20,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/services/hardware_keyboard.dart';
 import 'package:get_it/get_it.dart';
 
-import 'dart:async' as async;
-
 enum PlayerState { idle, walking, running, jumping, lightning, shield, attack, attack1, attack2, neal, death }
 
 enum PlayerCharacter {
-  red(AssetsImage.characterRed, AssetsImage.characterRed2),
-  blue(AssetsImage.characterBlue, AssetsImage.characterBlue2),
-  purple(AssetsImage.characterPurple, AssetsImage.characterPurple2);
+  red(GameAssets.characterRed, GameAssets.characterRed2),
+  blue(GameAssets.characterBlue, GameAssets.characterBlue2),
+  purple(GameAssets.characterPurple, GameAssets.characterPurple2);
 
   final String asset1;
   final String asset2;
@@ -40,8 +37,8 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
   double damageCapacity = 1;
   late Lifeline lifeline;
   late HarmZone harmZone;
-  List<String> playerDressCode = ["blue", "purple", "red"];
-  String color = "purple";
+
+  final character = LocalStorage.instance.getPlayerCharacter;
 
   final playerHitBox = RectangleHitbox(size: Vector2(40, 60), position: Vector2(30, 39));
   final audioService = GetIt.I.get<AudioService>();
@@ -52,53 +49,24 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
       ..xVelocity = 75
       ..drag = 0.005;
     final idleAnimation =
-        spriteAnimationSequence(imagePath: "character/char_$color.png", amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
+        spriteAnimationSequence(imagePath: character.asset1, amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
 
     final attackAnimation = spriteAnimationSequence(
-        imagePath: "character/char_$color.png",
-        texturePosition: Vector2(0, 56),
-        amount: 8,
-        amountPerRow: 8,
-        stepTime: 0.1,
-        textureSize: Vector2(56, 56));
+        imagePath: character.asset1, texturePosition: Vector2(0, 56), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56));
     final runningAnimation = spriteAnimationSequence(
-        imagePath: "character/char_$color.png",
-        texturePosition: Vector2(0, 56 * 2),
-        amount: 8,
-        amountPerRow: 8,
-        stepTime: 0.1,
-        textureSize: Vector2(56, 56));
-
+        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56));
     final jumpingAnimation = spriteAnimationSequence(
-        imagePath: "character/char_$color.png",
-        texturePosition: Vector2(0, 56 * 3),
-        amount: 16,
-        amountPerRow: 8,
-        stepTime: 0.2,
-        textureSize: Vector2(56, 56));
+        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 3), amount: 16, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
     final deathAnimation = spriteAnimationSequence(
-        imagePath: "character/char_$color.png",
-        texturePosition: Vector2(0, 56 * 6),
-        amount: 12,
-        amountPerRow: 8,
-        stepTime: 0.2,
-        textureSize: Vector2(56, 56));
+        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 6), amount: 12, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
     final lightningAnime = spriteAnimationSequence(
-        imagePath: "character/char_$color.png",
-        texturePosition: Vector2(0, 56 * 8),
-        amount: 8,
-        amountPerRow: 8,
-        stepTime: 0.3,
-        textureSize: Vector2(56, 56));
+        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 8), amount: 8, amountPerRow: 8, stepTime: 0.3, textureSize: Vector2(56, 56));
     final walkingAnime =
-        spriteAnimationSequence(imagePath: "character/char_${color}_2.png", amount: 10, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+        spriteAnimationSequence(imagePath: character.asset2, amount: 10, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
     final attack1Animation = spriteAnimationSequence(
-        imagePath: "character/char_${color}_2.png",
-        texturePosition: Vector2(0, 56 * 4),
-        amount: 8,
-        amountPerRow: 8,
-        stepTime: 0.2,
-        textureSize: Vector2(56, 56));
+        imagePath: character.asset2, texturePosition: Vector2(0, 56 * 4), amount: 8, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+    final shieldAnimation = spriteAnimationSequence(
+        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 10), amount: 3, stepTime: 0.3, textureSize: Vector2(56, 56), isLoop: false);
     animations = {
       PlayerState.idle: idleAnimation,
       PlayerState.running: runningAnimation,
@@ -107,7 +75,8 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
       PlayerState.attack1: attack1Animation,
       PlayerState.death: deathAnimation,
       PlayerState.lightning: lightningAnime,
-      PlayerState.walking: walkingAnime
+      PlayerState.walking: walkingAnime,
+      PlayerState.shield: shieldAnimation
     };
     lifeline = Lifeline(playerBoxWidth: width);
     harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
@@ -123,22 +92,15 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
 
   thunderAttack() {
     final flameThrower = FlameThrower(adjust: Vector2(width, 50), scale: Vector2(0.7, 0.7));
-    // gameRef.leapMap.tiledObjectHandlers.l .add(flameThrower);
     flameThrower.throwForce(150, dir: isFacingRight ? 1 : -1);
   }
 
-  void harmedBy(PositionComponent enemy, double damage) {
-    if (enemy is ProjectileWeapon) {
-      if (enemy.isStarted()) {
-        lifeline.reduce(damage);
-        audioService.hurt();
-        harmZone.blinkIt();
-      }
-    } else {
-      lifeline.reduce(damage);
-      audioService.hurt();
-      harmZone.blinkIt();
-    }
+  void harmedBy(PositionComponent enemy, double damage, {bool playHurtingSound = true}) {
+    if (enemy is ProjectileWeapon && !enemy.isStarted()) return;
+
+    lifeline.reduce(damage);
+    if (playHurtingSound) audioService.hurt();
+    if (lifeline.health > 0) harmZone.blinkIt();
 
     if (lifeline.health == 0) {
       current = PlayerState.death;
@@ -168,21 +130,30 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
         });
       });
     }
+
+    if ((other is JungleBoar || other is ProjectileWeapon) && current == PlayerState.shield) {
+      audioService.playShield();
+    }
     super.onCollisionStart(intersectionPoints, other);
   }
 
-  SpriteAnimation spriteAnimationSequence({
-    required String imagePath,
-    required int amount,
-    required double stepTime,
-    required Vector2 textureSize,
-    int? amountPerRow,
-    Vector2? texturePosition,
-  }) {
+  SpriteAnimation spriteAnimationSequence(
+      {required String imagePath,
+      required int amount,
+      required double stepTime,
+      required Vector2 textureSize,
+      int? amountPerRow,
+      Vector2? texturePosition,
+      bool isLoop = true}) {
     return SpriteAnimation.fromFrameData(
         game.images.fromCache(imagePath),
         SpriteAnimationData.sequenced(
-            texturePosition: texturePosition, amount: amount, amountPerRow: amountPerRow, stepTime: stepTime, textureSize: textureSize));
+            texturePosition: texturePosition,
+            amount: amount,
+            amountPerRow: amountPerRow,
+            stepTime: stepTime,
+            textureSize: textureSize,
+            loop: isLoop));
   }
 
   @override

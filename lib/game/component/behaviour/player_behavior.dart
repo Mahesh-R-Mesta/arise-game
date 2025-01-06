@@ -91,11 +91,7 @@ class PlayerBehavior extends Behavior<Player> {
 
     buttonBridge.onDoubleTap = () {
       stopSwordPlay();
-      parent.current = PlayerState.lightning;
-      Future.delayed(const Duration(milliseconds: 2400), () {
-        parent.thunderAttack();
-        if (parent.current == PlayerState.lightning) parent.current = PlayerState.idle;
-      });
+      parent.current = PlayerState.shield;
     };
 
     return super.onLoad();

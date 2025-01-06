@@ -2,6 +2,7 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/controller.dart';
+import 'package:arise_game/util/storage.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +66,7 @@ class GameControls extends StatelessWidget {
                   onTapUp: (details) => buttonBridge.attackUp(),
                   child: Image.asset("assets/images/attack.png"))),
           Positioned(
-              right: 80,
+              right: 10,
               top: 10,
               child: WoodenSquareButton(
                   size: Size.square(60),
@@ -73,33 +74,33 @@ class GameControls extends StatelessWidget {
                     if (!game.paused) {
                       game.pauseEngine();
                     }
-                    if (gameAudio.isBGPlaying()) {
-                      gameAudio.pauseBackground();
-                    }
-
+                    // if (gameAudio.isBGPlaying()) {
+                    //   gameAudio.pauseBackground();
+                    // }
                     game.overlays.add("resumeGame");
                   },
                   widget: Icon(Icons.pause, color: Colors.white, size: 35))),
-          Positioned(
-              right: 10,
-              top: 10,
-              child: WoodenSquareButton(
-                size: Size.square(60),
-                onTap: () {
-                  if (gameAudio.isBGPlaying()) {
-                    gameAudio.pauseBackground();
-                    audioPlayNotifier.value = false;
-                  } else if (gameAudio.isBGNotPlaying()) {
-                    gameAudio.resumeBackground();
-                    audioPlayNotifier.value = true;
-                  }
-                },
-                widget: ValueListenableBuilder<bool>(
-                    valueListenable: audioPlayNotifier,
-                    builder: (context, running, _) {
-                      return running ? Icon(Icons.volume_up, color: Colors.white, size: 35) : Icon(Icons.volume_off, color: Colors.white, size: 35);
-                    }),
-              ))
+          if (LocalStorage.instance.bgSoundState)
+            Positioned(
+                right: 80,
+                top: 10,
+                child: WoodenSquareButton(
+                  size: Size.square(60),
+                  onTap: () {
+                    if (gameAudio.isBGPlaying()) {
+                      gameAudio.pauseBackground();
+                      audioPlayNotifier.value = false;
+                    } else if (gameAudio.isBGNotPlaying()) {
+                      gameAudio.resumeBackground();
+                      audioPlayNotifier.value = true;
+                    }
+                  },
+                  widget: ValueListenableBuilder<bool>(
+                      valueListenable: audioPlayNotifier,
+                      builder: (context, running, _) {
+                        return running ? Icon(Icons.volume_up, color: Colors.white, size: 35) : Icon(Icons.volume_off, color: Colors.white, size: 35);
+                      }),
+                ))
         ],
       ),
     );

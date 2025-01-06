@@ -11,7 +11,7 @@ class Coin extends SpriteAnimationComponent with HasGameRef<AriseGame>, Collisio
   final int price;
   Coin({super.position, super.size, required this.price});
 
-  final earnedCoin = GetIt.I.get<EarnedCoin>();
+  final earnedCoin = GetIt.I.get<EarnedCoinCubit>();
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {

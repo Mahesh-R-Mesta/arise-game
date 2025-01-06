@@ -64,6 +64,15 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   }
 
   @override
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Player && other.current == PlayerState.shield) {
+      turnLeft(); // if right facing it turn to left
+      turnRight(); // if left facing it turn to right
+    }
+    super.onCollisionStart(intersectionPoints, other);
+  }
+
+  @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       if (other.current == PlayerState.attack) {
@@ -74,7 +83,7 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
           other.harmedBy(this, damageCapacity / 4);
         }
       } else if (other.current != PlayerState.attack) {
-        other.harmedBy(this, damageCapacity);
+        other.harmedBy(this, damageCapacity, playHurtingSound: other.current != PlayerState.shield);
       }
     }
     super.onCollision(intersectionPoints, other);
@@ -82,17 +91,23 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
 
   @override
   void onCollideOnWall(GroundType type) {
-    if (type == GroundType.left && !isFacingRight) {
-      flipHorizontallyAroundCenter();
-      behavior.horizontalMovement = 1;
-      isFacingRight = true;
-    }
-    if (type == GroundType.right && isFacingRight) {
-      flipHorizontallyAroundCenter();
-      behavior.horizontalMovement = -1;
-      isFacingRight = false;
-    }
+    if (type == GroundType.left && !isFacingRight) turnRight();
+    if (type == GroundType.right && isFacingRight) turnLeft();
     super.onCollideOnWall(type);
+  }
+
+  turnRight() {
+    if (isFacingRight) return;
+    flipHorizontallyAroundCenter();
+    behavior.horizontalMovement = 1;
+    isFacingRight = true;
+  }
+
+  turnLeft() {
+    if (!isFacingRight) return;
+    flipHorizontallyAroundCenter();
+    behavior.horizontalMovement = -1;
+    isFacingRight = false;
   }
 
   void death() {
@@ -102,33 +117,10 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
     Future.delayed(Duration(milliseconds: 800), () => removeFromParent());
   }
 
-  _runRight() {
-    if (behavior.horizontalMovement == -1) {
-      flipHorizontallyAroundCenter();
-      behavior.horizontalMovement = 1;
-    }
-  }
-
-  @override
-  void onCollisionEnd(PositionComponent other) {
-    if (other is GroundBlock && other.type == GroundType.bottom) {
-      if (behavior.horizontalMovement == 1) _runLeft();
-      if (behavior.horizontalMovement == -1) _runRight();
-    }
-    super.onCollisionEnd(other);
-  }
-
   @override
   void update(double dt) {
     position.x += (speed * dt * behavior.horizontalMovement);
     super.update(dt);
-  }
-
-  void _runLeft() {
-    if (behavior.horizontalMovement == 1) {
-      flipHorizontallyAroundCenter();
-      behavior.horizontalMovement = -1;
-    }
   }
 
   @override

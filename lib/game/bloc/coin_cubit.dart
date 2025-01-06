@@ -1,9 +1,9 @@
-import 'package:arise_game/game/utils/audio.dart';
+import 'package:arise_game/util/audio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-class EarnedCoin extends Cubit<int> {
-  EarnedCoin() : super(0);
+class EarnedCoinCubit extends Cubit<int> {
+  EarnedCoinCubit() : super(0);
 
   final gameAudio = GetIt.I.get<AudioService>();
 

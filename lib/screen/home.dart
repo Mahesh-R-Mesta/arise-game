@@ -1,3 +1,5 @@
+import 'package:arise_game/game/bloc/player/game_bloc.dart';
+import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/game.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
@@ -7,6 +9,7 @@ import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +25,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     gameAudio.initialize();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
@@ -40,6 +44,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     gameAudio
       ..stop()
       ..dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -58,6 +63,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     size: Size.square(55),
                     onTap: () => InfoPopup(context: context).show(),
                     widget: Icon(Icons.info_outline, size: 30, color: Colors.white))),
+            Positioned(
+                top: 15,
+                left: 15,
+                child: WoodenSquareButton(
+                    size: Size.square(55),
+                    onTap: () => InfoPopup(context: context).show(),
+                    widget: Icon(Icons.question_mark, size: 30, color: Colors.white))),
             SizedBox.expand(
               child: Column(
                 spacing: 10,
@@ -68,7 +80,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   WoodenButton(
                       size: Size(150, 50),
                       text: 'NEW GAME',
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()))),
+                      onTap: () {
+                        context.read<GameBloc>().add(GameStart(level: 1));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
+                      }),
                   WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
                   WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
                 ],
