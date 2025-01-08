@@ -5,13 +5,14 @@ import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
-import 'package:arise_game/game/component/items/flame_throw.dart';
+// import 'package:arise_game/game/component/items/flame_throw.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
+import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/storage.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -56,7 +57,7 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     final runningAnimation = spriteAnimationSequence(
         imagePath: character.asset1, texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56));
     final jumpingAnimation = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 3), amount: 16, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 3), amount: 16, amountPerRow: 8, stepTime: 0.06, textureSize: Vector2(56, 56));
     final deathAnimation = spriteAnimationSequence(
         imagePath: character.asset1, texturePosition: Vector2(0, 56 * 6), amount: 12, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
     final lightningAnime = spriteAnimationSequence(
@@ -84,16 +85,18 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     add(lifeline);
     add(playerHitBox);
     add(harmZone);
+    // gameRef.camera.viewfinder.anchor = Anchor.topCenter;
+    // gameRef.camera.follow(this);
     gameRef.camera.follow(CameraBehavior(character: this, gap: 150));
     current = PlayerState.lightning;
 
     return super.onLoad();
   }
 
-  thunderAttack() {
-    final flameThrower = FlameThrower(adjust: Vector2(width, 50), scale: Vector2(0.7, 0.7));
-    flameThrower.throwForce(150, dir: isFacingRight ? 1 : -1);
-  }
+  // thunderAttack() {
+  //   final flameThrower = FlameThrower(adjust: Vector2(width, 50), scale: Vector2(0.7, 0.7));
+  //   flameThrower.throwForce(150, dir: isFacingRight ? 1 : -1);
+  // }
 
   void harmedBy(PositionComponent enemy, double damage, {bool playHurtingSound = true}) {
     if (enemy is ProjectileWeapon && !enemy.isStarted()) return;
@@ -156,30 +159,36 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
             loop: isLoop));
   }
 
+  final buttonBridge = GetIt.I.get<GameButtonBridge>();
+
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (keysPressed.contains(LogicalKeyboardKey.space) && isOnGround) {
-      current = PlayerState.jumping;
-      jumpForce = 5;
-      isJumped = true;
-      isOnGround = false;
-    } else if (keysPressed.contains(LogicalKeyboardKey.keyD) && !hittingRightWall) {
-      if (current != PlayerState.jumping) current = PlayerState.running;
-      if (!isFacingRight) {
-        flipHorizontallyAroundCenter();
-        isFacingRight = true;
-      }
-      horizontalMovement = 1;
+    if (keysPressed.contains(LogicalKeyboardKey.space)) {
+      buttonBridge.onJumpDown();
+      // current = PlayerState.jumping;
+      // jumpForce = 5;
+      // isJumped = true;
+      // isOnGround = false;
+    } else if (keysPressed.contains(LogicalKeyboardKey.keyD)) {
+      buttonBridge.onMoveRightDown();
+      // if (current != PlayerState.jumping) current = PlayerState.running;
+      // if (!isFacingRight) {
+      //   flipHorizontallyAroundCenter();
+      //   isFacingRight = true;
+      // }
+      // horizontalMovement = 1;
     } else if (keysPressed.contains(LogicalKeyboardKey.keyL)) {
-      current = PlayerState.attack;
-      horizontalMovement = 0;
+      buttonBridge.attackDown();
+      // current = PlayerState.attack;
+      // horizontalMovement = 0;
     } else if (keysPressed.contains(LogicalKeyboardKey.keyA) && !hittingLeftWall) {
-      if (current != PlayerState.jumping) current = PlayerState.running;
-      if (isFacingRight) {
-        flipHorizontallyAroundCenter();
-        isFacingRight = false;
-      }
-      horizontalMovement = -1;
+      buttonBridge.onMoveLeftDown();
+      // if (current != PlayerState.jumping) current = PlayerState.running;
+      // if (isFacingRight) {
+      //   flipHorizontallyAroundCenter();
+      //   isFacingRight = false;
+      // }
+      // horizontalMovement = -1;
     } else {
       current = PlayerState.idle;
       horizontalMovement = 0;

@@ -1,6 +1,7 @@
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/game.dart';
+import 'package:arise_game/screen/guide_popup.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
 import 'package:arise_game/screen/quit_confirm_popup.dart';
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 left: 15,
                 child: WoodenSquareButton(
                     size: Size.square(55),
-                    onTap: () => InfoPopup(context: context).show(),
+                    onTap: () => GuidePopup(context: context).show(),
                     widget: Icon(Icons.question_mark, size: 30, color: Colors.white))),
             SizedBox.expand(
               child: Column(

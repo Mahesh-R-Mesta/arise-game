@@ -1,6 +1,7 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/storage.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
@@ -28,7 +29,7 @@ class GameControls extends StatelessWidget {
                 color: Colors.transparent,
                 child: SizedBox(
                   child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Image.asset("assets/images/coin.png", width: 25, height: 25),
+                    Image.asset(GameAssets.coin, width: 25, height: 25),
                     const SizedBox(width: 5),
                     BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
                       return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
@@ -42,21 +43,21 @@ class GameControls extends StatelessWidget {
               child: GestureDetector(
                   onTapDown: (_) => buttonBridge.onMoveLeftDown(),
                   onTapUp: (_) => buttonBridge.onMoveLeftUp(),
-                  child: RotatedBox(quarterTurns: 2, child: Image.asset("assets/images/arrow_left.png")))),
+                  child: RotatedBox(quarterTurns: 2, child: Image.asset(GameAssets.arrowLeft)))),
           Positioned(
               bottom: 20,
               left: 150,
               child: GestureDetector(
                   onTapDown: (_) => buttonBridge.onMoveRightDown(),
                   onTapUp: (_) => buttonBridge.onMoveRightUp(),
-                  child: Image.asset("assets/images/arrow_left.png"))),
+                  child: Image.asset(GameAssets.arrowLeft))),
           Positioned(
               bottom: 20,
               right: 100,
               child: GestureDetector(
                   onTapDown: (_) => buttonBridge.onJumpDown(),
                   onTapUp: (details) => buttonBridge.onJumpUp(),
-                  child: Image.asset("assets/images/arrow_up.png"))),
+                  child: Image.asset(GameAssets.arrowUp))),
           Positioned(
               bottom: 100,
               right: 30,
@@ -64,7 +65,7 @@ class GameControls extends StatelessWidget {
                   onDoubleTap: () => buttonBridge.attackDoubleTap(),
                   onTapDown: (_) => buttonBridge.attackDown(),
                   onTapUp: (details) => buttonBridge.attackUp(),
-                  child: Image.asset("assets/images/attack.png"))),
+                  child: Image.asset(GameAssets.attack))),
           Positioned(
               right: 10,
               top: 10,
