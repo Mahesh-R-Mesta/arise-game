@@ -1,5 +1,6 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
+import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 
 class GameStartIntro extends StatelessWidget {
@@ -32,7 +33,8 @@ class GameStartIntro extends StatelessWidget {
                   },
                   text: "Start game"),
               const SizedBox(height: 5),
-              WoodenButton(size: Size(120, 55), onTap: () => Navigator.of(context).pop(), text: "Back"),
+              WoodenSquareButton(
+                  size: Size(70, 70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_back, color: Colors.white, size: 40)),
             ],
           ),
         ));

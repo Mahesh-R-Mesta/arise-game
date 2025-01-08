@@ -20,6 +20,11 @@ mixin GameAssets {
   static const String characterPurple = "${character}char_purple.png";
   static const String fire = "fire.png";
   static const String wormhole = "worm_hole.png"; //character/char_blue_2.png
+  static const String arrowLeft = "assets/images/arrow_left.png"; //character/char_blue_2.png
+  static const String coin = "assets/images/coin.png"; //character/char_blue_2.png
+  static const String arrowUp = "assets/images/arrow_up.png";
+
+  static const String attack = "assets/images/attack.png"; //character/char_blue_2.png
 }
 
 mixin AssetSvg {

@@ -44,7 +44,7 @@ class GameLost extends StatelessWidget {
                     widget: Icon(Icons.replay_outlined, color: Colors.white, size: 40)),
                 const SizedBox(width: 50),
                 WoodenSquareButton(
-                    size: Size.square(70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_forward, color: Colors.white, size: 40))
+                    size: Size.square(70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_back, color: Colors.white, size: 40))
               ],
             ),
           ],
