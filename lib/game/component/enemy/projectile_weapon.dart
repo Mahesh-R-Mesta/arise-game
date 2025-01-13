@@ -2,26 +2,13 @@ import 'dart:async';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/collisions/bomb_zone.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
-import 'package:arise_game/game/component/helper/object.dart';
+import 'package:arise_game/game/component/helper/object_entity.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/util/enum/projectile_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:get_it/get_it.dart';
-
-enum Projectile {
-  bomb("character/Goblin/bombing.png", 19, 11, 3, 100),
-  mushroomBomb("character/Mushroom/Projectile_sprite.png", 8, 4, 2, 50),
-  swordSwing("character/Skeleton/Sword_sprite.png", 8, 0, 3, 92),
-  eyeBomb("character/Flying_eye/projectile_sprite.png", 8, 3, 2, 48);
-
-  final String asset;
-  final int frameCount;
-  final int damageFrame;
-  final double blastInt;
-  final double size;
-  const Projectile(this.asset, this.frameCount, this.damageFrame, this.blastInt, this.size);
-}
 
 class ProjectileWeapon extends GameObjectAnime with HasGameRef<AriseGame> {
   final Projectile projectile;

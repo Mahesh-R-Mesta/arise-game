@@ -2,12 +2,16 @@ import 'dart:async';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
+import 'package:arise_game/game/component/enemy/monster/goblin.dart';
+import 'package:arise_game/game/component/enemy/monster/mushroom.dart';
+import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
 import 'package:arise_game/game/component/items/shape.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
+import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:leap/leap.dart';
@@ -19,7 +23,6 @@ class GameWorld extends LeapWorld {
   final cameraAnchor = Anchor(300, 800);
   @override
   FutureOr<void> onLoad() async {
-    gameRef.camera.viewfinder.anchor = Anchor.topLeft; // Anchor(0.2, 0.5);
     _addItems();
     _addEnemies();
     addPlayer();
@@ -31,10 +34,15 @@ class GameWorld extends LeapWorld {
   void addPlayer() {
     final spawnPoint = gameRef.leapMap.tiledMap.tileMap.getLayer<ObjectGroup>("spawn");
     if (spawnPoint != null) {
+      final tileViewInc = GameViewConfig.incValue();
       for (final spawn in spawnPoint.objects) {
         if (spawn.class_ == "Player") {
-          final tileViewInc = GameViewConfig.incValue();
-          player = Player(position: Vector2(spawn.x * tileViewInc, spawn.y * tileViewInc), size: playerSize);
+          player = Player(
+              position: Vector2(spawn.x * tileViewInc, spawn.y * tileViewInc),
+              size: playerSize,
+              damageCapacity: spawn.properties.byName["damageCap"]!.value as double,
+              runSpeed: spawn.properties.byName["runSpeed"]!.value as double,
+              jumpForce: spawn.properties.byName["jumpForce"]!.value as double);
           add(player);
         }
       }
@@ -76,9 +84,21 @@ class GameWorld extends LeapWorld {
       } else if (["goblin", "skeleton", "mushroom", "flyingEye"].contains(enemy.class_)) {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
-        add(MonsterCharacter(monster: Monster.parse(enemy.class_), damage: damage, reward: reward, position: position));
+        add(MonsterCharacter(monster: MonsterType.parse(enemy.class_), damage: damage, reward: reward, position: position));
       } else if (enemy.class_ == "Fire") {
         add(Fire(position: position));
+      } else if (enemy.class_ == "goblin_attacker") {
+        final damage = enemy.properties.byName["damage"]!.value as double;
+        final reward = enemy.properties.byName["reward"]!.value as int;
+        add(Goblin(position: position, damagePower: damage, rewardCoins: reward));
+      } else if (enemy.class_ == "mushroom_attacker") {
+        final damage = enemy.properties.byName["damage"]!.value as double;
+        final reward = enemy.properties.byName["reward"]!.value as int;
+        add(Mushroom(position: position, damagePower: damage, rewardCoins: reward));
+      } else if (enemy.class_ == "skeleton_attacker") {
+        final damage = enemy.properties.byName["damage"]!.value as double;
+        final reward = enemy.properties.byName["reward"]!.value as int;
+        add(Skeleton(position: position, damagePower: damage, rewardCoins: reward));
       }
     }
   }

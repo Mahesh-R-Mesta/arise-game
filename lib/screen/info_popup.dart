@@ -36,74 +36,77 @@ class InfoPopup extends StatelessWidget {
           color: Colors.black54,
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Stack(
-              children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Credits", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white)),
-                  const SizedBox(height: 10),
-                  CreditLinkText(texts: [
-                    (text: "Free Pixel Artwork by ", link: null),
-                    (text: "Brullov, ", link: "https://brullov.itch.io/"),
-                    (text: "Anokolisa, ", link: "https://anokolisa.itch.io/"),
-                    (text: "Luizmelo, ", link: "https://luizmelo.itch.io/"),
-                    (text: "Raphael Hatencia, ", link: "https://ragnapixel.itch.io/"),
-                    (text: "from ", link: null),
-                    (text: "Itch.io", link: "https://itch.io/game-assets/free")
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
+                    const SizedBox(height: 10),
+                    Text("Credits", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white)),
+                    const SizedBox(height: 10),
+                    CreditLinkText(texts: [
+                      (text: "Free Pixel Artwork by ", link: null),
+                      (text: "Brullov, ", link: "https://brullov.itch.io/"),
+                      (text: "Anokolisa, ", link: "https://anokolisa.itch.io/"),
+                      (text: "Luizmelo, ", link: "https://luizmelo.itch.io/"),
+                      (text: "Raphael Hatencia, ", link: "https://ragnapixel.itch.io/"),
+                      (text: "from ", link: null),
+                      (text: "Itch.io", link: "https://itch.io/game-assets/free")
+                    ]),
+                    const SizedBox(height: 20),
+                    CreditLinkText(texts: [
+                      (text: "Free Sound Effects by ", link: null),
+                      (
+                        text: "freesound_community, ",
+                        link:
+                            "https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=86585"
+                      ),
+                      (
+                        text: "karim nessim, ",
+                        link:
+                            "https://pixabay.com/users/karim-nessim-40448081/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=260274"
+                      ),
+                      (
+                        text: "Cyberwave Orchestra, ",
+                        link:
+                            "https://pixabay.com/users/cyberwave-orchestra-23801316/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=241821"
+                      ),
+                      (
+                        text: "Ribhav Agrawal, ",
+                        link:
+                            "https://pixabay.com/users/ribhavagrawal-39286533/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=230517"
+                      ),
+                      // Music by <a href=""></a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=124008">Pixabay</a>
+                      (
+                        text: "Music Unlimited",
+                        link:
+                            "https://pixabay.com/users/music_unlimited-27600023/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=124008"
+                      ),
+                      (text: " from ", link: null),
+                      (
+                        text: "Pixabay",
+                        link: "https://pixabay.com/music/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47167"
+                      )
+                    ]),
+                    const SizedBox(height: 20),
+                    Text("Game by: Mahesh R Mesta", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
+                    const SizedBox(height: 10),
+                    linkWidget("Linked-In", AssetSvg.linkedIn, AccountLink.linkedIn),
+                    const SizedBox(height: 10),
+                    linkWidget("Instagram", AssetSvg.instagram, AccountLink.instagram),
+                    const SizedBox(height: 10),
+                    Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.end, children: [
+                      SvgPicture.asset(AssetSvg.flutter, width: 20, height: 20),
+                      Text("Flutter ❤️", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
+                      SizedBox(width: 8),
+                      SvgPicture.asset(AssetSvg.flame, width: 20, height: 20),
+                      Text("Flame", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
+                    ])
                   ]),
-                  const SizedBox(height: 20),
-                  CreditLinkText(texts: [
-                    (text: "Free Sound Effects by ", link: null),
-                    (
-                      text: "freesound_community, ",
-                      link:
-                          "https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=86585"
-                    ),
-                    (
-                      text: "karim nessim, ",
-                      link:
-                          "https://pixabay.com/users/karim-nessim-40448081/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=260274"
-                    ),
-                    (
-                      text: "Cyberwave Orchestra, ",
-                      link:
-                          "https://pixabay.com/users/cyberwave-orchestra-23801316/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=241821"
-                    ),
-                    (
-                      text: "Ribhav Agrawal, ",
-                      link:
-                          "https://pixabay.com/users/ribhavagrawal-39286533/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=230517"
-                    ),
-                    // Music by <a href=""></a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=124008">Pixabay</a>
-                    (
-                      text: "Music Unlimited",
-                      link:
-                          "https://pixabay.com/users/music_unlimited-27600023/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=124008"
-                    ),
-                    (text: " from ", link: null),
-                    (
-                      text: "Pixabay",
-                      link: "https://pixabay.com/music/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47167"
-                    )
-                  ]),
-                  const SizedBox(height: 20),
-                  Text("Game by: Mahesh R Mesta", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
-                  const SizedBox(height: 10),
-                  linkWidget("Linked-In", AssetSvg.linkedIn, AccountLink.linkedIn),
-                  const SizedBox(height: 10),
-                  linkWidget("Instagram", AssetSvg.instagram, AccountLink.instagram),
-                  const SizedBox(height: 10),
-                  Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.end, children: [
-                    SvgPicture.asset(AssetSvg.flutter, width: 20, height: 20),
-                    Text("Flutter ❤️", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
-                    SizedBox(width: 8),
-                    SvgPicture.asset(AssetSvg.flame, width: 20, height: 20),
-                    Text("Flame", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
-                  ])
-                ]),
-                Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 35))),
-              ],
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 35))),
+                ],
+              ),
             ),
           ),
         ),

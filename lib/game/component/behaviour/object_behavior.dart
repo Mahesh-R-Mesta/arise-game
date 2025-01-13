@@ -44,8 +44,6 @@ class ObjectBehavior<T extends EntityMixin> extends Behavior<T> {
       (parent as PositionComponent).position.y += yVelocity;
     }
     if (xVelocity >= 0) {
-      // xVelocity -= (drag * horizontalMovement) * dt;
-
       (parent as PositionComponent).position.x += xVelocity * horizontalMovement * dt;
     }
     super.update(dt);

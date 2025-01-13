@@ -21,18 +21,20 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
-  List<String> tileMapAsset = ["map_level_01.tmx", "map_level_02.tmx"];
+  List<String> tileMapAsset = ["tile_map_01.tmx", "tile_map_02.tmx"];
   int level = 0;
   Key gameWidgetKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocBuilder<GameBloc, GameState>(
         buildWhen: (previous, current) => false, //current is GameRunning,
         builder: (context, gameState) {
           return GameWidget.controlled(
               key: gameWidgetKey,
-              gameFactory: () => AriseGame(gameMap: tileMapAsset[level], tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
+              gameFactory: () =>
+                  AriseGame(gameMap: tileMapAsset[level], screenSize: size, tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
               overlayBuilderMap: {
                 "startGame": (context, game) => GameStartIntro(gameLevel: level + 1, game: game as AriseGame),
                 "controller": (context, game) => GameControls(game: game as AriseGame),
@@ -49,9 +51,8 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                         })),
                 "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
               },
-              initialActiveOverlays: [
-                "startGame"
-              ]);
+              initialActiveOverlays: ["startGame"],
+              backgroundBuilder: (ctx) => background(size));
         });
   }
 
@@ -71,5 +72,16 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
             ]),
           ),
         ));
+  }
+
+  Widget background(Size size) {
+    return SizedBox.expand(
+      child: Column(
+        children: [
+          SizedBox(height: size.height * 0.6, width: size.width, child: Material(color: Color(0xffb4c6f5))),
+          SizedBox(height: size.height * 0.4, width: size.width, child: Material(color: Color(0xff251613)))
+        ],
+      ),
+    );
   }
 }

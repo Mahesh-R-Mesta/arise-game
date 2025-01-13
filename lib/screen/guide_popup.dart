@@ -33,7 +33,7 @@ class GuidePopup extends StatelessWidget {
 }
 
 class _GameInfoView extends StatelessWidget {
-  const _GameInfoView({super.key});
+  const _GameInfoView();
 
   Widget guideContainer({required String asset, Widget? icon, required String text, required SpriteAnimationData data, bool flipX = false}) {
     return SizedBox(
@@ -68,12 +68,6 @@ class _GameInfoView extends StatelessWidget {
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2),
           children: [
-            guideContainer(
-                asset: GameAssets.characterBlue,
-                icon: Image.asset(GameAssets.arrowLeft, width: 25, height: 25),
-                text: "Move right",
-                data: SpriteAnimationData.sequenced(
-                    texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56))),
             guideContainer(
                 asset: GameAssets.characterBlue,
                 icon: Image.asset(GameAssets.arrowLeft, width: 25, height: 25),

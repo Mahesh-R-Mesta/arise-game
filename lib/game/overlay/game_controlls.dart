@@ -62,7 +62,7 @@ class GameControls extends StatelessWidget {
               bottom: 100,
               right: 30,
               child: GestureDetector(
-                  onDoubleTap: () => buttonBridge.attackDoubleTap(),
+                  // onDoubleTap: () => buttonBridge.attackDoubleTap(),
                   onTapDown: (_) => buttonBridge.attackDown(),
                   onTapUp: (details) => buttonBridge.attackUp(),
                   child: Image.asset(GameAssets.attack))),

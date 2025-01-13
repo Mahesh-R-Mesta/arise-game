@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
@@ -9,6 +8,7 @@ import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:get_it/get_it.dart';
@@ -23,7 +23,7 @@ enum Boar {
   const Boar(this.runAsset, this.deathAsset);
 }
 
-class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
+class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   final Boar boar;
   final double damageCapacity;
   final int damageReward;
@@ -36,6 +36,7 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   final assetSize = Vector2(48, 32);
   final playerEarnedCoin = GetIt.I.get<EarnedCoinCubit>();
   final audioPlayer = GetIt.I.get<AudioService>();
+  int angryHitCount = 0;
 
   @override
   FutureOr<void> onLoad() {
@@ -65,9 +66,28 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Player && other.current == PlayerState.shield) {
-      turnLeft(); // if right facing it turn to left
-      turnRight(); // if left facing it turn to right
+    if (other is Player) {
+      if (isFacingRight != other.isFacingRight) {
+        if (other.current == PlayerState.attack) {
+          angryHitCount += 1;
+          harmed(other.damageCapacity * 15);
+          if (angryHitCount == 2) {
+            audioPlayer.playRoarBoar();
+            harmed(other.damageCapacity * 15);
+            angryHitCount = 0;
+          } else {
+            if (isFacingRight) {
+              turnLeft(); // if right facing it turn to left
+            } else {
+              turnRight(); // if left facing it turn to right
+            }
+          }
+        } else {
+          other.harmedBy(this, damageCapacity * 15, playHurtingSound: true);
+        }
+      } else {
+        other.harmedBy(this, damageCapacity * 15, playHurtingSound: true);
+      }
     }
     super.onCollisionStart(intersectionPoints, other);
   }
@@ -76,14 +96,8 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       if (other.current == PlayerState.attack) {
-        if (isFacingRight != other.isFacingRight) {
-          audioPlayer.playRoarBoar();
-          harmed(other.damageCapacity);
-        } else {
-          other.harmedBy(this, damageCapacity / 4);
-        }
-      } else if (other.current != PlayerState.attack) {
-        other.harmedBy(this, damageCapacity, playHurtingSound: other.current != PlayerState.shield);
+        audioPlayer.playRoarBoar();
+        harmed(damageCapacity * 0.5);
       }
     }
     super.onCollision(intersectionPoints, other);
@@ -123,9 +137,9 @@ class JungleBoar extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
     super.update(dt);
   }
 
-  @override
-  Vector2 getActorPosition() => position;
+  // @override
+  // Vector2 getActorPosition() => position;
 
-  @override
-  Size getActorSize() => Size(width, height);
+  // @override
+  // Size getActorSize() => Size(width, height);
 }
