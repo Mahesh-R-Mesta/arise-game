@@ -3,20 +3,20 @@ import 'dart:async';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/controller.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:get_it/get_it.dart';
 
 class PlayerBehavior extends Behavior<Player> {
   final double speed = 75;
+  PlayerBehavior();
 
   final buttonBridge = GetIt.I.get<GameButtonBridge>();
   final audioService = GetIt.I.get<AudioService>();
-
+  Timer? attackTimer;
+  Timer? swordPlayTimer;
   @override
   FutureOr<void> onLoad() {
-    Timer? attackTimer;
-    Timer? swordPlayTimer;
-
     stopSwordPlay() {
       if (swordPlayTimer?.isActive == true) swordPlayTimer?.cancel();
     }
@@ -62,7 +62,7 @@ class PlayerBehavior extends Behavior<Player> {
       if (pressed && parent.behavior.isOnGround) {
         parent.current = PlayerState.jumping;
         parent.behavior
-          ..applyForceY(-2.2)
+          ..applyForceY(-2.4)
           ..isOnGround = false;
         parent.isJumped = true;
         // parent.isOnGround = false;
@@ -89,12 +89,18 @@ class PlayerBehavior extends Behavior<Player> {
       }
     };
 
-    buttonBridge.onDoubleTap = () {
-      stopSwordPlay();
-      parent.current = PlayerState.shield;
-    };
+    // buttonBridge.onDoubleTap = () {
+    //   stopSwordPlay();
+    //   parent.current = PlayerState.shield;
+    // };
 
     return super.onLoad();
+  }
+
+  @override
+  void onRemove() {
+    swordPlayTimer?.cancel();
+    super.onRemove();
   }
 
   @override

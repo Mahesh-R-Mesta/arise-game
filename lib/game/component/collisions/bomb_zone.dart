@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:arise_game/game/component/helper/field.dart';
+import 'package:arise_game/game/component/helper/field_entity.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
+import 'package:arise_game/util/enum/projectile_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 

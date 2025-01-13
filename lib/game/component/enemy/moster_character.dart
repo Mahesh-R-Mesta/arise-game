@@ -5,44 +5,17 @@ import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
+import 'package:arise_game/util/enum/monster_enum.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
-import 'package:flutter/material.dart';
+
 import 'package:get_it/get_it.dart';
 import 'dart:async' as async;
 
-enum MonsterState { idle, bombing }
-
-enum Monster {
-  goblin("character/Goblin/goblin.png", 12, Projectile.bomb), //Vector2(32, 40)
-  flyingEye("character/Flying_eye/Attack3.png", 6, Projectile.eyeBomb),
-  mushroom("character/Mushroom/Attack3.png", 11, Projectile.mushroomBomb),
-  skeleton("character/Skeleton/Attack3.png", 6, Projectile.swordSwing); // Vector2(32, 80)
-
-  final String charImage;
-  final int charCount;
-  final Projectile projectile;
-  const Monster(this.charImage, this.charCount, this.projectile);
-
-  static Monster parse(String name) {
-    switch (name) {
-      case "goblin":
-        return Monster.goblin;
-      case "flyingEye":
-        return Monster.flyingEye;
-      case "mushroom":
-        return Monster.mushroom;
-      case "skeleton":
-        return Monster.skeleton;
-      default:
-        return Monster.goblin;
-    }
-  }
-}
-
-class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGame> {
-  final Monster monster;
+class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> {
+  final MonsterType monster;
   final double projectileTime;
   final int reward;
   final double damage;
@@ -57,21 +30,24 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
   @override
   async.FutureOr<void> onLoad() {
     // debugMode = true;
+    // behavior.isOnGround = false;
+    anchor = Anchor.center;
     lifeline = Lifeline(playerBoxWidth: 250, yPosition: 65, scale: Vector2(0.6, 0.6));
-    final facingRightAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache(monster.charImage),
+    final facingRightAnimation = SpriteAnimation.fromFrameData(gameRef.images.fromCache(monster.bombing),
         SpriteAnimationData.sequenced(texturePosition: Vector2(0, 0), amount: 2, stepTime: 0.8, textureSize: Vector2(150, 150)));
     attackAnimation = SpriteAnimation.fromFrameData(
-        gameRef.images.fromCache(monster.charImage),
+        gameRef.images.fromCache(monster.bombing),
         SpriteAnimationData.sequenced(
             texturePosition: Vector2(0, 0), amount: monster.charCount, stepTime: projectileTime / monster.charCount, textureSize: Vector2(150, 150)));
-    animations = {MonsterState.idle: facingRightAnimation, MonsterState.bombing: attackAnimation};
+    final death = spriteAnimationSequence(image: gameRef.images.fromCache(monster.die), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
+    animations = {MonsterState.idle: facingRightAnimation, MonsterState.bombing: attackAnimation, MonsterState.die: death};
     current = MonsterState.idle;
-    add(RectangleHitbox(position: Vector2((width / 2) - 16, 60), size: Vector2(32, 80)));
-
+    add(RectangleHitbox(anchor: Anchor.center, position: Vector2(width / 2, height / 2), size: Vector2(32, 50)));
     final visibleRange = VisibleRange(Vector2(500, 66));
     add(visibleRange);
     add(lifeline);
     flipHorizontallyAroundCenter();
+
     visibleRange.onVisibleStart = (intersects, object) {
       if (object is Player) {
         current = MonsterState.bombing;
@@ -103,7 +79,8 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
     if (lifeline.health == 0) {
       final playerEarnedCoin = GetIt.I.get<EarnedCoinCubit>();
       playerEarnedCoin.receivedCoin(reward);
-      removeFromParent();
+      current = MonsterState.die;
+      Future.delayed(Duration(milliseconds: (animation!.frames.first.stepTime * animation!.frames.length * 1000).toInt()), () => removeFromParent());
     }
   }
 
@@ -134,9 +111,9 @@ class MonsterCharacter extends GroundCharacterGroupAnime with HasGameRef<AriseGa
     super.onCollideOnWall(type);
   }
 
-  @override
-  Vector2 getActorPosition() => position;
+  // @override
+  // Vector2 getActorPosition() => position;
 
-  @override
-  Size getActorSize() => Size(width, height);
+  // @override
+  // Size getActorSize() => Size(width, height);
 }

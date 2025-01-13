@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
+import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 // import 'package:arise_game/game/component/items/flame_throw.dart';
@@ -11,8 +11,8 @@ import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/util/audio.dart';
-import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/controller.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:arise_game/util/storage.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -21,53 +21,84 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/services/hardware_keyboard.dart';
 import 'package:get_it/get_it.dart';
 
-enum PlayerState { idle, walking, running, jumping, lightning, shield, attack, attack1, attack2, neal, death }
+class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardHandler {
+  final double damageCapacity;
+  final double runSpeed;
+  Player({required super.jumpForce, required this.runSpeed, required this.damageCapacity, super.position, super.size}) : super(anchor: Anchor.center);
 
-enum PlayerCharacter {
-  red(GameAssets.characterRed, GameAssets.characterRed2),
-  blue(GameAssets.characterBlue, GameAssets.characterBlue2),
-  purple(GameAssets.characterPurple, GameAssets.characterPurple2);
-
-  final String asset1;
-  final String asset2;
-  const PlayerCharacter(this.asset1, this.asset2);
-}
-
-class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, KeyboardHandler {
-  Player({super.position, super.size}) : super(anchor: Anchor.center);
-  double damageCapacity = 1;
   late Lifeline lifeline;
   late HarmZone harmZone;
 
   final character = LocalStorage.instance.getPlayerCharacter;
-
-  final playerHitBox = RectangleHitbox(size: Vector2(40, 60), position: Vector2(30, 39));
+  final playerHitBox = RectangleHitbox(size: Vector2(40, 60), position: Vector2(32, 39));
   final audioService = GetIt.I.get<AudioService>();
 
   @override
   FutureOr<void> onLoad() async {
+    // debugMode = true;
     behavior
       ..xVelocity = 75
       ..drag = 0.005;
-    final idleAnimation =
-        spriteAnimationSequence(imagePath: character.asset1, amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
-
+    final idleAnimation = spriteAnimationSequence(
+        image: game.images.fromCache(character.asset1), amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
     final attackAnimation = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56));
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.1,
+        textureSize: Vector2(56, 56));
     final runningAnimation = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56));
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56 * 2),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.1,
+        textureSize: Vector2(56, 56));
     final jumpingAnimation = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 3), amount: 16, amountPerRow: 8, stepTime: 0.06, textureSize: Vector2(56, 56));
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56 * 3),
+        amount: 16,
+        amountPerRow: 8,
+        stepTime: 0.06,
+        textureSize: Vector2(56, 56));
     final deathAnimation = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 6), amount: 12, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56 * 6),
+        amount: 12,
+        amountPerRow: 8,
+        stepTime: 0.2,
+        textureSize: Vector2(56, 56));
     final lightningAnime = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 8), amount: 8, amountPerRow: 8, stepTime: 0.3, textureSize: Vector2(56, 56));
-    final walkingAnime =
-        spriteAnimationSequence(imagePath: character.asset2, amount: 10, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56 * 8),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.3,
+        textureSize: Vector2(56, 56));
+    final walkingAnime = spriteAnimationSequence(
+        image: game.images.fromCache(character.asset2), amount: 10, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
     final attack1Animation = spriteAnimationSequence(
-        imagePath: character.asset2, texturePosition: Vector2(0, 56 * 4), amount: 8, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56));
+        image: game.images.fromCache(character.asset2),
+        texturePosition: Vector2(0, 56 * 4),
+        amount: 8,
+        amountPerRow: 8,
+        stepTime: 0.2,
+        textureSize: Vector2(56, 56));
     final shieldAnimation = spriteAnimationSequence(
-        imagePath: character.asset1, texturePosition: Vector2(0, 56 * 10), amount: 3, stepTime: 0.3, textureSize: Vector2(56, 56), isLoop: false);
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56 * 10),
+        amount: 3,
+        stepTime: 0.3,
+        textureSize: Vector2(56, 56),
+        isLoop: false);
+    final harmedAnime = spriteAnimationSequence(
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(0, 56 * 5),
+        amount: 4,
+        stepTime: 0.2,
+        textureSize: Vector2(56, 56),
+        isLoop: false);
     animations = {
       PlayerState.idle: idleAnimation,
       PlayerState.running: runningAnimation,
@@ -77,7 +108,8 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
       PlayerState.death: deathAnimation,
       PlayerState.lightning: lightningAnime,
       PlayerState.walking: walkingAnime,
-      PlayerState.shield: shieldAnimation
+      PlayerState.shield: shieldAnimation,
+      PlayerState.harmed: harmedAnime
     };
     lifeline = Lifeline(playerBoxWidth: width);
     harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
@@ -85,28 +117,33 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     add(lifeline);
     add(playerHitBox);
     add(harmZone);
-    // gameRef.camera.viewfinder.anchor = Anchor.topCenter;
-    // gameRef.camera.follow(this);
-    gameRef.camera.follow(CameraBehavior(character: this, gap: 150));
+    gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
+    gameRef.camera.follow(this);
+    // gameRef.camera.follow(CameraBehavior(character: this, gap: 150));
     current = PlayerState.lightning;
 
     return super.onLoad();
   }
-
-  // thunderAttack() {
-  //   final flameThrower = FlameThrower(adjust: Vector2(width, 50), scale: Vector2(0.7, 0.7));
-  //   flameThrower.throwForce(150, dir: isFacingRight ? 1 : -1);
-  // }
 
   void harmedBy(PositionComponent enemy, double damage, {bool playHurtingSound = true}) {
     if (enemy is ProjectileWeapon && !enemy.isStarted()) return;
 
     lifeline.reduce(damage);
     if (playHurtingSound) audioService.hurt();
-    if (lifeline.health > 0) harmZone.blinkIt();
+
+    if (lifeline.health > 0) {
+      harmZone.blinkIt();
+      // current = PlayerState.harmed;
+      // Future.delayed(Duration(milliseconds: (animation!.frames.first.stepTime * animation!.frames.length * 1000).toInt()), () {
+      //   if (current == PlayerState.harmed) {
+      //     current = PlayerState.idle;
+      //   }
+      // });
+    }
 
     if (lifeline.health == 0) {
       current = PlayerState.death;
+      behavior.horizontalMovement = 0;
       gameRef.overlays.remove("controller");
       Future.delayed(const Duration(seconds: 2), () {
         gameRef.overlays.add("gameLost");
@@ -117,7 +154,7 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
 
   @override
   void onRemove() {
-    audioService.stop();
+    audioService.swordPlayer.stop();
     super.onRemove();
   }
 
@@ -137,26 +174,11 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     if ((other is JungleBoar || other is ProjectileWeapon) && current == PlayerState.shield) {
       audioService.playShield();
     }
-    super.onCollisionStart(intersectionPoints, other);
-  }
 
-  SpriteAnimation spriteAnimationSequence(
-      {required String imagePath,
-      required int amount,
-      required double stepTime,
-      required Vector2 textureSize,
-      int? amountPerRow,
-      Vector2? texturePosition,
-      bool isLoop = true}) {
-    return SpriteAnimation.fromFrameData(
-        game.images.fromCache(imagePath),
-        SpriteAnimationData.sequenced(
-            texturePosition: texturePosition,
-            amount: amount,
-            amountPerRow: amountPerRow,
-            stepTime: stepTime,
-            textureSize: textureSize,
-            loop: isLoop));
+    if (other is MonsterCharacter) {
+      behavior.horizontalMovement = 0;
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   final buttonBridge = GetIt.I.get<GameButtonBridge>();
@@ -191,7 +213,7 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
       // horizontalMovement = -1;
     } else {
       current = PlayerState.idle;
-      horizontalMovement = 0;
+      // horizontalMovement = 0;
     }
     return super.onKeyEvent(event, keysPressed);
   }
@@ -203,9 +225,7 @@ class Player extends GroundCharacterGroupAnime with HasGameRef<AriseGame>, Keybo
     super.onCollideOnWall(type);
   }
 
-  @override
   Vector2 getActorPosition() => Vector2(playerHitBox.position.x + position.x, playerHitBox.position.y + position.y);
 
-  @override
   Size getActorSize() => Size(playerHitBox.size.x, playerHitBox.size.y);
 }

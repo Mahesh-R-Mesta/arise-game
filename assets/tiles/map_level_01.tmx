@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="45" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="79">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="45" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="80">
  <tileset firstgid="1" source="background_1.tsx"/>
  <tileset firstgid="51" source="background_2.tsx"/>
  <tileset firstgid="101" source="background_3.tsx"/>
@@ -96,6 +96,9 @@
   </object>
   <object id="74" name="rightGroundWall" type="rightGroundWall" x="96.9394" y="119.833" width="6.66667" height="10.1969"/>
   <object id="75" name="leftGroundWall" type="leftGroundWall" x="116.53" y="119.833" width="5.66667" height="10.1515"/>
+  <object id="79" name="Player" type="Player" x="267.333" y="135.333">
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="coins">
   <object id="37" type="coin" x="337.667" y="140">

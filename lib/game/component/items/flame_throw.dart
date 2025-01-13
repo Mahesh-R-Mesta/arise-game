@@ -4,7 +4,7 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
-import 'package:arise_game/game/component/helper/object.dart';
+import 'package:arise_game/game/component/helper/object_entity.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 

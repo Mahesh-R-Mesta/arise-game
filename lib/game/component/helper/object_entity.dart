@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:arise_game/game/component/behaviour/object_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:flame/collisions.dart';
@@ -16,19 +17,19 @@ class GameObjectAnime extends SpriteAnimationComponent with EntityMixin, Collisi
     return super.onLoad();
   }
 
-  // SpriteAnimation spriteAnimationSequence({
-  //   required String imagePath,
-  //   required int amount,
-  //   required double stepTime,
-  //   required Vector2 textureSize,
-  //   int? amountPerRow,
-  //   Vector2? texturePosition,
-  // }) {
-  //   return SpriteAnimation.fromFrameData(
-  //       game.images.fromCache("character/char_blue.png"),
-  //       SpriteAnimationData.sequenced(
-  //           texturePosition: texturePosition, amount: amount, amountPerRow: amountPerRow, stepTime: stepTime, textureSize: textureSize));
-  // }
+  SpriteAnimation spriteAnimationSequence({
+    required Image image,
+    required int amount,
+    required double stepTime,
+    required Vector2 textureSize,
+    int? amountPerRow,
+    Vector2? texturePosition,
+  }) {
+    return SpriteAnimation.fromFrameData(
+        image,
+        SpriteAnimationData.sequenced(
+            texturePosition: texturePosition, amount: amount, amountPerRow: amountPerRow, stepTime: stepTime, textureSize: textureSize));
+  }
 
   void onCollideOnWall(GroundType type) {}
 }
@@ -42,6 +43,25 @@ class GameObjectAnimeGroup extends SpriteAnimationGroupComponent with EntityMixi
   FutureOr<void> onLoad() {
     add(behavior);
     return super.onLoad();
+  }
+
+  SpriteAnimation spriteAnimationSequence(
+      {required Image image,
+      required int amount,
+      required double stepTime,
+      required Vector2 textureSize,
+      int? amountPerRow,
+      Vector2? texturePosition,
+      bool isLoop = true}) {
+    return SpriteAnimation.fromFrameData(
+        image,
+        SpriteAnimationData.sequenced(
+            texturePosition: texturePosition,
+            amount: amount,
+            amountPerRow: amountPerRow,
+            stepTime: stepTime,
+            textureSize: textureSize,
+            loop: isLoop));
   }
 
   void onCollideOnWall(GroundType type) {}

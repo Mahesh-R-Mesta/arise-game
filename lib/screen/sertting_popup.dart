@@ -1,6 +1,6 @@
 import 'package:arise_game/game/bloc/player_character.dart';
-import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 
 import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
@@ -26,76 +26,83 @@ class SettingsPopup extends StatelessWidget {
         child: Material(
           elevation: 3,
           color: Colors.black54,
-          child: Column(children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                    flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                  flex: 1,
+                  child: Column(
+                    spacing: 10,
+                    children: [
+                      Text("Select character", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white)),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            spacing: 12,
+                            children: [
+                              CharacterBox(player: PlayerCharacter.blue, size: 116),
+                              CharacterBox(player: PlayerCharacter.red, size: 116),
+                              CharacterBox(player: PlayerCharacter.purple, size: 116),
+                              CharacterBox(player: PlayerCharacter.green, size: 116)
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+              Flexible(
+                  flex: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
                     child: Column(
-                      spacing: 10,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Select character", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white)),
-                        CharacterBox(player: PlayerCharacter.blue, size: 116),
-                        CharacterBox(player: PlayerCharacter.red, size: 116),
-                        CharacterBox(player: PlayerCharacter.purple, size: 116),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40))),
+                        IconButton(
+                            onPressed: () {
+                              if (audioPlayer.isBGPlaying()) {
+                                audioPlayer.disableBgMusic();
+                                bgAudioEffectNotifier.value = false;
+                              } else if (audioPlayer.isBGNotPlaying()) {
+                                audioPlayer.enableBgMusic();
+                                bgAudioEffectNotifier.value = true;
+                              }
+                            },
+                            icon: Row(
+                              children: [
+                                ValueListenableBuilder<bool>(
+                                    valueListenable: bgAudioEffectNotifier,
+                                    builder: (context, isPlaying, _) {
+                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40);
+                                    }),
+                                const SizedBox(width: 15),
+                                Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18, color: Colors.white)),
+                              ],
+                            )),
+                        IconButton(
+                            onPressed: () {
+                              gameSoundEffectNotifier.value = !gameSoundEffectNotifier.value;
+                              audioPlayer.enableGameSoundEffect = gameSoundEffectNotifier.value;
+                            },
+                            icon: Row(
+                              children: [
+                                ValueListenableBuilder<bool>(
+                                    valueListenable: gameSoundEffectNotifier,
+                                    builder: (context, isPlaying, _) {
+                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40);
+                                    }),
+                                const SizedBox(width: 15),
+                                Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18, color: Colors.white)),
+                              ],
+                            )),
                       ],
-                    )),
-                Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Align(
-                              alignment: Alignment.topRight,
-                              child:
-                                  IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40))),
-                          IconButton(
-                              onPressed: () {
-                                if (audioPlayer.isBGPlaying()) {
-                                  audioPlayer.disableBgMusic();
-                                  bgAudioEffectNotifier.value = false;
-                                } else if (audioPlayer.isBGNotPlaying()) {
-                                  audioPlayer.enableBgMusic();
-                                  bgAudioEffectNotifier.value = true;
-                                }
-                              },
-                              icon: Row(
-                                children: [
-                                  ValueListenableBuilder<bool>(
-                                      valueListenable: bgAudioEffectNotifier,
-                                      builder: (context, isPlaying, _) {
-                                        return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40);
-                                      }),
-                                  const SizedBox(width: 15),
-                                  Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18, color: Colors.white)),
-                                ],
-                              )),
-                          IconButton(
-                              onPressed: () {
-                                gameSoundEffectNotifier.value = !gameSoundEffectNotifier.value;
-                                audioPlayer.enableGameSoundEffect = gameSoundEffectNotifier.value;
-                              },
-                              icon: Row(
-                                children: [
-                                  ValueListenableBuilder<bool>(
-                                      valueListenable: gameSoundEffectNotifier,
-                                      builder: (context, isPlaying, _) {
-                                        return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40);
-                                      }),
-                                  const SizedBox(width: 15),
-                                  Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18, color: Colors.white)),
-                                ],
-                              )),
-                        ],
-                      ),
-                    ))
-              ],
-            ),
-          ]),
+                    ),
+                  ))
+            ],
+          ),
         ),
       ),
     );

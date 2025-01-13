@@ -1,4 +1,4 @@
-import 'package:arise_game/game/component/player.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 

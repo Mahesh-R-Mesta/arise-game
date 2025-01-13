@@ -32,10 +32,16 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (ctx) => GetIt.I.get<EarnedCoinCubit>()),
-      BlocProvider(create: (ctx) => PlayerCharacterCubit()),
-      BlocProvider(create: (ctx) => GameBloc())
-    ], child: MaterialApp(title: 'First Game', debugShowCheckedModeBanner: false, theme: theme(), home: HomePage()));
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (ctx) => GetIt.I.get<EarnedCoinCubit>()),
+          BlocProvider(create: (ctx) => PlayerCharacterCubit()),
+          BlocProvider(create: (ctx) => GameBloc())
+        ],
+        child: MaterialApp(
+            title: 'First Game',
+            debugShowCheckedModeBanner: false,
+            theme: theme(),
+            home: MediaQuery(data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)), child: HomePage())));
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:arise_game/game/component/helper/field.dart';
+import 'package:arise_game/game/component/helper/field_entity.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
