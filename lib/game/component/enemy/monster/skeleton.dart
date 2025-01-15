@@ -2,14 +2,17 @@ import 'dart:async';
 
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/enemy/monster/monster.dart';
+import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
+import 'package:arise_game/util/enum/projectile_enum.dart';
 import 'package:flame/components.dart';
 
 class Skeleton extends Monster with HasGameRef<AriseGame> {
-  Skeleton({required super.damagePower, required super.rewardCoins, super.faceRight, super.position})
-      : super(hitBox: Vector2(30, 44), visibleRange: Vector2(300, 66));
+  final bool projectileAttack;
+  Skeleton({required super.damagePower, required super.rewardCoins, this.projectileAttack = false, super.faceRight, super.position})
+      : super(hitBox: Vector2(30, 44), visibleRange: Vector2(300, 66), projectileRange: projectileAttack ? Vector2(650, 66) : null);
 
   @override
   FutureOr<void> onLoad() {
@@ -43,5 +46,17 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
 
     current = MonsterState.idle;
     return super.onLoad();
+  }
+
+  @override
+  ProjectileWeapon? getProjectile() {
+    final bomb = ProjectileWeapon(Projectile.swordSwing, 1.1, posAdjust: Vector2(32, 40));
+    bomb.behavior
+      ..mass = 0.3
+      ..isOnGround = false
+      ..applyForceY(-1.3)
+      ..applyForceX(40)
+      ..horizontalMovement = 1;
+    return bomb;
   }
 }

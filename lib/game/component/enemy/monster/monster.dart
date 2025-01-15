@@ -1,8 +1,10 @@
-import 'dart:async';
+import 'dart:async' as async;
+import 'dart:math';
 
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/monster/moster_view.dart';
+import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
@@ -18,6 +20,7 @@ abstract class Monster extends GroundCharacterEntity {
   final int rewardCoins;
   final Vector2 hitBox;
   final Vector2 visibleRange;
+  final Vector2? projectileRange;
 
   bool activeFollow = false;
 
@@ -31,6 +34,7 @@ abstract class Monster extends GroundCharacterEntity {
       required this.rewardCoins,
       required this.visibleRange,
       required this.hitBox,
+      this.projectileRange,
       this.faceRight = true,
       super.position,
       super.size,
@@ -39,7 +43,7 @@ abstract class Monster extends GroundCharacterEntity {
 
   late Lifeline lifeline;
   @override
-  FutureOr<void> onLoad() {
+  async.FutureOr<void> onLoad() {
     anchor = Anchor.center;
     // debugMode = true;
     add(lifeline);
@@ -50,7 +54,36 @@ abstract class Monster extends GroundCharacterEntity {
     current = MonsterState.idle;
     add(RectangleHitbox(anchor: Anchor.center, position: Vector2(width / 2, (height / 2) + 6), size: hitBox));
     add(MonsterSight(inViewRang: viewRange, visibleRange: visibleRange, parentSize: size));
+    if (projectileRange != null) add(MonsterSight(inViewRang: projectileAlert, visibleRange: projectileRange!, parentSize: size));
     return super.onLoad();
+  }
+
+  projectileAlert(Set<Vector2> intersect, PositionComponent other) {
+    if (other is Player) {
+      if (!animations!.containsKey(MonsterState.bombing)) return;
+      current = MonsterState.bombing;
+      animationTicker?.onFrame = (index) {
+        if (animationTicker?.isLastFrame == true) {
+          throwProjectile();
+        }
+      };
+    }
+  }
+
+  ProjectileWeapon? getProjectile() => null;
+
+  void throwProjectile() async {
+    if (MonsterState.bombing != current) return;
+    final bomb = getProjectile();
+    if (bomb == null) return;
+    // bomb.behavior
+    //   ..mass = 0.3
+    //   ..isOnGround = false
+    //   ..applyForceY(-1.5)
+    //   ..applyForceX(40)
+    //   ..horizontalMovement = 1;
+    print(" X:${bomb.behavior.xVelocity} Y:${bomb.behavior.yVelocity}  ${bomb.behavior.horizontalMovement} ");
+    await add(bomb);
   }
 
   turnLeft() {
@@ -58,6 +91,19 @@ abstract class Monster extends GroundCharacterEntity {
       flipHorizontallyAroundCenter();
       isFacingRight = false;
     }
+  }
+
+  async.Timer? guardingWalk;
+  takeARound() {
+    guardingWalk = async.Timer.periodic(Duration(milliseconds: Random().nextInt(2000) + 800), (_) {
+      if (isFacingRight) {
+        turnLeft();
+        moveLeft();
+      } else {
+        turnRight();
+        moveRight();
+      }
+    });
   }
 
   moveLeft() {
@@ -83,6 +129,7 @@ abstract class Monster extends GroundCharacterEntity {
 
   viewRange(Set<Vector2> intersect, PositionComponent other) {
     if (other is Player) {
+      animationTicker?.onFrame = null;
       if (other.position.x > position.x) {
         turnRight();
         if (isPlayerHittingWall) return;
@@ -104,14 +151,15 @@ abstract class Monster extends GroundCharacterEntity {
         if (animationTicker!.currentIndex > 5) {
           other.harmedBy(this, damagePower);
         }
-      } else if (other.isFacingRight == isFacingRight && other.current != PlayerState.attack) {
-        final bothOpposite = isFacingRight ? position.y > other.position.y : position.y < other.position.y;
-        if (bothOpposite) {
-          current = MonsterState.attack;
-          if (animationTicker!.currentIndex > 5) {
-            other.harmedBy(this, damagePower);
-          }
-        }
+        // }
+        // else if (other.isFacingRight == isFacingRight && other.current != PlayerState.attack) {
+        //   final bothOpposite = isFacingRight ? position.y > other.position.y : position.y < other.position.y;
+        //   if (bothOpposite) {
+        //     current = MonsterState.attack;
+        //     if (animationTicker!.currentIndex > 5) {
+        //       other.harmedBy(this, damagePower);
+        //     }
+        //   }
       } else {
         if (MonsterState.die == current) return super.onCollision(intersectionPoints, other);
         current = MonsterState.harm;
@@ -156,12 +204,10 @@ abstract class Monster extends GroundCharacterEntity {
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
-      if (other.isFacingRight == isFacingRight) {
-        if (isFacingRight) {
-          turnLeft();
-        } else {
-          turnRight();
-        }
+      if (other.position.x > position.x) {
+        turnRight();
+      } else {
+        turnLeft();
       }
     }
     super.onCollisionStart(intersectionPoints, other);
