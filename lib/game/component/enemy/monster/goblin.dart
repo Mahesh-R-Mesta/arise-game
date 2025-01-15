@@ -11,7 +11,7 @@ import 'package:flame/components.dart';
 class Goblin extends Monster with HasGameRef<AriseGame> {
   final bool bombing;
   Goblin({required super.damagePower, required super.rewardCoins, this.bombing = false, super.faceRight, super.position, super.size, super.scale})
-      : super(anchor: Anchor.center, hitBox: Vector2(30, 44), visibleRange: Vector2(200, 66), projectileRange: bombing ? Vector2(500, 66) : null);
+      : super(anchor: Anchor.center, hitBox: Vector2(30, 44), visibleRange: Vector2(200, 66), projectileRange: bombing ? Vector2(550, 66) : null);
 
   // final damagePower = 2.0;
   // final rewardPoint = 40;
