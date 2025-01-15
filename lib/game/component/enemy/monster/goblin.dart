@@ -7,7 +7,7 @@ import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/components.dart';
 
 class Goblin extends Monster with HasGameRef<AriseGame> {
-  Goblin({required super.damagePower, required super.rewardCoins, super.position, super.size, super.scale})
+  Goblin({required super.damagePower, required super.rewardCoins, super.faceRight, super.position, super.size, super.scale})
       : super(anchor: Anchor.center, hitBox: Vector2(30, 44), visibleRange: Vector2(250, 66));
 
   // final damagePower = 2.0;

@@ -8,7 +8,8 @@ import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/components.dart';
 
 class Mushroom extends Monster with HasGameRef<AriseGame> {
-  Mushroom({required super.damagePower, required super.rewardCoins, super.position}) : super(hitBox: Vector2(35, 44), visibleRange: Vector2(150, 66));
+  Mushroom({required super.damagePower, required super.rewardCoins, super.faceRight, super.position})
+      : super(hitBox: Vector2(35, 44), visibleRange: Vector2(150, 66));
 
   @override
   FutureOr<void> onLoad() {

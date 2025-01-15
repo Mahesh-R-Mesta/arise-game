@@ -8,7 +8,8 @@ import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/components.dart';
 
 class Skeleton extends Monster with HasGameRef<AriseGame> {
-  Skeleton({required super.damagePower, required super.rewardCoins, super.position}) : super(hitBox: Vector2(30, 44), visibleRange: Vector2(300, 66));
+  Skeleton({required super.damagePower, required super.rewardCoins, super.faceRight, super.position})
+      : super(hitBox: Vector2(30, 44), visibleRange: Vector2(300, 66));
 
   @override
   FutureOr<void> onLoad() {
@@ -29,12 +30,15 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonHarmed), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final running =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonRun), amount: 4, stepTime: 0.1, textureSize: Vector2.all(150));
+    final shield =
+        spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonRun), amount: 4, stepTime: 0.1, textureSize: Vector2.all(150));
     animations = {
       MonsterState.idle: idle,
       MonsterState.attack: attack,
       MonsterState.die: death,
       MonsterState.harm: harm,
-      MonsterState.running: running
+      MonsterState.running: running,
+      MonsterState.shield: shield
     };
 
     current = MonsterState.idle;

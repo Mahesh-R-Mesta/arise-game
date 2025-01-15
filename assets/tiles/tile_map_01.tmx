@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="10" nextobjectid="88">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="10" nextobjectid="106">
  <tileset firstgid="1" source="background_layer_1.tsx"/>
  <tileset firstgid="92" source="background_layer_2.tsx"/>
  <tileset firstgid="183" source="background_layer_3.tsx"/>
@@ -64,9 +64,9 @@
 0,0,0,590,0,589,0,0,0,0,0,0,0,594,592,0,279,280,280,280,280,280,280,282,0,284,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,280,280,281,282,0,0,0,0,0,
 275,275,275,276,275,276,277,0,0,0,0,0,274,275,275,275,296,296,296,296,296,296,296,298,0,286,0,284,0,0,0,0,0,0,0,0,0,0,366,366,366,366,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,484,484,484,484,298,0,0,0,0,0,
 296,296,296,296,296,296,298,589,0,592,0,326,295,296,296,296,296,296,296,296,296,296,296,298,0,286,0,286,0,284,589,0,591,0,0,0,589,279,280,280,280,281,280,280,280,280,280,280,280,275,280,280,280,280,280,282,0,0,0,0,0,0,0,0,0,0,0,0,0,0,288,290,291,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,280,484,484,484,484,484,298,589,0,0,0,0,
-296,296,296,296,296,296,445,275,275,275,275,275,442,296,296,296,296,296,296,296,296,296,296,296,275,276,275,275,275,275,275,275,275,275,275,275,275,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,275,275,275,275,275,275,275,277,397,274,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,296,296,296,296,296,296,296,296,275,275,275,275,275,
-296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,431,418,295,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
-296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,431,397,295,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
+296,296,296,296,296,296,445,275,275,275,275,275,442,296,296,296,296,296,296,296,296,296,296,296,275,276,275,275,275,275,275,275,275,275,275,275,275,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,275,275,275,275,277,460,274,277,397,274,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,296,296,296,296,296,296,296,296,275,275,275,275,275,
+296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,298,460,295,298,418,295,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
+296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,403,280,400,403,280,400,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
 296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296
 </data>
  </layer>
@@ -90,61 +90,61 @@
  </objectgroup>
  <objectgroup id="6" name="ground_layer">
   <object id="3" name="ground" type="ground" x="3.71968" y="122.083" width="161.735" height="5.75"/>
-  <object id="4" name="ground" type="ground" x="387.219" y="96.9163" width="184.667" height="3.83333">
-   <polygon points="0,0 184.667,0 184.667,3.83333 0,3.83333"/>
+  <object id="4" name="ground" type="ground" x="387.219" y="96.9163" width="186.667" height="3.83333">
+   <polygon points="0,0 186.667,0 186.667,3.83333 0,3.83333"/>
   </object>
   <object id="5" name="ground" type="ground" x="290.72" y="120.583" width="95.9773" height="3.91667"/>
   <object id="6" name="leftGroundWall" type="leftGroundWall" x="163.136" y="124.333" width="4.91667" height="50.0833"/>
-  <object id="7" name="rightGroundWall" type="rightGroundWall" x="289.166" y="122.916" width="5.21212" height="49.0378"/>
+  <object id="7" name="rightGroundWall" type="rightGroundWall" x="289.166" y="122.291" width="5.21212" height="53.1628"/>
   <object id="9" name="ground" type="ground" x="165.125" y="169.292" width="127.25" height="6.08333">
    <polygon points="0,0 127.25,0 127.25,6.08333 0,6.08333"/>
   </object>
-  <object id="10" name="rightGroundWall" type="rightGroundWall" x="264.394" y="149.231" width="5.21212" height="25.2878"/>
+  <object id="10" name="rightGroundWall" type="rightGroundWall" x="264.394" y="147.981" width="5.21212" height="26.5378"/>
   <object id="11" name="ground" type="ground" x="266.844" y="146.208" width="23.4469" height="4.44697">
    <polygon points="0,0 23.4469,0 23.4469,4.44697 0,4.44697"/>
   </object>
-  <object id="12" name="rightGroundWall" type="rightGroundWall" x="385.144" y="99.8561" width="3.79167" height="23.4128"/>
+  <object id="12" name="rightGroundWall" type="rightGroundWall" x="385.144" y="98.7311" width="3.79167" height="24.5378"/>
   <object id="13" name="leftGroundWall" type="leftGroundWall" x="569.792" y="99.4583" width="4.91667" height="74.8333"/>
   <object id="21" name="leftGroundWall" type="leftGroundWall" x="66.0417" y="59.9583" width="4.91667" height="64.0833"/>
   <object id="27" name="ground" type="ground" x="572.167" y="169.542" width="318.651" height="5.58333">
    <polygon points="0,0 318.651,0 318.651,5.58333 0,5.58333"/>
   </object>
-  <object id="28" name="leftGroundWall" type="leftGroundWall" x="619.148" y="99.25" width="4.91667" height="71.9242"/>
-  <object id="29" name="ground" type="ground" x="601.943" y="96.875" width="19.9012" height="3.76515">
-   <polygon points="0,0 19.9012,0 19.9012,3.76515 0,3.76515"/>
+  <object id="28" name="leftGroundWall" type="leftGroundWall" x="619.148" y="98.7045" width="4.91667" height="72.4697"/>
+  <object id="29" name="ground" type="ground" x="601.943" y="96.9659" width="19.9012" height="3.67424">
+   <polygon points="0,0 19.9012,0 19.9012,3.67424 0,3.67424"/>
   </object>
-  <object id="30" name="rightGroundWall" type="rightGroundWall" x="599.303" y="99.697" width="4.66667" height="71.5151"/>
-  <object id="31" name="ground" type="ground" x="650.133" y="121.451" width="20.1512" height="3.76515">
-   <polygon points="0,0 20.1512,0 20.1512,3.76515 0,3.76515"/>
+  <object id="30" name="rightGroundWall" type="rightGroundWall" x="599.303" y="98.7879" width="4.66667" height="72.4242"/>
+  <object id="31" name="ground" type="ground" x="650.446" y="119.906" width="19.8387" height="5.3106">
+   <polygon points="0,0 19.8387,0 19.8387,5.3106 0,5.3106"/>
   </object>
-  <object id="32" name="ground" type="ground" x="698.091" y="143.784" width="21.0262" height="3.76515">
-   <polygon points="0,0 21.0262,0 21.0262,3.76515 0,3.76515"/>
+  <object id="32" name="ground" type="ground" x="698.091" y="143.693" width="21.0262" height="3.85606">
+   <polygon points="0,0 21.0262,0 21.0262,3.85606 0,3.85606"/>
   </object>
-  <object id="33" name="rightGroundWall" type="rightGroundWall" x="648.167" y="124.083" width="4.04167" height="47.0909"/>
+  <object id="33" name="rightGroundWall" type="rightGroundWall" x="648.667" y="123.844" width="4.04167" height="47.4545"/>
   <object id="34" name="rightGroundWall" type="rightGroundWall" x="696.292" y="146.076" width="3.54167" height="24.5151"/>
-  <object id="35" name="leftGroundWall" type="leftGroundWall" x="668.208" y="123.663" width="4.04167" height="47.5909"/>
-  <object id="36" name="leftGroundWall" type="leftGroundWall" x="717.083" y="145.871" width="4.04167" height="26.5909"/>
-  <object id="38" name="rightGroundWall" type="rightGroundWall" x="888.667" y="147.515" width="4.16667" height="25.2424"/>
-  <object id="39" name="ground" type="ground" x="890.898" y="144.633" width="450.553" height="4.67424">
-   <polygon points="0,0 450.553,0 450.553,4.67424 0,4.67424"/>
+  <object id="35" name="leftGroundWall" type="leftGroundWall" x="668.208" y="123.572" width="4.04167" height="47.6818"/>
+  <object id="36" name="leftGroundWall" type="leftGroundWall" x="717.083" y="145.871" width="4.04167" height="24.5909"/>
+  <object id="38" name="rightGroundWall" type="rightGroundWall" x="888.667" y="146.697" width="4.16667" height="26.0606"/>
+  <object id="39" name="ground" type="ground" x="890.171" y="144.633" width="451.53" height="4.67424">
+   <polygon points="0,0 451.53,0 451.53,4.67424 0,4.67424"/>
   </object>
-  <object id="41" name="ground" type="ground" x="1339.06" y="169.239" width="195.386" height="3.67424">
-   <polygon points="0,0 195.386,0 195.386,3.67424 0,3.67424"/>
+  <object id="41" name="ground" type="ground" x="1339.93" y="168.489" width="122.022" height="3.67424">
+   <polygon points="0,0 122.022,0 122.022,3.67424 0,3.67424"/>
   </object>
-  <object id="43" name="leftGroundWall" type="leftGroundWall" x="1339.21" y="146.621" width="4.16667" height="26.5909"/>
-  <object id="54" name="ground" type="ground" x="1684.64" y="142.663" width="62.7197" height="4.67424">
-   <polygon points="0,0 62.7197,0 62.7197,4.67424 0,4.67424"/>
+  <object id="43" name="leftGroundWall" type="leftGroundWall" x="1339.21" y="146.621" width="4.16667" height="25.8409"/>
+  <object id="54" name="ground" type="ground" x="1684.64" y="142.663" width="62.7197" height="4.29924">
+   <polygon points="0,0 62.7197,0 62.7197,4.29924 0,4.29924"/>
   </object>
-  <object id="55" name="leftGroundWall" type="leftGroundWall" x="1532.92" y="170.371" width="4.16667" height="67.3409"/>
-  <object id="56" name="rightGroundWall" type="rightGroundWall" x="1560.58" y="169.962" width="4.66667" height="67.6591"/>
-  <object id="58" name="ground" type="ground" x="1533.64" y="232.496" width="29.8027" height="3.67424">
-   <polygon points="0,0 29.8027,0 29.8027,3.67424 0,3.67424"/>
+  <object id="55" name="leftGroundWall" type="leftGroundWall" x="1532.42" y="169.871" width="3.29167" height="49.0909"/>
+  <object id="56" name="rightGroundWall" type="rightGroundWall" x="1560.58" y="169.962" width="4.66667" height="47.9091"/>
+  <object id="58" name="ground" type="ground" x="1531.89" y="216.246" width="32.8027" height="3.67424">
+   <polygon points="0,0 32.8027,0 32.8027,3.67424 0,3.67424"/>
   </object>
   <object id="59" name="rightGroundWall" type="rightGroundWall" x="2090.42" y="146.17" width="4.41667" height="23.6591"/>
-  <object id="60" name="rightGroundWall" type="rightGroundWall" x="2135.79" y="123.92" width="4.66667" height="22.1591"/>
-  <object id="61" name="rightGroundWall" type="rightGroundWall" x="2160.54" y="99.6704" width="4.66667" height="21.6591"/>
-  <object id="62" name="ground" type="ground" x="2162.43" y="96.9545" width="115.386" height="4.00757">
-   <polygon points="0,0 115.386,0 115.386,4.00757 0,4.00757"/>
+  <object id="60" name="rightGroundWall" type="rightGroundWall" x="2136.41" y="122.67" width="4.66667" height="23.4091"/>
+  <object id="61" name="rightGroundWall" type="rightGroundWall" x="2160.54" y="99.4204" width="4.66667" height="21.9091"/>
+  <object id="62" name="ground" type="ground" x="2162.8" y="96.9545" width="115.011" height="4.00757">
+   <polygon points="0,0 115.011,0 115.011,4.00757 0,4.00757"/>
   </object>
   <object id="63" name="ground" type="ground" x="2138.6" y="120.871" width="25.7193" height="4.00757">
    <polygon points="0,0 25.7193,0 25.7193,4.00757 0,4.00757"/>
@@ -153,10 +153,21 @@
    <polygon points="0,0 46.8443,0 46.8443,4.00757 0,4.00757"/>
   </object>
   <object id="66" name="rightGroundWall" type="rightGroundWall" x="2227.83" y="38.2538" width="4.66667" height="62.6591"/>
-  <object id="73" name="leftGroundWall" type="leftGroundWall" x="1745.25" y="144.705" width="4.16667" height="27.0909"/>
-  <object id="74" name="rightGroundWall" type="rightGroundWall" x="1682.83" y="144.879" width="4.66667" height="27.5758"/>
-  <object id="75" name="ground" type="ground" x="1563.56" y="167.663" width="529.636" height="4.67424">
-   <polygon points="0,0 529.636,0 529.636,4.67424 0,4.67424"/>
+  <object id="73" name="leftGroundWall" type="leftGroundWall" x="1745.25" y="144.705" width="4.16667" height="27.5909"/>
+  <object id="74" name="rightGroundWall" type="rightGroundWall" x="1682.83" y="144.254" width="4.66667" height="28.2008"/>
+  <object id="75" name="ground" type="ground" x="1562.68" y="167.663" width="530.511" height="4.67424">
+   <polygon points="0,0 530.511,0 530.511,4.67424 0,4.67424"/>
+  </object>
+  <object id="89" name="ground" type="ground" x="1488.47" y="168.163" width="45.5186" height="4.04924">
+   <polygon points="0,0 45.5186,0 45.5186,4.04924 0,4.04924"/>
+  </object>
+  <object id="94" name="leftGroundWall" type="leftGroundWall" x="1459.36" y="170.35" width="4.16667" height="48.0909"/>
+  <object id="95" name="rightGroundWall" type="rightGroundWall" x="1487.52" y="170.316" width="4.04167" height="47.0341"/>
+  <object id="96" name="ground" type="ground" x="1459.33" y="216.475" width="32.8027" height="3.67424">
+   <polygon points="0,0 32.8027,0 32.8027,3.67424 0,3.67424"/>
+  </object>
+  <object id="97" name="Fire" type="Fire" x="1453.99" y="177.062">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="enemy">
@@ -208,19 +219,37 @@
     <property name="type" type="int" value="2"/>
    </properties>
   </object>
-  <object id="78" name="Fire" type="Fire" x="1529" y="206.333">
+  <object id="78" name="Fire" type="Fire" x="1528.25" y="176.833">
    <point/>
   </object>
-  <object id="83" name="goblin" type="goblin_attacker" x="1116" y="124">
+  <object id="87" name="goblin" type="goblin_attacker" x="466.5" y="66.25">
    <properties>
     <property name="damage" type="float" value="2"/>
+    <property name="faceDir" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
    </properties>
    <point/>
   </object>
-  <object id="87" name="goblin" type="goblin_attacker" x="425" y="71">
+  <object id="102" name="goblin" type="goblin_attacker" x="1223.5" y="123">
    <properties>
     <property name="damage" type="float" value="2"/>
+    <property name="faceLeft" type="bool" value="true"/>
+    <property name="reward" type="int" value="40"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="104" name="flying_eye" type="flying_eye_attacker" x="1046.67" y="58">
+   <properties>
+    <property name="damage" type="float" value="2"/>
+    <property name="faceDir" type="bool" value="false"/>
+    <property name="reward" type="int" value="40"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="105" name="goblin" type="goblin_attacker" x="1426" y="161.333">
+   <properties>
+    <property name="damage" type="float" value="2"/>
+    <property name="faceLeft" type="bool" value="true"/>
     <property name="reward" type="int" value="40"/>
    </properties>
    <point/>
@@ -275,7 +304,7 @@
    </properties>
    <point/>
   </object>
-  <object id="46" type="coin" x="1080" y="130.667">
+  <object id="46" type="coin" x="1074.67" y="134.667">
    <properties>
     <property name="amount" type="int" value="5"/>
    </properties>
@@ -287,7 +316,7 @@
    </properties>
    <point/>
   </object>
-  <object id="48" type="coin" x="1165.33" y="132">
+  <object id="48" type="coin" x="1162.33" y="131.5">
    <properties>
     <property name="amount" type="int" value="5"/>
    </properties>
@@ -359,9 +388,33 @@
    </properties>
    <point/>
   </object>
-  <object id="86" type="coin" x="1549.5" y="147.5">
+  <object id="86" type="coin" x="1551.92" y="144.75">
    <properties>
-    <property name="amount" type="int" value="5"/>
+    <property name="amount" type="int" value="10"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="98" type="coin" x="1512.32" y="156.591">
+   <properties>
+    <property name="amount" type="int" value="10"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="99" type="coin" x="1476.91" y="143.273">
+   <properties>
+    <property name="amount" type="int" value="10"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="100" type="coin" x="1452.55" y="158">
+   <properties>
+    <property name="amount" type="int" value="10"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="101" type="coin" x="1571.45" y="157.273">
+   <properties>
+    <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>

@@ -9,6 +9,12 @@ mixin AudioAsset {
   static const String swordSwing = "${path}sword-sound.mp3";
 }
 
+mixin AppAsset {
+  static const String path = "assets/images/app/";
+  static const String logo = "${path}logo.png";
+  static const String splash = "${path}splash.png";
+}
+
 mixin GameAssets {
   static const String character = "character/"; //character/char_blue_2.png
   static const String characterBlue2 = "${character}char_blue_2.png"; //character/
@@ -41,6 +47,10 @@ mixin EnemyAssets {
 
   static const String flyingEyeDeath = "${path}Flying_eye/death.png";
   static const String flyingEyeThrow = "${path}Flying_eye/Attack3.png";
+  static const String flyingEyeFlight = "${path}Flying_eye/flight.png";
+  static const String flyingEyeHarmed = "${path}Flying_eye/harmed.png";
+  static const String flyingEyeBombing = "${path}Flying_eye/projectile_sprite.png";
+  static const String flyingEyeAttack = "${path}Flying_eye/attack.png";
 
   static const String mushroomIdle = "${path}Mushroom/Idle.png";
   static const String mushroomRun = "${path}Mushroom/Run.png";

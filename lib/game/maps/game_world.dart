@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
+import 'package:arise_game/game/component/enemy/monster/flying_eye.dart';
 import 'package:arise_game/game/component/enemy/monster/goblin.dart';
 import 'package:arise_game/game/component/enemy/monster/mushroom.dart';
 import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
@@ -90,15 +91,23 @@ class GameWorld extends LeapWorld {
       } else if (enemy.class_ == "goblin_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
-        add(Goblin(position: position, damagePower: damage, rewardCoins: reward));
+        final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
+        add(Goblin(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
       } else if (enemy.class_ == "mushroom_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
-        add(Mushroom(position: position, damagePower: damage, rewardCoins: reward));
+        final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
+        add(Mushroom(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
       } else if (enemy.class_ == "skeleton_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
-        add(Skeleton(position: position, damagePower: damage, rewardCoins: reward));
+        final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
+        add(Skeleton(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
+      } else if (enemy.class_ == "flying_eye_attacker") {
+        final damage = enemy.properties.byName["damage"]!.value as double;
+        final reward = enemy.properties.byName["reward"]!.value as int;
+        final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
+        add(FlyingEye(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
       }
     }
   }

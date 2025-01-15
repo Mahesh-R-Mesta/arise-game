@@ -10,7 +10,8 @@ import 'package:vector_math/vector_math_64.dart';
 enum GroundType {
   bottom("ground"),
   left("leftGroundWall"),
-  right("rightGroundWall");
+  right("rightGroundWall"),
+  top("topFloor");
 
   final String type;
   const GroundType(this.type);
@@ -19,6 +20,8 @@ enum GroundType {
       return GroundType.right;
     } else if (GroundType.left.type == type) {
       return GroundType.left;
+    } else if (GroundType.top.type == type) {
+      return GroundType.top;
     } else {
       return GroundType.bottom;
     }
@@ -31,7 +34,8 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    debugMode = GameViewConfig.groundDebugMode;
+    debugMode = GameViewConfig.groundAllDebugMode;
+    if (type == GroundType.bottom && GameViewConfig.onlyBottomGroundDebug) debugMode = true;
     add(RectangleHitbox());
     return super.onLoad();
   }
@@ -46,7 +50,11 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
       if (type == GroundType.right || type == GroundType.left) {
         other.onCollideOnWall(type);
       }
+      if (type == GroundType.top) {
+        other.behavior.yVelocity = 0;
+      }
     }
+
     if (other is GameObjectAnimeGroup) {
       if (type == GroundType.bottom) {
         other.behavior.isOnGround = true;
@@ -54,6 +62,9 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
       }
       if (type == GroundType.right || type == GroundType.left) {
         other.onCollideOnWall(type);
+      }
+      if (type == GroundType.top) {
+        other.behavior.yVelocity = 0;
       }
     }
     super.onCollisionStart(intersectionPoints, other);
