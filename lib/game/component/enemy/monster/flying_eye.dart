@@ -1,5 +1,4 @@
-import 'dart:async' as async;
-import 'dart:math';
+import 'dart:async';
 
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/enemy/monster/monster.dart';
@@ -16,13 +15,13 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
   final flightHeight = 250.0;
 
   @override
-  async.FutureOr<void> onLoad() {
+  FutureOr<void> onLoad() {
     debugMode = false;
     behavior.isOnGround = true;
     scale = Vector2(1.5, 1.5);
     lifeline = Lifeline(playerBoxWidth: 250, yPosition: height + 70, scale: Vector2(0.6, 0.6));
     final flying = spriteAnimationSequence(
-        image: gameRef.images.fromCache(EnemyAssets.flyingEyeFlight), amount: 8, stepTime: 0.2, textureSize: Vector2.all(150));
+        image: gameRef.images.fromCache(EnemyAssets.flyingEyeFlight), amount: 8, stepTime: 0.1, textureSize: Vector2.all(150));
     final attack = spriteAnimationSequence(
         image: gameRef.images.fromCache(EnemyAssets.flyingEyeAttack), amount: 8, stepTime: 0.1, textureSize: Vector2.all(150));
     final harmed = spriteAnimationSequence(
@@ -41,25 +40,12 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
     return super.onLoad();
   }
 
-  async.Timer? guarding;
-  takeARound() {
-    guarding = async.Timer.periodic(Duration(milliseconds: Random().nextInt(2000) + 100), (_) {
-      if (isFacingRight) {
-        turnLeft();
-        moveLeft();
-      } else {
-        turnRight();
-        moveRight();
-      }
-    });
-  }
-
   Vector2? target;
 
   @override
   viewRange(Set<Vector2> intersect, PositionComponent other) {
     if (other is Player) {
-      guarding?.cancel();
+      guardingWalk?.cancel();
       target = intersect.first;
       super.viewRange(intersect, other);
     }

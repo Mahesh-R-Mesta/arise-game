@@ -71,7 +71,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="spawn">
-  <object id="1" name="Player" type="Player" x="146.334" y="94.1666">
+  <object id="1" name="Player" type="Player" x="931.001" y="112.167">
    <properties>
     <property name="damageCap" type="float" value="1"/>
     <property name="jumpForce" type="float" value="-2.4"/>
@@ -226,6 +226,7 @@
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
+    <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
    </properties>
    <point/>
@@ -234,6 +235,7 @@
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceLeft" type="bool" value="true"/>
+    <property name="projectileAttack" type="bool" value="true"/>
     <property name="reward" type="int" value="40"/>
    </properties>
    <point/>
@@ -242,14 +244,16 @@
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
+    <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
    </properties>
    <point/>
   </object>
-  <object id="105" name="goblin" type="goblin_attacker" x="1426" y="161.333">
+  <object id="105" name="goblin" type="goblin_attacker" x="1427.67" y="143">
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceLeft" type="bool" value="true"/>
+    <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
    </properties>
    <point/>

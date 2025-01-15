@@ -92,17 +92,20 @@ class GameWorld extends LeapWorld {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
-        add(Goblin(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
+        final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
+        add(Goblin(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, bombing: proAttack));
       } else if (enemy.class_ == "mushroom_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
-        add(Mushroom(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
+        final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
+        add(Mushroom(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, projectileAttack: proAttack));
       } else if (enemy.class_ == "skeleton_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
+        final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
-        add(Skeleton(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
+        add(Skeleton(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, projectileAttack: proAttack));
       } else if (enemy.class_ == "flying_eye_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
