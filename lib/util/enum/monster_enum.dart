@@ -1,7 +1,7 @@
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/projectile_enum.dart';
 
-enum MonsterState { idle, running, attack, harm, die, bombing }
+enum MonsterState { idle, running, attack, harm, die, bombing, shield }
 
 enum MonsterType {
   goblin(EnemyAssets.goblinBombingThrow, "", "", "", "", EnemyAssets.goblinDie, 12, Projectile.bomb), //Vector2(32, 40)

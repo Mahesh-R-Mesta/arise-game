@@ -21,6 +21,8 @@ abstract class GroundCharacterEntity extends GameObjectAnimeGroup {
     return super.onLoad();
   }
 
+  bool get isPlayerHittingWall => hittingLeftWall || hittingRightWall;
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is GroundBlock) {

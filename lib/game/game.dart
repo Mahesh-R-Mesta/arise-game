@@ -9,6 +9,7 @@ import 'package:arise_game/game/overlay/game_lost.dart';
 import 'package:arise_game/game/overlay/game_resume.dart';
 import 'package:arise_game/game/overlay/game_start_intro.dart';
 import 'package:arise_game/game/overlay/won_overlay.dart';
+import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,8 +22,8 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
-  List<String> tileMapAsset = ["tile_map_01.tmx", "tile_map_02.tmx"];
-  int level = 0;
+  List<String> tileMapAsset = ["story_1.tmx", "tile_map_01.tmx", "tile_map_02.tmx", "tile_map_03.tmx"];
+  int level = 1;
   Key gameWidgetKey = UniqueKey();
 
   @override
@@ -52,6 +53,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                 "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
               },
               initialActiveOverlays: ["startGame"],
+              loadingBuilder: (ctx) => Center(child: Image.asset(AppAsset.logo, width: size.height * 0.5, height: size.height * 0.5)),
               backgroundBuilder: (ctx) => background(size));
         });
   }

@@ -13,7 +13,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:get_it/get_it.dart';
 
-class Monster extends GroundCharacterEntity {
+abstract class Monster extends GroundCharacterEntity {
   final double damagePower;
   final int rewardCoins;
   final Vector2 hitBox;
@@ -21,11 +21,17 @@ class Monster extends GroundCharacterEntity {
 
   bool activeFollow = false;
 
+  int hit = 0;
+  int hitLimit = 30;
+
+  bool faceRight;
+
   Monster(
       {required this.damagePower,
       required this.rewardCoins,
       required this.visibleRange,
       required this.hitBox,
+      this.faceRight = true,
       super.position,
       super.size,
       super.anchor,
@@ -35,34 +41,56 @@ class Monster extends GroundCharacterEntity {
   @override
   FutureOr<void> onLoad() {
     anchor = Anchor.center;
-
+    // debugMode = true;
     add(lifeline);
+    if (!faceRight) {
+      flipHorizontallyAroundCenter();
+      isFacingRight = false;
+    }
     current = MonsterState.idle;
     add(RectangleHitbox(anchor: Anchor.center, position: Vector2(width / 2, (height / 2) + 6), size: hitBox));
-    add(MonsterSight(inViewRang: _viewRange, visibleRange: visibleRange, parentSize: size));
+    add(MonsterSight(inViewRang: viewRange, visibleRange: visibleRange, parentSize: size));
     return super.onLoad();
   }
 
-  _viewRange(Set<Vector2> intersect, PositionComponent other) {
+  turnLeft() {
+    if (isFacingRight) {
+      flipHorizontallyAroundCenter();
+      isFacingRight = false;
+    }
+  }
+
+  moveLeft() {
+    current = MonsterState.running;
+    behavior
+      ..applyForceX(60)
+      ..horizontalMovement = -1;
+  }
+
+  turnRight() {
+    if (!isFacingRight) {
+      flipHorizontallyAroundCenter();
+      isFacingRight = true;
+    }
+  }
+
+  moveRight() {
+    current = MonsterState.running;
+    behavior
+      ..applyForceX(60)
+      ..horizontalMovement = 1;
+  }
+
+  viewRange(Set<Vector2> intersect, PositionComponent other) {
     if (other is Player) {
       if (other.position.x > position.x) {
-        if (!isFacingRight) {
-          flipHorizontallyAroundCenter();
-          isFacingRight = true;
-        }
-        current = MonsterState.running;
-        behavior
-          ..applyForceX(70)
-          ..horizontalMovement = 1;
+        turnRight();
+        if (isPlayerHittingWall) return;
+        moveRight();
       } else {
-        if (isFacingRight) {
-          flipHorizontallyAroundCenter();
-          isFacingRight = false;
-        }
-        current = MonsterState.running;
-        behavior
-          ..applyForceX(70)
-          ..horizontalMovement = -1;
+        turnLeft();
+        if (isPlayerHittingWall) return;
+        moveLeft();
       }
     }
   }
@@ -76,13 +104,33 @@ class Monster extends GroundCharacterEntity {
         if (animationTicker!.currentIndex > 5) {
           other.harmedBy(this, damagePower);
         }
+      } else if (other.isFacingRight == isFacingRight && other.current != PlayerState.attack) {
+        final bothOpposite = isFacingRight ? position.y > other.position.y : position.y < other.position.y;
+        if (bothOpposite) {
+          current = MonsterState.attack;
+          if (animationTicker!.currentIndex > 5) {
+            other.harmedBy(this, damagePower);
+          }
+        }
       } else {
         if (MonsterState.die == current) return super.onCollision(intersectionPoints, other);
         current = MonsterState.harm;
+        onHarmed();
         harmed(other.damageCapacity * 0.5);
       }
     }
     super.onCollision(intersectionPoints, other);
+  }
+
+  void onHarmed() {}
+
+  moveAside() async {
+    behavior.horizontalMovement = isFacingRight ? -1 : 1;
+    current = MonsterState.running;
+    await Future.delayed(const Duration(seconds: 1), () {
+      behavior.horizontalMovement = 0;
+      current = MonsterState.idle;
+    });
   }
 
   @override
@@ -94,9 +142,29 @@ class Monster extends GroundCharacterEntity {
         ..applyForceY(-3.7)
         ..isOnGround = false;
       await Future.delayed(const Duration(milliseconds: 100));
-      behavior.horizontalMovement = dir;
+      if (!isPlayerHittingWall) {
+        if (dir != 0) {
+          behavior.horizontalMovement = dir;
+        } else {
+          behavior.horizontalMovement = isFacingRight ? 1 : -1;
+        }
+      }
     }
     super.onCollideOnWall(type);
+  }
+
+  @override
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Player) {
+      if (other.isFacingRight == isFacingRight) {
+        if (isFacingRight) {
+          turnLeft();
+        } else {
+          turnRight();
+        }
+      }
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override
@@ -117,6 +185,7 @@ class Monster extends GroundCharacterEntity {
     if (lifeline.health == 0) {
       playerEarnedCoin.receivedCoin(rewardCoins);
       current = MonsterState.die;
+
       Future.delayed(Duration(milliseconds: (animation!.frames.first.stepTime * animation!.frames.length * 1000).toInt()), () => removeFromParent());
     }
   }
