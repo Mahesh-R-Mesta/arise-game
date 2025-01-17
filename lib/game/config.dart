@@ -3,6 +3,7 @@ mixin GameViewConfig {
   static bool groundAllDebugMode = false;
   static bool onlyBottomGroundDebug = false;
   static const bool playerDebug = false;
+  static const bool monsterDebug = false;
   static const double ACTUAL_TILE = 24;
   static const double MODIFIED_TILE = 64;
 

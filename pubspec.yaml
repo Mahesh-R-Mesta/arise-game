@@ -83,6 +83,7 @@ flutter:
     - assets/svg/
     - assets/images/app/
     - assets/images/background/
+    - assets/images/background/decorations/torch_big/
     - assets/images/background/decorations/
     - assets/images/character/Skeleton/
     - assets/images/character/Mushroom/

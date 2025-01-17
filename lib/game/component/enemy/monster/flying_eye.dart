@@ -4,6 +4,7 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/enemy/monster/monster.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
+import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/components.dart';
@@ -16,7 +17,7 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = false;
+    debugMode = GameViewConfig.monsterDebug;
     behavior.isOnGround = true;
     scale = Vector2(1.5, 1.5);
     lifeline = Lifeline(playerBoxWidth: 250, yPosition: height + 70, scale: Vector2(0.6, 0.6));

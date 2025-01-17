@@ -9,6 +9,7 @@ import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
+import 'package:arise_game/game/component/items/fire_stick.dart';
 import 'package:arise_game/game/component/items/shape.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
@@ -126,6 +127,9 @@ class GameWorld extends LeapWorld {
       if (item.class_ == "wormhole") {
         final type = item.properties.byName["type"]!.value as String;
         add(WormHole(type: Worm.parse(type), position: position));
+      }
+      if (item.class_ == "fire_stick") {
+        add(FireStick(position: position));
       }
     }
   }

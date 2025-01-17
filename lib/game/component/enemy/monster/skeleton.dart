@@ -4,6 +4,7 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/enemy/monster/monster.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
+import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:arise_game/util/enum/projectile_enum.dart';
@@ -20,7 +21,7 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
       ..drag = 0.005
       ..xVelocity = 35
       ..isOnGround = false;
-    // debugMode = true;
+    debugMode = GameViewConfig.monsterDebug;
     scale = Vector2(1.5, 1.5);
     lifeline = Lifeline(playerBoxWidth: 250, yPosition: height + 70, scale: Vector2(0.6, 0.6));
     final idle =
@@ -35,13 +36,16 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonRun), amount: 4, stepTime: 0.1, textureSize: Vector2.all(150));
     final shield =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonRun), amount: 4, stepTime: 0.1, textureSize: Vector2.all(150));
+    final swordThrow =
+        spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonThrow), amount: 6, stepTime: 0.3, textureSize: Vector2.all(150));
     animations = {
       MonsterState.idle: idle,
       MonsterState.attack: attack,
       MonsterState.die: death,
       MonsterState.harm: harm,
       MonsterState.running: running,
-      MonsterState.shield: shield
+      MonsterState.shield: shield,
+      MonsterState.bombing: swordThrow,
     };
 
     current = MonsterState.idle;
