@@ -22,7 +22,7 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
       ..drag = 0.005
       ..xVelocity = 60
       ..isOnGround = false;
-    debugMode = true;
+    // debugMode = true;
     scale = Vector2(1.5, 1.5);
     lifeline = Lifeline(playerBoxWidth: 250, yPosition: height + 70, scale: Vector2(0.6, 0.6));
     final idle =

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:arise_game/game/component/helper/object_entity.dart';
+import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/src/components/position_component.dart';
@@ -53,6 +54,15 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
       if (type == GroundType.top) {
         other.behavior.yVelocity = 0;
       }
+    }
+    // ground sticking issue fixed
+    if (type == GroundType.bottom && other is Player) {
+      double groundLevelThreshold = (other.position.y + other.height) - position.y - 50;
+      if (groundLevelThreshold > 3) {
+        other.position.y -= groundLevelThreshold;
+      }
+      print("${other.position.y + other.height}   ${position.y}");
+      print("digged -> ${(other.position.y + other.height) - position.y}");
     }
 
     if (other is GameObjectAnimeGroup) {
