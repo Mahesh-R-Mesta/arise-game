@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="120" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="10" nextobjectid="150">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="120" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="10" nextobjectid="194">
  <tileset firstgid="1" source="background_layer_1.tsx"/>
  <tileset firstgid="92" source="background_layer_2.tsx"/>
  <tileset firstgid="183" source="background_layer_3.tsx"/>
@@ -59,19 +59,19 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,280,280,280,280,280,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,400,296,296,296,296,296,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,346,3221225752,1610613136,296,296,296,296,296,
-0,591,589,592,591,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,362,362,295,296,296,296,296,296,
-275,275,275,275,275,277,0,326,0,326,0,326,0,326,0,0,0,593,0,594,0,0,0,593,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,280,280,452,0,0,279,281,282,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,295,296,296,296,296,296,
-296,296,296,296,296,298,592,0,591,0,0,592,0,591,592,279,280,281,280,412,413,281,280,281,280,282,0,0,591,593,590,590,0,590,0,591,0,590,0,592,590,590,0,591,0,0,0,592,0,279,296,296,296,2684354840,0,0,409,296,296,282,0,0,0,0,0,0,0,0,0,326,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,591,0,0,0,591,0,0,0,0,0,592,0,0,0,591,0,0,0,0,592,0,0,0,592,0,0,0,0,295,296,296,296,296,296,
-296,296,296,296,296,445,275,275,275,275,275,275,275,275,275,442,296,296,296,296,296,296,296,296,296,296,275,275,275,275,280,280,275,280,280,275,275,280,280,275,280,280,280,275,275,275,275,275,276,296,296,296,296,2684354840,526,527,1610613162,338,338,338,496,496,496,496,496,496,496,496,496,496,526,526,526,274,275,277,338,468,338,468,338,468,338,468,338,274,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,280,280,280,280,280,280,280,280,281,281,281,
-296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,2684354840,526,527,526,526,526,526,526,526,526,526,526,526,526,526,526,527,547,547,281,296,296,403,281,280,280,280,281,280,281,280,281,400,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
-296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,2684354840,547,548,547,547,547,547,547,547,547,547,547,547,547,547,547,548,547,281,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
-296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,403,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,400,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,383,295,296,296,296,296,296,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,383,383,295,296,296,296,296,296,
+0,591,589,592,591,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,379,380,280,280,280,381,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,362,362,295,296,296,296,296,296,
+275,275,275,275,275,277,0,326,0,326,0,326,0,326,0,0,0,593,0,594,0,0,0,593,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,367,379,295,296,296,296,296,296,2684354840,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,295,296,296,296,296,296,
+296,296,296,296,296,298,592,0,591,0,0,592,0,591,592,279,280,281,280,412,413,281,280,281,280,282,0,0,591,593,590,590,0,590,0,591,0,590,0,592,590,590,0,591,590,590,0,590,0,367,367,367,296,296,296,296,296,296,296,367,0,0,326,0,0,0,0,0,0,370,324,0,326,0,0,0,0,0,0,0,0,0,0,0,0,0,591,0,0,0,591,0,0,0,0,0,592,0,0,0,591,0,0,0,0,592,0,0,0,592,0,0,0,0,295,296,296,296,296,296,
+296,296,296,296,296,445,275,275,275,275,275,275,275,275,275,442,296,296,296,296,296,296,296,296,296,296,275,275,275,275,280,280,275,280,280,275,275,280,280,275,280,280,280,275,281,281,275,281,281,276,413,280,280,280,496,496,497,497,497,497,496,496,496,496,496,496,496,496,496,496,496,496,496,412,275,277,338,468,338,468,338,468,338,468,338,274,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,275,280,280,280,280,280,280,280,280,281,281,281,
+296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,2684354840,526,527,526,526,526,526,526,526,526,526,526,526,526,526,526,527,547,548,548,1610613017,296,403,281,280,280,280,281,280,281,280,281,400,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
+296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,2684354840,547,548,547,547,547,547,547,547,547,547,547,547,547,547,547,548,547,548,548,1610613017,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,
+296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,403,281,281,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,400,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296,296
 </data>
  </layer>
  <objectgroup id="4" name="spawn">
-  <object id="42" name="Player" type="Player" x="123.894" y="86.803">
+  <object id="42" name="Player" type="Player" x="119.47" y="63.0757">
    <properties>
     <property name="damageCap" type="float" value="1"/>
     <property name="jumpForce" type="float" value="-2.6"/>
@@ -171,43 +171,43 @@
    </properties>
    <point/>
   </object>
-  <object id="134" type="coin" x="1623.33" y="225.333">
+  <object id="134" type="coin" x="1584.33" y="225.333">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
-  <object id="135" type="coin" x="1458.67" y="222.667">
+  <object id="135" type="coin" x="1512.12" y="229.031">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
-  <object id="136" type="coin" x="1384.67" y="220">
+  <object id="136" type="coin" x="1463.4" y="230.182">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
-  <object id="146" type="coin" x="1309.67" y="135.667">
+  <object id="146" type="coin" x="1363.03" y="228.819">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
-  <object id="147" type="coin" x="1310.67" y="157.333">
+  <object id="147" type="coin" x="1404.46" y="227.575">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
-  <object id="148" type="coin" x="1310" y="181">
+  <object id="148" type="coin" x="1341.25" y="226.917">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
    <point/>
   </object>
-  <object id="149" type="coin" x="1313" y="206.333">
+  <object id="149" type="coin" x="1386.75" y="212.916">
    <properties>
     <property name="amount" type="int" value="10"/>
    </properties>
@@ -215,7 +215,7 @@
   </object>
  </objectgroup>
  <objectgroup id="5" name="ground_layer">
-  <object id="2" name="ground" type="ground" x="143.5" y="169.125" width="1033.67" height="5.75"/>
+  <object id="2" name="ground" type="ground" x="143.5" y="167.625" width="1678.75" height="7.25"/>
   <object id="3" name="ground" type="ground" x="0.166333" y="120.792" width="140.667" height="5.75"/>
   <object id="4" name="leftGroundWall" type="leftGroundWall" x="138.208" y="123.625" width="4.91667" height="50.0833"/>
   <object id="12" name="ground" type="ground" x="169.199" y="122.464" width="21.9753" height="5.75"/>
@@ -233,33 +233,18 @@
   <object id="44" name="rightGroundWall" type="rightGroundWall" x="360.958" y="147.424" width="5.33333" height="22.4696"/>
   <object id="129" name="rightGroundWall" type="rightGroundWall" x="360.958" y="147.424" width="5.33333" height="22.4696"/>
   <object id="45" name="leftGroundWall" type="leftGroundWall" x="619.136" y="147.349" width="5" height="23.8484"/>
-  <object id="54" name="ground" type="ground" x="1344.16" y="167.625" width="332.67" height="5.75"/>
-  <object id="55" name="ground" type="ground" x="1203.16" y="120.125" width="90.17" height="5.75"/>
-  <object id="56" name="ground" type="ground" x="1346.41" y="120.125" width="64.67" height="5.75"/>
-  <object id="57" name="ground" type="ground" x="1178.66" y="143.125" width="24.92" height="5.75"/>
-  <object id="58" name="ground" type="ground" x="1409.29" y="145.125" width="26.92" height="5.75"/>
   <object id="59" name="ground" type="ground" x="2040.79" y="168.375" width="839.045" height="5.75"/>
-  <object id="60" name="rightGroundWall" type="rightGroundWall" x="1175.72" y="145.75" width="5.33333" height="22.4696"/>
-  <object id="61" name="rightGroundWall" type="rightGroundWall" x="1200.76" y="123.046" width="5.33333" height="23.2196"/>
-  <object id="62" name="leftGroundWall" type="leftGroundWall" x="1408.91" y="122.494" width="5" height="23.8484"/>
-  <object id="63" name="leftGroundWall" type="leftGroundWall" x="1433.77" y="146.822" width="5" height="25.8484"/>
-  <object id="64" name="rightGroundWall" type="rightGroundWall" x="1344.08" y="124.14" width="5.33333" height="66.9696"/>
-  <object id="65" name="leftGroundWall" type="leftGroundWall" x="1291.25" y="123.326" width="5" height="118.348"/>
-  <object id="66" name="ground" type="ground" x="1292.16" y="240.625" width="413.17" height="5.75"/>
-  <object id="67" name="ground" type="ground" x="1705.53" y="215.375" width="21.9314" height="4.84091"/>
-  <object id="68" name="ground" type="ground" x="1730.29" y="191.875" width="22.17" height="4.75"/>
-  <object id="69" name="rightGroundWall" type="rightGroundWall" x="1703.24" y="218.64" width="4.42424" height="26.6741"/>
-  <object id="70" name="rightGroundWall" type="rightGroundWall" x="1727.58" y="194.015" width="4.33333" height="24.4696"/>
-  <object id="71" name="rightGroundWall" type="rightGroundWall" x="1751.71" y="169.39" width="4.33333" height="24.4696"/>
-  <object id="72" name="leftGroundWall" type="leftGroundWall" x="1674.75" y="170.201" width="5" height="21.8484"/>
+  <object id="61" name="rightGroundWall" type="rightGroundWall" x="1406.76" y="114.713" width="5.33333" height="26.2196"/>
+  <object id="65" name="leftGroundWall" type="leftGroundWall" x="1291.25" y="192.326" width="5" height="55.348"/>
+  <object id="66" name="ground" type="ground" x="1291.83" y="240.292" width="464.753" height="6.08333"/>
+  <object id="71" name="rightGroundWall" type="rightGroundWall" x="1751.71" y="190.14" width="4.33333" height="55.4696"/>
   <object id="80" name="topFloor" type="topFloor" x="170.75" y="140" width="19.3333" height="4.5"/>
   <object id="82" name="topFloor" type="topFloor" x="217.75" y="139.75" width="20" height="4.5"/>
   <object id="83" name="topFloor" type="topFloor" x="267.25" y="138.5" width="20" height="4.5"/>
   <object id="84" name="topFloor" type="topFloor" x="314.25" y="137.75" width="20" height="4.5"/>
-  <object id="85" name="topFloor" type="topFloor" x="1345.75" y="188.75" width="331" height="4.5"/>
+  <object id="85" name="topFloor" type="topFloor" x="1292.42" y="188.75" width="459.083" height="4.5"/>
   <object id="91" name="ground" type="ground" x="1821.25" y="190.958" width="27.5033" height="4.75"/>
   <object id="92" name="rightGroundWall" type="rightGroundWall" x="1848.02" y="169.538" width="4.0606" height="24.4469"/>
-  <object id="93" name="ground" type="ground" x="1753.92" y="167.292" width="68.17" height="4.75"/>
   <object id="94" name="leftGroundWall" type="leftGroundWall" x="1819.5" y="169.367" width="4.375" height="25.4052"/>
   <object id="95" name="ground" type="ground" x="1849.99" y="167.25" width="19.6738" height="4.375"/>
   <object id="96" name="ground" type="ground" x="1868.55" y="192.042" width="27.5033" height="4.75"/>
@@ -280,6 +265,16 @@
   <object id="126" name="rightGroundWall" type="rightGroundWall" x="2722.47" y="79.9015" width="4.0606" height="92.6969"/>
   <object id="127" name="leftGroundWall" type="leftGroundWall" x="91.5417" y="49.4583" width="4.91667" height="74.5833"/>
   <object id="130" name="rightGroundWall" type="rightGroundWall" x="168.333" y="123.894" width="5.33333" height="18.9617"/>
+  <object id="150" name="leftGroundWall" type="leftGroundWall" x="1248.5" y="114.993" width="5" height="27.6813"/>
+  <object id="152" name="topFloor" type="topFloor" x="1224.17" y="140.083" width="30.6667" height="4.5"/>
+  <object id="153" name="topFloor" type="topFloor" x="1250" y="113.083" width="160.667" height="4.5"/>
+  <object id="163" name="topFloor" type="topFloor" x="1407" y="138.75" width="32" height="4.5"/>
+  <object id="173" name="ground" type="ground" x="1489.75" y="145.957" width="19.3627" height="5.75"/>
+  <object id="174" name="leftGroundWall" type="leftGroundWall" x="1506.25" y="147.783" width="5" height="18.9275"/>
+  <object id="175" name="rightGroundWall" type="rightGroundWall" x="1487.42" y="148.143" width="5.33333" height="18.4617"/>
+  <object id="177" name="ground" type="ground" x="1729.08" y="145.623" width="19.3627" height="5.75"/>
+  <object id="178" name="leftGroundWall" type="leftGroundWall" x="1745.58" y="147.449" width="5" height="18.9275"/>
+  <object id="179" name="rightGroundWall" type="rightGroundWall" x="1726.75" y="147.809" width="5.33333" height="18.4617"/>
  </objectgroup>
  <objectgroup id="8" name="items">
   <object id="20" name="wormhole" type="wormhole" x="100.333" y="32.1667">
@@ -294,7 +289,7 @@
    </properties>
    <point/>
   </object>
-  <object id="141" name="fire_stick" type="fire_stick" x="1320.5" y="207.5">
+  <object id="141" name="fire_stick" type="fire_stick" x="1370.83" y="206.5">
    <point/>
   </object>
   <object id="142" name="fire_stick" type="fire_stick" x="1430" y="207.5">
@@ -306,7 +301,57 @@
   <object id="144" name="fire_stick" type="fire_stick" x="1623" y="208">
    <point/>
   </object>
-  <object id="145" name="fire_stick" type="fire_stick" x="1701.33" y="192">
+  <object id="145" name="fire_stick" type="fire_stick" x="1702.66" y="209">
+   <point/>
+  </object>
+  <object id="154" name="fire_stick" type="fire_stick" x="1273.33" y="133">
+   <point/>
+  </object>
+  <object id="155" name="fire_stick" type="fire_stick" x="1333.67" y="131">
+   <point/>
+  </object>
+  <object id="156" name="fire_stick" type="fire_stick" x="1386.33" y="132">
+   <point/>
+  </object>
+  <object id="157" name="table" type="table" x="1338.67" y="152.167">
+   <point/>
+  </object>
+  <object id="159" name="table" type="table" x="1624.83" y="218.167">
+   <point/>
+  </object>
+  <object id="160" name="leftChair" type="leftChair" x="1662.35" y="214.47">
+   <point/>
+  </object>
+  <object id="161" name="rightChair" type="rightChair" x="1599.83" y="216">
+   <point/>
+  </object>
+  <object id="162" name="bookShelf2" type="bookShelf2" x="1720.67" y="200.333">
+   <point/>
+  </object>
+  <object id="171" name="bookShelf1" type="bookShelf1" x="1540" y="205.667">
+   <point/>
+  </object>
+  <object id="181" name="door" type="door" x="1286.67" y="132.667">
+   <properties>
+    <property name="front" type="bool" value="true"/>
+    <property name="id" value="ground1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="183" name="door" type="door" x="1315" y="207.333">
+   <properties>
+    <property name="front" type="bool" value="false"/>
+    <property name="id" value="ground1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="184" name="leftChair" type="leftChair" x="1382.33" y="151.333">
+   <point/>
+  </object>
+  <object id="185" name="newSword" type="magicalSword" x="1696" y="223.667">
+   <point/>
+  </object>
+  <object id="190" name="health" type="health" x="1635.64" y="207.273">
    <point/>
   </object>
  </objectgroup>
@@ -338,14 +383,14 @@
   <object id="19" name="Fire" type="Fire" x="300" y="132.333">
    <point/>
   </object>
-  <object id="39" name="flyingEye" type="flyingEye" x="1289.93" y="102.705">
+  <object id="39" name="flyingEye" type="flyingEye" x="1211.6" y="154.955">
    <properties>
     <property name="damage" type="float" value="0.3"/>
     <property name="reward" type="int" value="18"/>
    </properties>
    <point/>
   </object>
-  <object id="73" name="Boar" type="boar" x="1320.25" y="210.083" width="21.5" height="20.5">
+  <object id="73" name="Boar" type="boar" x="1522.67" y="140.75" width="21.5" height="20.5">
    <properties>
     <property name="damageCapacity" type="float" value="1.2"/>
     <property name="damageReward" type="int" value="15"/>
@@ -353,7 +398,7 @@
     <property name="type" type="int" value="3"/>
    </properties>
   </object>
-  <object id="74" name="Boar" type="boar" x="1661" y="213.5" width="21.5" height="20.5">
+  <object id="74" name="Boar" type="boar" x="1621.5" y="143" width="21.5" height="20.5">
    <properties>
     <property name="damageCapacity" type="float" value="1.1"/>
     <property name="damageReward" type="int" value="15"/>
@@ -361,31 +406,17 @@
     <property name="type" type="int" value="2"/>
    </properties>
   </object>
-  <object id="75" name="Boar" type="boar" x="1417" y="213.75" width="21.5" height="20.5">
-   <properties>
-    <property name="damageCapacity" type="float" value="1.5"/>
-    <property name="damageReward" type="int" value="25"/>
-    <property name="speed" type="float" value="80"/>
-    <property name="type" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="76" name="goblin" type="goblin" x="1691.33" y="226">
-   <properties>
-    <property name="damage" type="float" value="0.5"/>
-    <property name="reward" type="int" value="10"/>
-   </properties>
-   <point/>
-  </object>
   <object id="77" name="skeleton" type="skeleton_attacker" x="782.167" y="132.167">
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
+    <property name="takeAround" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
-  <object id="78" name="mushroom" type="mushroom_attacker" x="1576" y="212.5">
+  <object id="78" name="mushroom" type="mushroom_attacker" x="1674.01" y="217.803">
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
@@ -412,6 +443,7 @@
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
+    <property name="takeAround" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -421,6 +453,7 @@
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
+    <property name="takeAround" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -430,6 +463,7 @@
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
+    <property name="takeAround" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -439,6 +473,7 @@
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="true"/>
     <property name="reward" type="int" value="40"/>
+    <property name="takeAround" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -452,6 +487,15 @@
    <point/>
   </object>
   <object id="140" name="Fire" type="Fire" x="1813" y="136.5">
+   <point/>
+  </object>
+  <object id="164" name="goblin" type="goblin_attacker" x="1575.38" y="221.25">
+   <properties>
+    <property name="damage" type="float" value="2"/>
+    <property name="faceLeft" type="bool" value="false"/>
+    <property name="projectileAttack" type="bool" value="true"/>
+    <property name="reward" type="int" value="40"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

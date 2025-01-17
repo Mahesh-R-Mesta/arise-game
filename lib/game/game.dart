@@ -1,6 +1,7 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
+import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/bloc/player/game_state.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/game/maps/game_world.dart';
@@ -10,6 +11,7 @@ import 'package:arise_game/game/overlay/game_resume.dart';
 import 'package:arise_game/game/overlay/game_start_intro.dart';
 import 'package:arise_game/game/overlay/won_overlay.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
+import 'package:arise_game/util/levels.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,40 +24,29 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
-  List<String> tileMapAsset = ["story_1.tmx", "tile_map_01.tmx", "tile_map_02.tmx", "tile_map_03.tmx"];
-  int level = 1;
-  Key gameWidgetKey = UniqueKey();
+  Key gameKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return BlocBuilder<GameBloc, GameState>(
-        buildWhen: (previous, current) => false, //current is GameRunning,
-        builder: (context, gameState) {
-          return GameWidget.controlled(
-              key: gameWidgetKey,
-              gameFactory: () =>
-                  AriseGame(gameMap: tileMapAsset[level], screenSize: size, tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
-              overlayBuilderMap: {
-                "startGame": (context, game) => GameStartIntro(gameLevel: level + 1, game: game as AriseGame),
-                "controller": (context, game) => GameControls(game: game as AriseGame),
-                "gameWon": (context, game) => GameWon(
-                    game: game as AriseGame,
-                    nexLevel: () => setState(() {
-                          level += 1;
-                          gameWidgetKey = UniqueKey();
-                        })),
-                "gameLost": (context, game) => GameLost(
-                    game: game as AriseGame,
-                    restart: () => setState(() {
-                          gameWidgetKey = UniqueKey();
-                        })),
-                "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
-              },
-              initialActiveOverlays: ["startGame"],
-              loadingBuilder: (ctx) => Center(child: Image.asset(AppAsset.logo, width: size.height * 0.5, height: size.height * 0.5)),
-              backgroundBuilder: (ctx) => background(size));
-        });
+    return BlocBuilder<GameBloc, GameState>(buildWhen: (previous, current) {
+      return previous.level != current.level || current is GameRestart;
+    }, builder: (context, gameBloc) {
+      return GameWidget.controlled(
+          key: gameKey,
+          gameFactory: () =>
+              AriseGame(gameMap: Level.levels[gameBloc.level - 1].map, screenSize: size, tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
+          overlayBuilderMap: {
+            "startGame": (context, game) => GameStartIntro(level: Level.levels[gameBloc.level - 1], game: game as AriseGame),
+            "controller": (context, game) => GameControls(game: game as AriseGame),
+            "gameWon": (context, game) => GameWon(game: game as AriseGame, nexLevel: () => gameKey = UniqueKey()),
+            "gameLost": (context, game) => GameLost(game: game as AriseGame, restart: () => gameKey = UniqueKey()),
+            "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
+          },
+          initialActiveOverlays: ["startGame"],
+          loadingBuilder: (ctx) => Center(child: Image.asset(AppAsset.logo, width: size.height * 0.5, height: size.height * 0.5)),
+          backgroundBuilder: (ctx) => background(size));
+    });
   }
 
   Widget earningView() {

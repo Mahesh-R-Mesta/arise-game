@@ -77,6 +77,19 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
         other.behavior.yVelocity = 0;
       }
     }
+
+    if (other is GameObjectSprite) {
+      if (type == GroundType.bottom) {
+        other.behavior.isOnGround = true;
+        other.behavior.yVelocity = 0;
+      }
+      if (type == GroundType.right || type == GroundType.left) {
+        other.onCollideOnWall(type);
+      }
+      if (type == GroundType.top) {
+        other.behavior.yVelocity = 0;
+      }
+    }
     super.onCollisionStart(intersectionPoints, other);
   }
 
@@ -97,6 +110,9 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
       if (type == GroundType.bottom) other.behavior.isOnGround = false;
     }
     if (other is GameObjectAnimeGroup) {
+      if (type == GroundType.bottom) other.behavior.isOnGround = false;
+    }
+    if (other is GameObjectSprite) {
       if (type == GroundType.bottom) other.behavior.isOnGround = false;
     }
     super.onCollisionEnd(other);

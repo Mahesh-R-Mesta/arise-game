@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
@@ -9,8 +10,12 @@ import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
+import 'package:arise_game/game/component/items/door.dart';
 import 'package:arise_game/game/component/items/fire_stick.dart';
+import 'package:arise_game/game/component/items/health_drink.dart';
 import 'package:arise_game/game/component/items/shape.dart';
+import 'package:arise_game/game/component/items/house_item.dart';
+import 'package:arise_game/game/component/items/sword.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
@@ -100,6 +105,7 @@ class GameWorld extends LeapWorld {
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
         final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
+
         add(Mushroom(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, projectileAttack: proAttack));
       } else if (enemy.class_ == "skeleton_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
@@ -116,6 +122,8 @@ class GameWorld extends LeapWorld {
     }
   }
 
+  Map<String, Door> doorConnect = {};
+
   void _addItems() {
     final items = gameRef.leapMap.tiledMap.tileMap.getLayer<ObjectGroup>("items");
     if (items == null) return;
@@ -123,13 +131,23 @@ class GameWorld extends LeapWorld {
       final position = Vector2(item.x * GameViewConfig.incValue(), item.y * GameViewConfig.incValue());
       if (item.class_ == "Shop") {
         add(GameShop(position: position));
-      }
-      if (item.class_ == "wormhole") {
+      } else if (item.class_ == "wormhole") {
         final type = item.properties.byName["type"]!.value as String;
         add(WormHole(type: Worm.parse(type), position: position));
-      }
-      if (item.class_ == "fire_stick") {
+      } else if (item.class_ == "fire_stick") {
         add(FireStick(position: position));
+      } else if (HouseItems.contain(item.class_)) {
+        final type = HouseItems.parse(item.class_);
+        if (type == null) continue;
+        add(HouseItemSprite(item: type, position: position));
+      } else if (item.class_ == "door") {
+        final connectId = item.properties.byName["id"]!.value as String;
+        final frontType = item.properties.byName["front"]!.value as bool;
+        add(Door(connectId, frontType, position: position));
+      } else if (item.class_ == "magicalSword") {
+        add(Sword(position: position));
+      } else if (item.class_ == "health") {
+        add(HealthSyrup(position: position));
       }
     }
   }

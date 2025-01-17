@@ -35,7 +35,7 @@ class GameObjectAnime extends SpriteAnimationComponent with EntityMixin, Collisi
 }
 
 class GameObjectAnimeGroup extends SpriteAnimationGroupComponent with EntityMixin, CollisionCallbacks {
-  GameObjectAnimeGroup({super.position, super.size, super.anchor, super.scale});
+  GameObjectAnimeGroup({super.position, super.size, super.anchor, super.scale, super.key});
 
   final behavior = ObjectBehavior<GameObjectAnimeGroup>();
 
@@ -62,6 +62,19 @@ class GameObjectAnimeGroup extends SpriteAnimationGroupComponent with EntityMixi
             stepTime: stepTime,
             textureSize: textureSize,
             loop: isLoop));
+  }
+
+  void onCollideOnWall(GroundType type) {}
+}
+
+class GameObjectSprite extends SpriteComponent with EntityMixin, CollisionCallbacks {
+  GameObjectSprite({super.position, super.size, super.anchor, super.scale, super.key});
+  final behavior = ObjectBehavior<GameObjectSprite>();
+
+  @override
+  FutureOr<void> onLoad() {
+    add(behavior);
+    return super.onLoad();
   }
 
   void onCollideOnWall(GroundType type) {}

@@ -12,6 +12,8 @@ class Lifeline extends PositionComponent {
 
   double _health = 100;
 
+  resetHealth() => _health = 100;
+
   double get health => _health;
 
   void reduce(double damage) {
