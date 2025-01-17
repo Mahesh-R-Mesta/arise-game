@@ -32,7 +32,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   _onGameEnd(GameEvent event, Emitter emit) {
     if (event is GameEnd) {
-      emit(GameInitial(level: state.level));
+      emit(GameInitial(level: 0));
     }
   }
 

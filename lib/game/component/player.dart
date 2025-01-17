@@ -25,7 +25,8 @@ import 'package:get_it/get_it.dart';
 class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardHandler {
   final double damageCapacity;
   final double runSpeed;
-  Player({required super.jumpForce, required this.runSpeed, required this.damageCapacity, super.position, super.size}) : super(anchor: Anchor.center);
+  Player({required super.jumpForce, required this.runSpeed, required this.damageCapacity, super.position, super.size})
+      : super(anchor: Anchor.center, key: ComponentKey.named("player"));
 
   late Lifeline lifeline;
   late HarmZone harmZone;

@@ -23,28 +23,32 @@ class GameLost extends StatelessWidget {
             Image.asset("assets/images/app/logo.png", width: 150, height: 150),
             Text("You Lost", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38, color: Colors.white)),
             SizedBox(
-              child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Image.asset("assets/images/coin.png", width: 25, height: 25),
-                const SizedBox(width: 5),
-                BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
-                  return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
-                })
-              ]),
-            ),
+                child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Image.asset("assets/images/coin.png", width: 25, height: 25),
+              const SizedBox(width: 5),
+              BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
+                return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
+              })
+            ])),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 WoodenSquareButton(
                     size: Size.square(70),
                     onTap: () async {
+                      restart();
                       final gameBloc = context.read<GameBloc>();
                       gameBloc.add(GameRestart());
-                      restart();
                     },
                     widget: Icon(Icons.replay_outlined, color: Colors.white, size: 40)),
                 const SizedBox(width: 50),
                 WoodenSquareButton(
-                    size: Size.square(70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_back, color: Colors.white, size: 40))
+                    size: Size.square(70),
+                    onTap: () {
+                      context.read<GameBloc>().add(GameEnd());
+                      Navigator.of(context).pop();
+                    },
+                    widget: Icon(Icons.arrow_back, color: Colors.white, size: 40))
               ],
             ),
           ],

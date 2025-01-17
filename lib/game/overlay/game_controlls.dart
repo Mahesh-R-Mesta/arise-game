@@ -1,5 +1,7 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
+import 'package:arise_game/game/bloc/player/game_bloc.dart';
+import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/controller.dart';
@@ -75,6 +77,7 @@ class GameControls extends StatelessWidget {
                     if (!game.paused) {
                       game.pauseEngine();
                     }
+                    context.read<GameBloc>().add(GamePause());
                     // if (gameAudio.isBGPlaying()) {
                     //   gameAudio.pauseBackground();
                     // }

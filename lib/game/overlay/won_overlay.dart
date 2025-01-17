@@ -45,6 +45,7 @@ class GameWon extends StatelessWidget {
                 size: Size(170, 55),
                 onTap: () {
                   game.overlays.remove("gameWon");
+                  context.read<GameBloc>().add(GameEnd());
                   Navigator.of(context).pop();
                 },
                 text: "BACK"),

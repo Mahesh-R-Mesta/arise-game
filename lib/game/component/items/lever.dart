@@ -5,13 +5,14 @@ import 'package:arise_game/game/component/helper/object_entity.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flame/components.dart';
 
-class FireStick extends GameObjectAnime with HasGameRef<AriseGame> {
-  FireStick({super.position, super.size}) : super(scale: Vector2(1.3, 1.3));
+class LeverStick extends GameObjectAnime with HasGameRef<AriseGame> {
   @override
   FutureOr<void> onLoad() async {
+    behavior.isOnGround = false;
     animation = SpriteAnimation.spriteList(
-        [for (int i = 0; i < 5; i++) await Sprite.load("${GameAssets.fireStickFolder}torch_big_${i + 1}.png", images: gameRef.images)],
-        stepTime: 0.1);
+        [for (int i = 0; i < 5; i++) await Sprite.load("${GameAssets.leverFolder}lever_floor${i + 1}.png", images: gameRef.images)],
+        stepTime: 0.2);
+
     return super.onLoad();
   }
 }

@@ -1,5 +1,7 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
+import 'package:arise_game/game/bloc/player/game_bloc.dart';
+import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class GameResumeOverlay extends StatelessWidget {
                     size: Size.square(70),
                     onTap: () {
                       game.resumeEngine();
+                      context.read<GameBloc>().add(GameResume());
                       // }
                       if (gameAudio.isBGNotPlaying()) {
                         gameAudio.resumeBackground();
@@ -47,7 +50,12 @@ class GameResumeOverlay extends StatelessWidget {
                     widget: Icon(Icons.play_arrow, color: Colors.white, size: 40)),
                 const SizedBox(width: 50),
                 WoodenSquareButton(
-                    size: Size.square(70), onTap: () => Navigator.of(context).pop(), widget: Icon(Icons.arrow_back, color: Colors.white, size: 40))
+                    size: Size.square(70),
+                    onTap: () {
+                      context.read<GameBloc>().add(GameEnd());
+                      Navigator.of(context).pop();
+                    },
+                    widget: Icon(Icons.arrow_back, color: Colors.white, size: 40))
               ],
             ),
           ],

@@ -126,9 +126,12 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
 
   void death() {
     current = PlayerState.death;
-    playerEarnedCoin.receivedCoin(damageReward);
+
     audioPlayer.boarRoarPlayer.stop();
-    Future.delayed(Duration(milliseconds: 800), () => removeFromParent());
+    Future.delayed(Duration(milliseconds: 800), () {
+      playerEarnedCoin.receivedCoin(damageReward);
+      removeFromParent();
+    });
   }
 
   @override

@@ -27,11 +27,22 @@ mixin GameAssets {
   static const String characterPurple = "${character}char_purple.png";
   static const String characterGreen = "${character}char_green.png";
   static const String fire = "fire.png";
+  static const String decoration = "background/decorations/";
   static const String wormhole = "worm_hole.png"; //character/char_blue_2.png
+  static const String fireStickFolder = "${decoration}torch_big/";
+  static const String leverFolder = "${decoration}lever_floor/";
+  static const String table = "${decoration}table.png";
+  static const String chair = "${decoration}chair.png";
+  static const String bookShelf1 = "${decoration}bookshelf_1.png";
+  static const String bookShelf2 = "${decoration}bookshelf_2.png";
+  static const String door = "${decoration}door.png";
+  static const String sword = "${decoration}sword.png";
+  static const String syrup = "${decoration}syrup.png";
+
+  //assets
   static const String arrowLeft = "assets/images/arrow_left.png"; //character/char_blue_2.png
   static const String coin = "assets/images/coin.png"; //character/char_blue_2.png
   static const String arrowUp = "assets/images/arrow_up.png";
-
   static const String attack = "assets/images/attack.png"; //character/char_blue_2.png
 }
 
