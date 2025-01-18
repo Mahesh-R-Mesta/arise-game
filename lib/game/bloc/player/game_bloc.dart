@@ -3,7 +3,7 @@ import 'package:arise_game/game/bloc/player/game_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  GameBloc() : super(GameInitial(level: 1)) {
+  GameBloc() : super(GameInitial(restart: 0, level: 1)) {
     on<GameStart>(_onGameStart);
     on<GamePause>(_onGamePause);
     on<GameResume>(_onGameResume);
@@ -12,39 +12,41 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameEnd>(_onGameEnd);
   }
 
-  _onGameStart(GameEvent event, Emitter emit) {
-    if (event is GameStart) {
-      emit(GameRunning(restart: false, level: event.level));
-    }
+  _onGameStart(GameStart event, Emitter emit) {
+    emit(GameRunning(restart: 0, level: event.level));
   }
 
-  _onGamePause(GameEvent event, Emitter emit) {
-    if (event is GamePause) {
-      emit(GameStopped(level: state.level));
+  _onGamePause(GamePause event, Emitter emit) {
+    int restartCount = 0;
+    if (state is GameRunning) {
+      restartCount = (state as GameRunning).restart;
     }
+    emit(GameStopped(restart: restartCount, level: state.level));
   }
 
-  _onGameResume(GameEvent event, Emitter emit) {
-    if (event is GameResume) {
-      emit(GameRunning(restart: false, level: state.level));
+  _onGameResume(GameResume event, Emitter emit) {
+    int restartCount = 0;
+    if (state is GameStopped) {
+      restartCount = (state as GameStopped).restart;
     }
+    emit(GameRunning(restart: restartCount, level: state.level));
   }
 
-  _onGameEnd(GameEvent event, Emitter emit) {
-    if (event is GameEnd) {
-      emit(GameInitial(level: 0));
-    }
+  _onGameEnd(GameEnd event, Emitter emit) {
+    emit(GameInitial(restart: 0, level: 1));
   }
 
-  _nextLevel(GameEvent event, Emitter emit) {
-    if (event is GameNextLevel) {
-      emit(GameRunning(restart: false, level: event.level));
-    }
+  _nextLevel(GameNextLevel event, Emitter emit) {
+    emit(GameRunning(restart: 0, level: event.level));
   }
 
-  _onRestartGame(GameEvent event, Emitter emit) {
-    if (event is GameRestart) {
-      emit(GameRunning(restart: true, level: state.level));
+  _onRestartGame(GameRestart event, Emitter emit) {
+    int restartCount = 0;
+    if (state is GameRunning) {
+      restartCount = (state as GameRunning).restart;
+    } else if (state is GameStopped) {
+      restartCount = (state as GameStopped).restart;
     }
+    emit(GameRunning(restart: restartCount + 1, level: state.level));
   }
 }

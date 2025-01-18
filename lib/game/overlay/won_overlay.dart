@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameWon extends StatelessWidget {
   final AriseGame game;
+  final bool isLastGame;
   final Function() nexLevel;
-  const GameWon({super.key, required this.game, required this.nexLevel});
+  const GameWon({super.key, required this.game, required this.nexLevel, required this.isLastGame});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,8 @@ class GameWon extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset("assets/images/app/logo.png", width: 150, height: 150),
-            Text("You Won", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white)),
+            Text(isLastGame ? "🎉 Congratulations, You Won 🎉" : "You Won 🎊",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white)),
             SizedBox(
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Image.asset("assets/images/coin.png", width: 25, height: 25),
@@ -31,15 +33,15 @@ class GameWon extends StatelessWidget {
                 })
               ]),
             ),
-
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () {
-                  nexLevel.call();
-                  final gameBloc = context.read<GameBloc>();
-                  gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
-                },
-                text: "NEXT"),
+            if (!isLastGame)
+              WoodenButton(
+                  size: Size(170, 55),
+                  onTap: () {
+                    nexLevel.call();
+                    final gameBloc = context.read<GameBloc>();
+                    gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
+                  },
+                  text: "NEXT"),
 
             WoodenButton(
                 size: Size(170, 55),

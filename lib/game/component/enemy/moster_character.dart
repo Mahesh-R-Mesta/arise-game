@@ -86,7 +86,7 @@ class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> 
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if ((other is Player && other.current == PlayerState.attack)) {
+    if ((other is Player && other.isAttacking)) {
       harmed(other.damageCapacity);
     }
     super.onCollision(intersectionPoints, other);

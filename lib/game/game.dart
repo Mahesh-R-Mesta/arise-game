@@ -1,7 +1,6 @@
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
-import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/bloc/player/game_state.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/game/maps/game_world.dart';
@@ -30,16 +29,16 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return BlocBuilder<GameBloc, GameState>(buildWhen: (previous, current) {
-      return previous.level != current.level || current is GameRestart;
+      return previous.level != current.level || previous.restart != current.restart;
     }, builder: (context, gameBloc) {
+      final currentLevel = Level.levels[gameBloc.level - 1];
       return GameWidget.controlled(
           key: gameKey,
-          gameFactory: () =>
-              AriseGame(gameMap: Level.levels[gameBloc.level - 1].map, screenSize: size, tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
+          gameFactory: () => AriseGame(level: currentLevel, screenSize: size, tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
           overlayBuilderMap: {
-            "startGame": (context, game) => GameStartIntro(level: Level.levels[gameBloc.level - 1], game: game as AriseGame),
+            "startGame": (context, game) => GameStartIntro(level: currentLevel, game: game as AriseGame),
             "controller": (context, game) => GameControls(game: game as AriseGame),
-            "gameWon": (context, game) => GameWon(game: game as AriseGame, nexLevel: () => gameKey = UniqueKey()),
+            "gameWon": (context, game) => GameWon(game: game as AriseGame, isLastGame: currentLevel.isFinal, nexLevel: () => gameKey = UniqueKey()),
             "gameLost": (context, game) => GameLost(game: game as AriseGame, restart: () => gameKey = UniqueKey()),
             "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
           },

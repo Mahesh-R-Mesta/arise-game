@@ -12,6 +12,7 @@ mixin AudioAsset {
 mixin AppAsset {
   static const String path = "assets/images/app/";
   static const String logo = "${path}logo.png";
+  static const String hero = "${path}hero.png";
   static const String splash = "${path}splash.png";
 }
 

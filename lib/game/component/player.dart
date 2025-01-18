@@ -3,14 +3,13 @@ import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
-import 'package:arise_game/game/component/enemy/worm_hole.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
-// import 'package:arise_game/game/component/items/flame_throw.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/config.dart';
+import 'package:arise_game/game/overlay/game_activity_overlay.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
@@ -113,7 +112,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
       PlayerState.shield: shieldAnimation,
       PlayerState.harmed: harmedAnime
     };
-    lifeline = Lifeline(playerBoxWidth: width);
+    lifeline = Lifeline(playerBoxWidth: width, yPosition: 15);
     harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
     add(PlayerBehavior());
     add(lifeline);
@@ -121,11 +120,12 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     add(harmZone);
     gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
     gameRef.camera.follow(this);
-    // gameRef.camera.follow(CameraBehavior(character: this, gap: 150));
     current = PlayerState.lightning;
-
+    // selfConversation();
     return super.onLoad();
   }
+
+  bool get isAttacking => [PlayerState.attack, PlayerState.attack1, PlayerState.attack2].contains(current);
 
   void harmedBy(PositionComponent enemy, double damage, {bool playHurtingSound = true}) {
     if (enemy is ProjectileWeapon && !enemy.isStarted()) return;
@@ -135,12 +135,6 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
 
     if (lifeline.health > 0) {
       harmZone.blinkIt();
-      // current = PlayerState.harmed;
-      // Future.delayed(Duration(milliseconds: (animation!.frames.first.stepTime * animation!.frames.length * 1000).toInt()), () {
-      //   if (current == PlayerState.harmed) {
-      //     current = PlayerState.idle;
-      //   }
-      // });
     }
 
     if (lifeline.health == 0) {
@@ -162,17 +156,6 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is WormHole && other.type == Worm.incoming) {
-      Future.delayed(const Duration(seconds: 2), () {
-        gameRef.overlays.remove("controller");
-        removeFromParent();
-        Future.delayed(const Duration(seconds: 2), () {
-          gameRef.overlays.add("gameWon");
-          other.removeFromParent();
-        });
-      });
-    }
-
     if ((other is JungleBoar || other is ProjectileWeapon) && current == PlayerState.shield) {
       audioService.playShield();
     }
@@ -230,4 +213,13 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
   Vector2 getActorPosition() => Vector2(playerHitBox.position.x + position.x, playerHitBox.position.y + position.y);
 
   Size getActorSize() => Size(playerHitBox.size.x, playerHitBox.size.y);
+
+  void selfConversation() {
+    final conversation = gameRef.level.conversation.iterator;
+    // conversation./
+    gameRef.overlays.addEntry("player_c1", (_, game) {
+      return GameActivityOverlayButton(onTap: () {}, message: "This place", doText: "Start");
+    });
+    gameRef.overlays.add("player_c1");
+  }
 }

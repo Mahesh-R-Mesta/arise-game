@@ -7,7 +7,6 @@ import 'package:flame/components.dart';
 abstract class GroundCharacterEntity extends GameObjectAnimeGroup {
   GroundCharacterEntity({this.jumpForce = 0, super.position, super.size, super.anchor, super.scale, super.key});
 
-  bool isOnGround = false;
   bool isFacingRight = true;
   double jumpForce = 0;
   bool isJumped = false;
