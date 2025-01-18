@@ -68,7 +68,7 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       if (isFacingRight != other.isFacingRight) {
-        if (other.current == PlayerState.attack) {
+        if (other.isAttacking) {
           angryHitCount += 1;
           harmed(other.damageCapacity * 15);
           if (angryHitCount == 2) {
@@ -95,7 +95,7 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
-      if (other.current == PlayerState.attack) {
+      if (other.isAttacking) {
         audioPlayer.playRoarBoar();
         harmed(damageCapacity * 0.5);
       }

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:ffi';
+import 'package:arise_game/game/component/collisions/completed_range.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/fire.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
@@ -8,7 +8,8 @@ import 'package:arise_game/game/component/enemy/monster/goblin.dart';
 import 'package:arise_game/game/component/enemy/monster/mushroom.dart';
 import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
-import 'package:arise_game/game/component/enemy/worm_hole.dart';
+import 'package:arise_game/game/component/items/lever.dart';
+import 'package:arise_game/game/component/items/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
 import 'package:arise_game/game/component/items/door.dart';
 import 'package:arise_game/game/component/items/fire_stick.dart';
@@ -148,6 +149,10 @@ class GameWorld extends LeapWorld {
         add(Sword(position: position));
       } else if (item.class_ == "health") {
         add(HealthSyrup(position: position));
+      } else if (item.class_ == "complete") {
+        add(CompletedRange(position: position, size: Vector2(item.width, item.height)));
+      } else if (item.class_ == "lever") {
+        add(LeverStick(position: position));
       }
     }
   }

@@ -71,7 +71,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="spawn">
-  <object id="42" name="Player" type="Player" x="119.47" y="63.0757">
+  <object id="42" name="Player" type="Player" x="124.636" y="75.1591">
    <properties>
     <property name="damageCap" type="float" value="1"/>
     <property name="jumpForce" type="float" value="-2.6"/>

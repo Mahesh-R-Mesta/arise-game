@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:leap/leap.dart';
 
 class GameField extends PhysicalEntity {
+  GameField({super.position, super.size});
   @override
   void onLoad() {
     debugColor = Color(0xFF00FF00);

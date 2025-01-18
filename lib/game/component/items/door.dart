@@ -7,8 +7,6 @@ import 'package:arise_game/game/overlay/game_activity_overlay.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/sprite.dart';
-import 'package:flutter/material.dart';
 
 class Door extends GameObjectSprite with HasGameRef<AriseGame> {
   final String id;
@@ -33,7 +31,7 @@ class Door extends GameObjectSprite with HasGameRef<AriseGame> {
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     gameRef.overlays
-        .addEntry("doorOpen", (ctx, game) => GameActivityOverlayButton(size: Size(150, 50), message: "Open Door", onTap: () => moveToNextDoor()));
+        .addEntry("doorOpen", (ctx, game) => GameActivityOverlayButton(message: "Lets open door", doText: "OPEN", onTap: () => moveToNextDoor()));
     if (other is Player) {
       gameRef.overlays.add("doorOpen");
     }

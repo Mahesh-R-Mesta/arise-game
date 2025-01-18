@@ -40,7 +40,7 @@ class AudioService {
   }
 
   _playBackground() async {
-    await backgroundPlayer.play(AssetSource(AudioAsset.background), volume: 0.5);
+    await backgroundPlayer.play(AssetSource(AudioAsset.background), volume: 0.3);
     bgPlayerSubscription = backgroundPlayer.onPlayerComplete.listen((_) => _playBackground());
   }
 

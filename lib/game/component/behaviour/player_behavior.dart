@@ -72,16 +72,24 @@ class PlayerBehavior extends Behavior<Player> {
 
     buttonBridge.onAttack = (pressed) {
       if (pressed) {
-        if (parent.current == PlayerState.attack) return;
+        if (parent.isAttacking) return;
         attackTimer?.cancel();
-        parent.current = PlayerState.attack;
-        parent.behavior.horizontalMovement = 0;
+        if (parent.behavior.isOnGround) {
+          parent.current = PlayerState.attack;
+          parent.behavior.horizontalMovement = 0;
+        } else {
+          parent.current = PlayerState.attack1;
+        }
+
         audioService.playSwordSound();
         swordPlayTimer = Timer.periodic(const Duration(milliseconds: 300), (_) => audioService.playSwordSound());
       } else {
         attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
-          if (parent.current == PlayerState.attack) {
+          if (parent.isAttacking) {
             parent.current = PlayerState.idle;
+            if (parent.current == PlayerState.attack1) {
+              parent.behavior.horizontalMovement = 0;
+            }
           }
           t.cancel();
         });

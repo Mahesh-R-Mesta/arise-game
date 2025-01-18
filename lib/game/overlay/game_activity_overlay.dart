@@ -1,18 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class GameActivityOverlayButton extends StatelessWidget {
   final String message;
-  final Size size;
+  final String doText;
   final Function() onTap;
 
   const GameActivityOverlayButton({
     super.key,
     required this.onTap,
-    required this.size,
     required this.message,
+    required this.doText,
   });
 
   @override
@@ -22,24 +21,43 @@ class GameActivityOverlayButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Material(
-          color: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: SizedBox.fromSize(
-            size: size,
-            child: InkWell(
-              onTap: onTap,
-              child: Stack(
-                children: [
-                  SvgPicture.asset(AssetSvg.woodBt, width: size.width, height: size.height, fit: BoxFit.fitWidth),
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text(message, style: TextStyle(fontSize: 15, color: Colors.white))],
+          color: Color(0xfffbedea),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(width: 2.0, color: Color(0xff9a6c55))),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 60, maxHeight: 80),
+            // size: size,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(width: 12),
+                Image.asset(AppAsset.hero,
+                    width: 40,
+                    height: 40,
+                    frameBuilder: (_, child, __, ___) => Material(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1.5, color: Color(0xff9a6c55))),
+                        child: child)),
+                const SizedBox(width: 5),
+                Flexible(
+                  child: Text.rich(TextSpan(
+                      text: "Arine:",
+                      children: [TextSpan(text: message, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w200))],
+                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+                ),
+                const SizedBox(width: 5),
+                ElevatedButton(
+                    onPressed: onTap,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                      side: BorderSide(width: 1.4, color: Color(0xfffeaf84)),
+                      padding: EdgeInsets.all(3),
                     ),
-                  )
-                ],
-              ),
+                    child: Text(doText, style: TextStyle(color: Colors.white))),
+                const SizedBox(width: 5),
+                // Text(message, style: TextStyle(fontSize: 15))
+              ],
             ),
           ),
         ),

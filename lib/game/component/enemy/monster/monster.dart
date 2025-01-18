@@ -148,7 +148,7 @@ abstract class Monster extends GroundCharacterEntity {
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       behavior.horizontalMovement = 0;
-      if (other.current != PlayerState.attack && current != MonsterState.die) {
+      if (!other.isAttacking && current != MonsterState.die) {
         current = MonsterState.attack;
         if (animationTicker!.currentIndex > 5) {
           other.harmedBy(this, damagePower);

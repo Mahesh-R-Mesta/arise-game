@@ -8,7 +8,6 @@ import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 
 class Sword extends GameObjectSprite with HasGameRef<AriseGame> {
   Sword({super.position}) : super(scale: Vector2(1.5, 1.5));
@@ -28,8 +27,8 @@ class Sword extends GameObjectSprite with HasGameRef<AriseGame> {
       gameRef.overlays.addEntry(
           "rSword",
           (ctx, game) => GameActivityOverlayButton(
-              message: "Pick magical sword",
-              size: Size(200, 70),
+              message: "Ohh! Magical sword",
+              doText: "Pick",
               onTap: () {
                 gameRef.overlays.remove("rSword");
                 removeFromParent();
