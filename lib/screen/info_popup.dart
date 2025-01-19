@@ -95,9 +95,9 @@ class InfoPopup extends StatelessWidget {
                     linkWidget("Instagram", AssetSvg.instagram, AccountLink.instagram),
                     const SizedBox(height: 10),
                     Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.end, children: [
+                      Text("Made with ", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
                       SvgPicture.asset(AssetSvg.flutter, width: 20, height: 20),
-                      Text("Flutter ❤️", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
-                      SizedBox(width: 8),
+                      Text("Flutter ", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
                       SvgPicture.asset(AssetSvg.flame, width: 20, height: 20),
                       Text("Flame", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
                     ])

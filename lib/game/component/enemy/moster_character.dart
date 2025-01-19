@@ -6,7 +6,6 @@ import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
-import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';

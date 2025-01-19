@@ -4,6 +4,7 @@ import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/levels.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:leap/leap.dart';
@@ -20,7 +21,9 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
     await images.loadAllImages();
     await loadWorldAndMap(tiledMapPath: level.map);
     debugMode = GameViewConfig.debugMode;
+
     camera = CameraComponent.withFixedResolution(world: world, width: screenSize.width, height: screenSize.height);
+
     return super.onLoad();
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
@@ -9,13 +10,13 @@ import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/config.dart';
-import 'package:arise_game/game/overlay/game_activity_overlay.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:arise_game/util/storage.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/experimental.dart';
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/services/hardware_keyboard.dart';
@@ -119,8 +120,10 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     add(playerHitBox);
     add(harmZone);
     gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
-    gameRef.camera.follow(this);
-    current = PlayerState.lightning;
+    gameRef.camera.follow(CameraBehavior(character: this, game: gameRef));
+
+    // add(CameraBehavior(character: this, gap: 100));
+    current = PlayerState.idle;
     // selfConversation();
     return super.onLoad();
   }
@@ -213,13 +216,4 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
   Vector2 getActorPosition() => Vector2(playerHitBox.position.x + position.x, playerHitBox.position.y + position.y);
 
   Size getActorSize() => Size(playerHitBox.size.x, playerHitBox.size.y);
-
-  void selfConversation() {
-    final conversation = gameRef.level.conversation.iterator;
-    // conversation./
-    gameRef.overlays.addEntry("player_c1", (_, game) {
-      return GameActivityOverlayButton(onTap: () {}, message: "This place", doText: "Start");
-    });
-    gameRef.overlays.add("player_c1");
-  }
 }

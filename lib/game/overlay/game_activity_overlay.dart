@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class GameActivityOverlayButton extends StatelessWidget {
   final String message;
-  final String doText;
+  final String? doText;
   final Function() onTap;
 
   const GameActivityOverlayButton({
@@ -41,20 +41,21 @@ class GameActivityOverlayButton extends StatelessWidget {
                 const SizedBox(width: 5),
                 Flexible(
                   child: Text.rich(TextSpan(
-                      text: "Arine:",
+                      text: "Shreehan:",
                       children: [TextSpan(text: message, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w200))],
                       style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
                 ),
                 const SizedBox(width: 5),
-                ElevatedButton(
-                    onPressed: onTap,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                      side: BorderSide(width: 1.4, color: Color(0xfffeaf84)),
-                      padding: EdgeInsets.all(3),
-                    ),
-                    child: Text(doText, style: TextStyle(color: Colors.white))),
+                if (doText != null)
+                  ElevatedButton(
+                      onPressed: onTap,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                        side: BorderSide(width: 1.4, color: Color(0xfffeaf84)),
+                        padding: EdgeInsets.all(3),
+                      ),
+                      child: Text(doText!, style: TextStyle(color: Colors.white))),
                 const SizedBox(width: 5),
                 // Text(message, style: TextStyle(fontSize: 15))
               ],

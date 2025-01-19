@@ -150,7 +150,7 @@ class GameWorld extends LeapWorld {
       } else if (item.class_ == "health") {
         add(HealthSyrup(position: position));
       } else if (item.class_ == "complete") {
-        add(CompletedRange(position: position, size: Vector2(item.width, item.height)));
+        add(CompletedRange(position: position, size: Vector2(item.width * GameViewConfig.incValue(), item.height * GameViewConfig.incValue())));
       } else if (item.class_ == "lever") {
         add(LeverStick(position: position));
       }
