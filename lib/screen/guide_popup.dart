@@ -1,7 +1,9 @@
-import 'package:arise_game/util/constant/assets_constant.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+
+import 'package:arise_game/util/constant/assets_constant.dart';
 
 class GuidePopup extends StatelessWidget {
   final BuildContext context;
@@ -96,15 +98,37 @@ class _GameInfoView extends StatelessWidget {
                 data: SpriteAnimationData.sequenced(
                     texturePosition: Vector2(0, 56), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56))),
             guideContainer(
-                asset: GameAssets.characterBlue,
-                icon: Image.asset(GameAssets.attack, width: 25, height: 25),
-                text: "Double tap",
+                asset: GameAssets.characterBlue2,
+                icon: Row(
+                  children: [
+                    Image.asset(GameAssets.arrowUp, width: 20, height: 20),
+                    const SizedBox(width: 10),
+                    Image.asset(GameAssets.attack, width: 20, height: 20)
+                  ],
+                ),
+                text: "Jump & Attack",
                 flipX: false,
-                data: SpriteAnimationData.sequenced(texturePosition: Vector2(0, 56 * 10), amount: 3, stepTime: 0.3, textureSize: Vector2(56, 56))),
+                data: SpriteAnimationData.sequenced(
+                    texturePosition: Vector2(0, 56 * 4), amount: 8, amountPerRow: 8, stepTime: 0.2, textureSize: Vector2(56, 56))),
+            // guideContainer(
+            //     asset: GameAssets.characterBlue,
+            //     icon: Image.asset(GameAssets.attack, width: 25, height: 25),
+            //     text: "Double tap",
+            //     flipX: false,
+            //     data: SpriteAnimationData.sequenced(texturePosition: Vector2(0, 56 * 10), amount: 3, stepTime: 0.3, textureSize: Vector2(56, 56))),
           ],
         )),
         Text("Collect coins & kill monsters", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
       ],
     );
   }
+}
+
+class ButtonGuide {
+  final String text;
+  final String image;
+  ButtonGuide({
+    required this.text,
+    required this.image,
+  });
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/game.dart';
@@ -6,10 +8,10 @@ import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
 import 'package:arise_game/screen/quit_confirm_popup.dart';
 import 'package:arise_game/screen/sertting_popup.dart';
+import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -51,12 +53,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SizedBox.expand(
         child: Stack(
           children: [
-            Image.asset("assets/images/background/background_layer_1.png", height: size.height, width: size.width, fit: BoxFit.fill),
+            //"assets/images/background/background_layer_1.png"
+            Container(
+              decoration: BoxDecoration(image: DecorationImage(image: AssetImage(AppAsset.sunRise), fit: BoxFit.fill)),
+              child: BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), child: SizedBox.expand()),
+            ),
             Positioned(
                 top: 15,
                 right: 15,
@@ -77,7 +82,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/app/logo.png", width: 130, height: 130),
+                  Image.asset(AppAsset.logo, width: 130, height: 130),
                   WoodenButton(
                       size: Size(150, 50),
                       text: 'NEW GAME',

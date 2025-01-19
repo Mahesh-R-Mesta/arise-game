@@ -30,11 +30,13 @@ class GameStartIntro extends StatelessWidget {
               WoodenButton(
                   size: Size(170, 55),
                   onTap: () {
-                    game.overlays
-                      ..remove("startGame")
-                      ..add("controller");
-                    // context.read<EarnedCoinCubit>().reset();
-                    // game.gameWorld.addPlayer();
+                    game.overlays.remove("startGame");
+                    final restarted = context.read<GameBloc>().state.restart > 0;
+                    if (level.conversation.any((talk) => talk.key == "playStart") && !restarted) {
+                      level.startConversation("playStart", game, onCompete: () => game.overlays.add("controller"));
+                    } else {
+                      game.overlays.add("controller");
+                    }
                   },
                   text: "Start game"),
               const SizedBox(height: 5),
