@@ -87,6 +87,7 @@ mixin EnemyAssets {
   static const String wizardIdle = "${path}wizard/Idle.png";
   static const String wizardWalk = "${path}wizard/Walk.png";
   static const String wizardJump = "${path}wizard/Jump.png";
+  static const String wizardDeath = "${path}wizard/Death.png";
   static const String wizardProjectileExp = "${path}wizard/Projectile/Explode.png";
   static const String wizardProjectileMoving = "${path}wizard/Projectile/Moving.png";
 }

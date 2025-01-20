@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="10" nextobjectid="111">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="10" nextobjectid="113">
  <tileset firstgid="1" source="background_layer_1.tsx"/>
  <tileset firstgid="92" source="background_layer_2.tsx"/>
  <tileset firstgid="183" source="background_layer_3.tsx"/>
@@ -259,6 +259,9 @@
    <point/>
   </object>
   <object id="107" name="Fire" type="Fire" x="1452.25" y="177.5">
+   <point/>
+  </object>
+  <object id="111" name="wizard" type="wizard" x="296.5" y="68.5">
    <point/>
   </object>
  </objectgroup>

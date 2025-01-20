@@ -13,7 +13,6 @@ import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:get_it/get_it.dart';
 
 abstract class Monster extends GroundCharacterEntity {

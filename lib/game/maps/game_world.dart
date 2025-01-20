@@ -8,6 +8,7 @@ import 'package:arise_game/game/component/enemy/monster/goblin.dart';
 import 'package:arise_game/game/component/enemy/monster/mushroom.dart';
 import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
+import 'package:arise_game/game/component/enemy/wizard.dart';
 import 'package:arise_game/game/component/items/lever.dart';
 import 'package:arise_game/game/component/items/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
@@ -119,6 +120,8 @@ class GameWorld extends LeapWorld {
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
         add(FlyingEye(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
+      } else if (enemy.class_ == "wizard") {
+        add(Wizard(position: position));
       }
     }
   }
