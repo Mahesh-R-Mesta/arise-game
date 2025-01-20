@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+import 'package:arise_game/game/component/collisions/player_attack_zone.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
@@ -16,7 +17,6 @@ import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:arise_game/util/storage.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/experimental.dart';
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/services/hardware_keyboard.dart';
@@ -121,9 +121,8 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     add(harmZone);
     gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
     gameRef.camera.follow(CameraBehavior(character: this, game: gameRef));
-
-    // add(CameraBehavior(character: this, gap: 100));
     current = PlayerState.idle;
+    // add(PlayerAttackZone());
     // selfConversation();
     return super.onLoad();
   }
