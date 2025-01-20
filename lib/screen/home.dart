@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       size: Size(150, 50),
                       text: 'NEW GAME',
                       onTap: () {
-                        context.read<GameBloc>().add(GameStart(level: 1));
+                        context.read<GameBloc>().add(GameStart(level: 3));
                         Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
                       }),
                   WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
