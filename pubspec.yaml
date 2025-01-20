@@ -90,6 +90,8 @@ flutter:
     - assets/images/character/Mushroom/
     - assets/images/character/Goblin/
     - assets/images/character/Flying_eye/
+    - assets/images/character/wizard/
+    - assets/images/character/wizard/Projectile/
     - assets/images/character/
     - assets/tiles/
     - assets/audio/

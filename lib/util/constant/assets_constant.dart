@@ -79,6 +79,16 @@ mixin EnemyAssets {
   static const String skeletonDead = "${path}Skeleton/death.png";
   static const String skeletonShield = "${path}Skeleton/Shield.png";
   static const String skeletonThrow = "${path}Skeleton/Attack3.png";
+
+  static const String wizardAttack = "${path}wizard/Attack.png";
+  static const String wizardRun = "${path}wizard/Run.png";
+  static const String wizardFall = "${path}wizard/Fall.png";
+  static const String wizardHarm = "${path}wizard/harm.png";
+  static const String wizardIdle = "${path}wizard/Idle.png";
+  static const String wizardWalk = "${path}wizard/Walk.png";
+  static const String wizardJump = "${path}wizard/Jump.png";
+  static const String wizardProjectileExp = "${path}wizard/Projectile/Explode.png";
+  static const String wizardProjectileMoving = "${path}wizard/Projectile/Moving.png";
 }
 
 mixin AssetSvg {
