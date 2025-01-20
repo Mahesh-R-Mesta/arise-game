@@ -4,7 +4,6 @@ import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/levels.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/experimental.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:leap/leap.dart';

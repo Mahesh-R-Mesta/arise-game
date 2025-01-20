@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/game.dart';
 
 class CameraBehavior extends Component implements ReadOnlyPositionProvider {
   final GroundCharacterEntity character;
@@ -28,8 +25,8 @@ class CameraBehavior extends Component implements ReadOnlyPositionProvider {
     if (character.x <= (mapSize.x * 0.06)) {
       return mapSize.x * 0.06;
     }
-    if (character.x >= (mapSize.x * 0.86)) {
-      return mapSize.x * 0.86;
+    if (character.x >= (mapSize.x * 0.87)) {
+      return mapSize.x * 0.87;
     }
     return character.x;
   }
