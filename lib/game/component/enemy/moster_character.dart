@@ -39,7 +39,8 @@ class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> 
         SpriteAnimationData.sequenced(
             texturePosition: Vector2(0, 0), amount: monster.charCount, stepTime: projectileTime / monster.charCount, textureSize: Vector2(150, 150)));
     final death = spriteAnimationSequence(image: gameRef.images.fromCache(monster.die), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
-    animations = {MonsterState.idle: facingRightAnimation, MonsterState.bombing: attackAnimation, MonsterState.die: death};
+    final harmed = spriteAnimationSequence(image: gameRef.images.fromCache(monster.harm), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
+    animations = {MonsterState.idle: facingRightAnimation, MonsterState.bombing: attackAnimation, MonsterState.die: death, MonsterState.harm: harmed};
     current = MonsterState.idle;
     add(RectangleHitbox(anchor: Anchor.center, position: Vector2(width / 2, height / 2), size: Vector2(32, 50)));
     final visibleRange = VisibleRange(Vector2(500, 66));
@@ -85,8 +86,13 @@ class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> 
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if ((other is Player && other.isAttacking)) {
-      harmed(other.damageCapacity);
+    if ((other is Player)) {
+      if (other.isAttacking) {
+        current = MonsterState.harm;
+        harmed(other.damageCapacity);
+      } else {
+        current = MonsterState.bombing;
+      }
     }
     super.onCollision(intersectionPoints, other);
   }
@@ -108,6 +114,14 @@ class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> 
   void onCollideOnWall(GroundType type) {
     behavior.horizontalMovement = 0;
     super.onCollideOnWall(type);
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    if (other is Player) {
+      current = MonsterState.bombing;
+    }
+    super.onCollisionEnd(other);
   }
 
   // @override
