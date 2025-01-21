@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
+// import 'package:arise_game/game/component/collisions/player_attack_zone.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
@@ -66,6 +67,10 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    // if (other is PlayerAttackZone && other.isAttacking()) {
+    //   angryHitCount += 1;
+    //   harmed(1.1 * 15);
+    // }
     if (other is Player) {
       if (isFacingRight != other.isFacingRight) {
         if (other.isAttacking) {

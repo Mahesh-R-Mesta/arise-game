@@ -4,10 +4,10 @@ import 'package:arise_game/util/enum/projectile_enum.dart';
 enum MonsterState { idle, running, attack, harm, die, bombing, shield }
 
 enum MonsterType {
-  goblin(EnemyAssets.goblinBombingThrow, "", "", "", "", EnemyAssets.goblinDie, 12, Projectile.bomb), //Vector2(32, 40)
-  flyingEye(EnemyAssets.flyingEyeThrow, "", "", "", "", EnemyAssets.flyingEyeDeath, 6, Projectile.eyeBomb),
-  mushroom(EnemyAssets.mushroomThrow, "", "", "", "", EnemyAssets.mushroomDeath, 11, Projectile.mushroomBomb),
-  skeleton(EnemyAssets.skeletonThrow, "", "", "", "", EnemyAssets.skeletonDead, 6, Projectile.swordSwing); // Vector2(32, 80)
+  goblin(EnemyAssets.goblinBombingThrow, "", "", "", EnemyAssets.goblinHarm, EnemyAssets.goblinDie, 12, Projectile.bomb), //Vector2(32, 40)
+  flyingEye(EnemyAssets.flyingEyeThrow, "", "", "", EnemyAssets.flyingEyeHarmed, EnemyAssets.flyingEyeDeath, 6, Projectile.eyeBomb),
+  mushroom(EnemyAssets.mushroomThrow, "", "", "", EnemyAssets.mushroomHarmed, EnemyAssets.mushroomDeath, 11, Projectile.mushroomBomb),
+  skeleton(EnemyAssets.skeletonThrow, "", "", "", EnemyAssets.skeletonHarmed, EnemyAssets.skeletonDead, 6, Projectile.swordSwing); // Vector2(32, 80)
 
   final String bombing;
   final String idle;
