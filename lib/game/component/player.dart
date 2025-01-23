@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
-import 'package:arise_game/game/component/collisions/player_attack_zone.dart';
+// import 'package:arise_game/game/component/collisions/player_attack_zone.dart';
 import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
@@ -32,7 +32,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
   late HarmZone harmZone;
 
   final character = LocalStorage.instance.getPlayerCharacter;
-  final playerHitBox = RectangleHitbox(size: Vector2(40, 60), position: Vector2(32, 39));
+  final playerHitBox = RectangleHitbox(size: Vector2(45, 60), position: Vector2(32, 39));
   final audioService = GetIt.I.get<AudioService>();
 
   @override
@@ -122,7 +122,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
     gameRef.camera.follow(CameraBehavior(character: this, game: gameRef));
     current = PlayerState.idle;
-    add(PlayerAttackZone(isAttacking: () => isAttacking, size: size));
+    // add(PlayerAttackZone(isAttacking: () => isAttacking, size: size));
     // selfConversation();
     return super.onLoad();
   }

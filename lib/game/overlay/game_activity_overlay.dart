@@ -3,12 +3,16 @@ import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flutter/material.dart';
 
 class GameActivityOverlayButton extends StatelessWidget {
+  final String image;
+  final String character;
   final String message;
   final String? doText;
   final Function() onTap;
 
   const GameActivityOverlayButton({
     super.key,
+    this.character = "Shreehan",
+    this.image = AppAsset.hero,
     required this.onTap,
     required this.message,
     required this.doText,
@@ -32,7 +36,7 @@ class GameActivityOverlayButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(width: 12),
-                Image.asset(AppAsset.hero,
+                Image.asset(image,
                     width: 40,
                     height: 40,
                     frameBuilder: (_, child, __, ___) => Material(
@@ -41,7 +45,7 @@ class GameActivityOverlayButton extends StatelessWidget {
                 const SizedBox(width: 5),
                 Flexible(
                   child: Text.rich(TextSpan(
-                      text: "Shreehan:",
+                      text: "$character:",
                       children: [TextSpan(text: message, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w200))],
                       style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
                 ),

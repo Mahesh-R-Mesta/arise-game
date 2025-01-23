@@ -12,7 +12,14 @@ import 'package:flame/components.dart';
 
 class Mushroom extends Monster with HasGameRef<AriseGame> {
   final bool projectileAttack;
-  Mushroom({required super.damagePower, required super.rewardCoins, this.projectileAttack = false, super.faceRight, super.position})
+  final bool takeAround;
+  Mushroom(
+      {required super.damagePower,
+      required super.rewardCoins,
+      this.projectileAttack = false,
+      super.faceRight,
+      super.position,
+      this.takeAround = false})
       : super(hitBox: Vector2(35, 44), visibleRange: Vector2(150, 66), projectileRange: projectileAttack ? Vector2(450, 66) : null);
 
   @override
@@ -47,6 +54,7 @@ class Mushroom extends Monster with HasGameRef<AriseGame> {
     };
 
     current = MonsterState.idle;
+    if (takeAround) takeARound(1000);
     return super.onLoad();
   }
 
@@ -61,4 +69,10 @@ class Mushroom extends Monster with HasGameRef<AriseGame> {
       ..horizontalMovement = 1;
     return bomb;
   }
+
+  @override
+  double runSpeed() => 50;
+
+  @override
+  double walkSpeed() => 35;
 }

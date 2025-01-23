@@ -14,6 +14,7 @@ import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,6 +31,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     gameAudio.initialize();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  requestAppReview() async {
+    final InAppReview inAppReview = InAppReview.instance;
+    if (await inAppReview.isAvailable()) {
+      await inAppReview.requestReview();
+    }
   }
 
   @override
@@ -86,9 +94,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   WoodenButton(
                       size: Size(150, 50),
                       text: 'NEW GAME',
-                      onTap: () {
+                      onTap: () async {
                         context.read<GameBloc>().add(GameStart(level: 3));
-                        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
+                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
                       }),
                   WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
                   WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())

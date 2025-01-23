@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/enemy/monster/monster.dart';
@@ -37,7 +38,7 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
       MonsterState.running: flying
     };
     current = MonsterState.running;
-    takeARound();
+    takeARound(Random().nextInt(2000) + 800);
     return super.onLoad();
   }
 
@@ -79,4 +80,10 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
     fly();
     super.update(dt);
   }
+
+  @override
+  double runSpeed() => 70;
+
+  @override
+  double walkSpeed() => 60;
 }

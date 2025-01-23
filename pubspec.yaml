@@ -45,6 +45,7 @@ dependencies:
   flutter_svg: ^2.0.16
   url_launcher: ^6.3.1
   get_storage: ^2.1.1
+  in_app_review: ^2.0.10
 
 dev_dependencies:
   flutter_test:
