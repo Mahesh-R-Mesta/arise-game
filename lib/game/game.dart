@@ -67,13 +67,6 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Widget background(Size size) {
-    return SizedBox.expand(
-      child: Column(
-        children: [
-          SizedBox(height: size.height * 0.6, width: size.width, child: Material(color: Color(0xffb4c6f5))),
-          SizedBox(height: size.height * 0.4, width: size.width, child: Material(color: Color(0xff251613)))
-        ],
-      ),
-    );
+    return SizedBox.expand(child: SizedBox.expand(child: Material(color: Color(0xff251613))));
   }
 }

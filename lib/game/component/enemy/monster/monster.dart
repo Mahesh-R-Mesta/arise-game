@@ -1,5 +1,4 @@
 import 'dart:async' as async;
-import 'dart:math';
 
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
@@ -60,7 +59,9 @@ abstract class Monster extends GroundCharacterEntity {
 
   projectileAlert(Set<Vector2> intersect, PositionComponent other) {
     if (other is Player) {
+      guardingWalk?.cancel();
       if (!animations!.containsKey(MonsterState.bombing)) return;
+      behavior.horizontalMovement = 0;
       current = MonsterState.bombing;
       animationTicker?.onFrame = (index) {
         if (animationTicker?.isLastFrame == true) {
@@ -76,14 +77,7 @@ abstract class Monster extends GroundCharacterEntity {
     if (MonsterState.bombing != current) return;
     final bomb = getProjectile();
     if (bomb == null) return;
-    // bomb.behavior
-    //   ..mass = 0.3
-    //   ..isOnGround = false
-    //   ..applyForceY(-1.5)
-    //   ..applyForceX(40)
-    //   ..horizontalMovement = 1;
-    print(" X:${bomb.behavior.xVelocity} Y:${bomb.behavior.yVelocity}  ${bomb.behavior.horizontalMovement} ");
-    await add(bomb);
+    add(bomb);
   }
 
   turnLeft() {
@@ -94,8 +88,8 @@ abstract class Monster extends GroundCharacterEntity {
   }
 
   async.Timer? guardingWalk;
-  takeARound() {
-    guardingWalk = async.Timer.periodic(Duration(milliseconds: Random().nextInt(2000) + 800), (_) {
+  takeARound(int millis) {
+    guardingWalk = async.Timer.periodic(Duration(milliseconds: millis), (_) {
       if (isFacingRight) {
         turnLeft();
         moveLeft();
@@ -106,10 +100,14 @@ abstract class Monster extends GroundCharacterEntity {
     });
   }
 
+  double walkSpeed();
+
+  double runSpeed();
+
   moveLeft() {
     current = MonsterState.running;
     behavior
-      ..applyForceX(60)
+      ..applyForceX(walkSpeed())
       ..horizontalMovement = -1;
   }
 
@@ -123,12 +121,14 @@ abstract class Monster extends GroundCharacterEntity {
   moveRight() {
     current = MonsterState.running;
     behavior
-      ..applyForceX(60)
+      ..applyForceX(walkSpeed())
       ..horizontalMovement = 1;
   }
 
   viewRange(Set<Vector2> intersect, PositionComponent other) {
     if (other is Player) {
+      guardingWalk?.cancel();
+      behavior.xVelocity = runSpeed();
       animationTicker?.onFrame = null;
       if (other.position.x > position.x) {
         turnRight();

@@ -8,7 +8,7 @@ import 'package:arise_game/game/component/enemy/monster/goblin.dart';
 import 'package:arise_game/game/component/enemy/monster/mushroom.dart';
 import 'package:arise_game/game/component/enemy/monster/skeleton.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
-import 'package:arise_game/game/component/enemy/wizard.dart';
+import 'package:arise_game/game/component/enemy/monster/wizard/wizard.dart';
 import 'package:arise_game/game/component/items/lever.dart';
 import 'package:arise_game/game/component/items/worm_hole.dart';
 import 'package:arise_game/game/component/items/coin.dart';
@@ -101,20 +101,34 @@ class GameWorld extends LeapWorld {
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
         final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
-        add(Goblin(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, bombing: proAttack));
+        final takeAround = (enemy.properties.byName["takeAround"]?.value as bool?) ?? false;
+        add(Goblin(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, bombing: proAttack, takeAround: takeAround));
       } else if (enemy.class_ == "mushroom_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
         final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
-
-        add(Mushroom(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, projectileAttack: proAttack));
+        final takeAround = (enemy.properties.byName["takeAround"]?.value as bool?) ?? false;
+        add(Mushroom(
+            position: position,
+            damagePower: damage,
+            faceRight: facingRight,
+            rewardCoins: reward,
+            projectileAttack: proAttack,
+            takeAround: takeAround));
       } else if (enemy.class_ == "skeleton_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
         final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
-        add(Skeleton(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, projectileAttack: proAttack));
+        final takeAround = (enemy.properties.byName["takeAround"]?.value as bool?) ?? false;
+        add(Skeleton(
+            position: position,
+            damagePower: damage,
+            faceRight: facingRight,
+            rewardCoins: reward,
+            projectileAttack: proAttack,
+            takeAround: takeAround));
       } else if (enemy.class_ == "flying_eye_attacker") {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;

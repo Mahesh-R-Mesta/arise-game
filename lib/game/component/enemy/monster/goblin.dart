@@ -20,7 +20,7 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
       super.position,
       super.size,
       super.scale})
-      : super(anchor: Anchor.center, hitBox: Vector2(30, 44), visibleRange: Vector2(200, 66), projectileRange: bombing ? Vector2(550, 66) : null);
+      : super(anchor: Anchor.center, hitBox: Vector2(30, 44), visibleRange: Vector2(250, 66), projectileRange: bombing ? Vector2(550, 66) : null);
 
   // final damagePower = 2.0;
   // final rewardPoint = 40;
@@ -45,7 +45,7 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
     final running =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.goblinRun), amount: 8, stepTime: 0.1, textureSize: Vector2.all(150));
     final bombing = spriteAnimationSequence(
-        image: gameRef.images.fromCache(EnemyAssets.goblinBombingThrow), amount: 12, stepTime: 0.2, textureSize: Vector2(150, 150));
+        image: gameRef.images.fromCache(EnemyAssets.goblinBombingThrow), amount: 12, stepTime: 0.1, textureSize: Vector2(150, 150));
     animations = {
       MonsterState.idle: idle,
       MonsterState.attack: attack,
@@ -54,7 +54,7 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
       MonsterState.running: running,
       MonsterState.bombing: bombing
     };
-    if (takeAround) takeARound();
+    if (takeAround) takeARound(1000);
     return super.onLoad();
   }
 
@@ -69,4 +69,10 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
       ..horizontalMovement = 1;
     return bomb;
   }
+
+  @override
+  double runSpeed() => 60;
+
+  @override
+  double walkSpeed() => 40;
 }

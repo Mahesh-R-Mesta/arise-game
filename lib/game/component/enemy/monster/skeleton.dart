@@ -12,7 +12,14 @@ import 'package:flame/components.dart';
 
 class Skeleton extends Monster with HasGameRef<AriseGame> {
   final bool projectileAttack;
-  Skeleton({required super.damagePower, required super.rewardCoins, this.projectileAttack = false, super.faceRight, super.position})
+  final bool takeAround;
+  Skeleton(
+      {required super.damagePower,
+      required super.rewardCoins,
+      this.projectileAttack = false,
+      super.faceRight,
+      super.position,
+      this.takeAround = false})
       : super(hitBox: Vector2(30, 44), visibleRange: Vector2(300, 66), projectileRange: projectileAttack ? Vector2(650, 66) : null);
 
   @override
@@ -47,7 +54,7 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
       MonsterState.shield: shield,
       MonsterState.bombing: swordThrow,
     };
-
+    if (takeAround) takeARound(1500);
     current = MonsterState.idle;
     return super.onLoad();
   }
@@ -63,4 +70,10 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
       ..horizontalMovement = 1;
     return bomb;
   }
+
+  @override
+  double runSpeed() => 60;
+
+  @override
+  double walkSpeed() => 40;
 }

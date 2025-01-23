@@ -13,6 +13,7 @@ mixin AppAsset {
   static const String path = "assets/images/app/";
   static const String logo = "${path}logo.png";
   static const String hero = "${path}hero.png";
+  static const String wizard = "${path}wizard.png";
   static const String splash = "${path}splash.png";
   static const String sunRise = "${path}sun_rise_2.jpg";
 }
@@ -82,14 +83,10 @@ mixin EnemyAssets {
 
   static const String wizardAttack = "${path}wizard/Attack.png";
   static const String wizardRun = "${path}wizard/Run.png";
-  static const String wizardFall = "${path}wizard/Fall.png";
-  static const String wizardHarm = "${path}wizard/harm.png";
   static const String wizardIdle = "${path}wizard/Idle.png";
-  static const String wizardWalk = "${path}wizard/Walk.png";
-  static const String wizardJump = "${path}wizard/Jump.png";
-  static const String wizardDeath = "${path}wizard/Death.png";
-  static const String wizardProjectileExp = "${path}wizard/Projectile/Explode.png";
-  static const String wizardProjectileMoving = "${path}wizard/Projectile/Moving.png";
+  static const String wizardDeath = "${path}wizard/Die.png";
+  // static const String wizardProjectileExp = "${path}wizard/Projectile/Explode.png";
+  // static const String wizardProjectileMoving = "${path}wizard/Projectile/Moving.png";
 }
 
 mixin AssetSvg {

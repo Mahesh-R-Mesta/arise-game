@@ -453,7 +453,7 @@
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
-    <property name="takeAround" type="bool" value="false"/>
+    <property name="takeAround" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
@@ -483,6 +483,7 @@
     <property name="faceDir" type="bool" value="false"/>
     <property name="projectileAttack" type="bool" value="true"/>
     <property name="reward" type="int" value="40"/>
+    <property name="takeAround" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
