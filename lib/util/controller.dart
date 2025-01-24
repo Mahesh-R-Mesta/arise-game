@@ -2,7 +2,8 @@ class GameButtonBridge {
   Function(bool)? onLeftMove;
   Function(bool)? onRightMove;
   Function(bool)? onPressJump;
-  Function(bool)? onAttack;
+  Function(bool)? onActivateShield;
+  Function()? onAttackTap;
   Function()? onDoubleTap;
 
   void onMoveLeftDown() {
@@ -29,12 +30,16 @@ class GameButtonBridge {
     if (onPressJump != null) onPressJump?.call(true);
   }
 
-  void attackDown() {
-    if (onAttack != null) onAttack?.call(true);
+  void activateShield() {
+    if (onActivateShield != null) onActivateShield?.call(true);
   }
 
-  void attackUp() {
-    if (onAttack != null) onAttack?.call(false);
+  void attackTap() {
+    if (onAttackTap != null) onAttackTap?.call();
+  }
+
+  void inActivateShield() {
+    if (onActivateShield != null) onActivateShield?.call(false);
   }
 
   void attackDoubleTap() {

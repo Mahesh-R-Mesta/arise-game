@@ -63,7 +63,8 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
         amount: 16,
         amountPerRow: 8,
         stepTime: 0.06,
-        textureSize: Vector2(56, 56));
+        textureSize: Vector2(56, 56),
+        isLoop: false);
     final deathAnimation = spriteAnimationSequence(
         image: game.images.fromCache(character.asset1),
         texturePosition: Vector2(0, 56 * 6),
@@ -187,7 +188,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
       // }
       // horizontalMovement = 1;
     } else if (keysPressed.contains(LogicalKeyboardKey.keyL)) {
-      buttonBridge.attackDown();
+      buttonBridge.activateShield();
       // current = PlayerState.attack;
       // horizontalMovement = 0;
     } else if (keysPressed.contains(LogicalKeyboardKey.keyA) && !hittingLeftWall) {

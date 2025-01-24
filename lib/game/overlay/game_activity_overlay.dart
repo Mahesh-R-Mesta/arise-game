@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:arise_game/util/constant/assets_constant.dart';
+import 'package:arise_game/util/constant/color_constant.dart';
 import 'package:flutter/material.dart';
 
 class GameActivityOverlayButton extends StatelessWidget {
@@ -40,7 +41,8 @@ class GameActivityOverlayButton extends StatelessWidget {
                     width: 40,
                     height: 40,
                     frameBuilder: (_, child, __, ___) => Material(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1.5, color: Color(0xff9a6c55))),
+                        shape:
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1.5, color: AppColor.darkOrange)),
                         child: child)),
                 const SizedBox(width: 5),
                 Flexible(
@@ -56,7 +58,7 @@ class GameActivityOverlayButton extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        side: BorderSide(width: 1.4, color: Color(0xfffeaf84)),
+                        side: BorderSide(width: 1.4, color: AppColor.dimOrange),
                         padding: EdgeInsets.all(3),
                       ),
                       child: Text(doText!, style: TextStyle(color: Colors.white))),

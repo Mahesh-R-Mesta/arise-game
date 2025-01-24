@@ -57,12 +57,16 @@ class Level {
         instructions: ["Kill monsters", "Get out from jungle"],
         map: "tile_map_03.tmx",
         conversation: [
+          Conversation(key: "playStart", talks: [
+            PlayerTalk(key: 'pc-12', message: "Finally, I've reached the wizard’s palace", doText: "NEXT"),
+            PlayerTalk(key: 'pc-13', message: "This is it—my final challenge. I must see it through, no matter the cost", doText: "NEXT"),
+          ]),
           Conversation(key: "heroVsWizard", talks: [
             PlayerTalk(
                 image: AppAsset.wizard,
                 character: "Wizard",
                 key: 'w-31',
-                message: "Ah, the warrior! So, it was you who dared to slay my minions.",
+                message: "So, the brave warrior has arrived... The one who slaughtered my creations",
                 doText: "NEXT"),
             PlayerTalk(key: 'pc-32', message: "Because of your tyranny, my people were forced to abandon their homeland!", doText: "NEXT"),
             PlayerTalk(key: 'pc-33', message: "But today, I will ensure you face justice for your wickedness!", doText: "NEXT"),
@@ -70,8 +74,8 @@ class Level {
                 image: AppAsset.wizard,
                 character: "Wizard",
                 key: 'w-31',
-                message: "Ha! Foolish child. You believe you can defeat me? Such delusions amuse me!",
-                doText: "NEXT"),
+                message: "Ha ha ha! Such bold words! Do you truly believe you can defeat me? Foolish child, you’re no match for my power.",
+                doText: "DONE"),
           ]),
           Conversation(key: "playEnd", talks: [
             PlayerTalk(key: 'pc-32', message: "Hurray! I have successfully accomplished my mission", doText: "NEXT"),

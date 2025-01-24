@@ -58,6 +58,14 @@ class PlayerBehavior extends Behavior<Player> {
       stopSwordPlay();
     };
 
+    buttonBridge.onActivateShield = (activate) {
+      if (activate) {
+        parent
+          ..behavior.horizontalMovement = 0
+          ..current = PlayerState.shield;
+      }
+    };
+
     buttonBridge.onPressJump = (pressed) {
       if (pressed && parent.behavior.isOnGround) {
         parent.current = PlayerState.jumping;
@@ -69,11 +77,11 @@ class PlayerBehavior extends Behavior<Player> {
       }
       stopSwordPlay();
     };
+    bool lastTapped = false;
+    buttonBridge.onAttackTap = () {
+      if (parent.isAttacking) return lastTapped = true;
 
-    buttonBridge.onAttack = (pressed) {
-      if (pressed) {
-        if (parent.isAttacking) return;
-        attackTimer?.cancel();
+      swingSword() {
         if (parent.behavior.isOnGround) {
           parent.current = PlayerState.attack;
         } else {
@@ -81,20 +89,46 @@ class PlayerBehavior extends Behavior<Player> {
         }
         parent.behavior.horizontalMovement = 0;
         audioService.playSwordSound();
-        swordPlayTimer = Timer.periodic(const Duration(milliseconds: 300), (_) => audioService.playSwordSound());
-      } else {
-        attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
-          if (parent.isAttacking) {
+        parent.animationTicker?.onFrame = (frame) {
+          if ((parent.current == PlayerState.attack && frame == 6) || (parent.current == PlayerState.attack1 && frame == 7)) {
+            if (lastTapped) {
+              swingSword();
+              lastTapped = false;
+              return;
+            }
             parent.current = PlayerState.idle;
-            // if (parent.current == PlayerState.attack1) {
-            //   parent.behavior.horizontalMovement = 0;
-            // }
           }
-          t.cancel();
-        });
-        swordPlayTimer?.cancel();
+        };
       }
+
+      swingSword();
     };
+
+    // buttonBridge.onActivateShield = (pressed) {
+    //   if (pressed) {
+    //     if (parent.isAttacking) return;
+    //     attackTimer?.cancel();
+    //     if (parent.behavior.isOnGround) {
+    //       parent.current = PlayerState.attack;
+    //     } else {
+    //       parent.current = PlayerState.attack1;
+    //     }
+    //     parent.behavior.horizontalMovement = 0;
+    //     audioService.playSwordSound();
+    //     swordPlayTimer = Timer.periodic(const Duration(milliseconds: 300), (_) => audioService.playSwordSound());
+    //   } else {
+    //     attackTimer = Timer.periodic(const Duration(milliseconds: 100 * 6), (t) {
+    //       if (parent.isAttacking) {
+    //         parent.current = PlayerState.idle;
+    //         // if (parent.current == PlayerState.attack1) {
+    //         //   parent.behavior.horizontalMovement = 0;
+    //         // }
+    //       }
+    //       t.cancel();
+    //     });
+    //     swordPlayTimer?.cancel();
+    //   }
+    // };
 
     // buttonBridge.onDoubleTap = () {
     //   stopSwordPlay();
