@@ -45,6 +45,7 @@ mixin GameAssets {
   //assets
   static const String arrowLeft = "assets/images/arrow_left.png"; //character/char_blue_2.png
   static const String coin = "assets/images/coin.png"; //character/char_blue_2.png
+  static const String shield = "assets/images/shield.png"; //character/char_blue_2.png
   static const String arrowUp = "assets/images/arrow_up.png";
   static const String attack = "assets/images/attack.png"; //character/char_blue_2.png
 }
