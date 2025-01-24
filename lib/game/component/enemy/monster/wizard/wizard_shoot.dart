@@ -26,11 +26,14 @@ class WizardShoot extends GameObjectAnime with HasGameRef<AriseGame> {
   }
 
   @override
-  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Player) {
-      other.harmedBy(this, 1);
-      removeFromParent();
-    }
-    super.onCollisionStart(intersectionPoints, other);
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Player) other.harmedBy(this, 1.5);
+    super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    if (other is Player) removeFromParent();
+    super.onCollisionEnd(other);
   }
 }

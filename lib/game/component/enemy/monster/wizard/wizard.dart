@@ -1,19 +1,23 @@
 import 'dart:async' as async;
-
 import 'package:arise_game/game/arise_game.dart';
+import 'package:arise_game/game/bloc/coin_cubit.dart';
+import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/collisions/moster_view.dart';
 import 'package:arise_game/game/component/enemy/monster/wizard/wizard_shoot.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:arise_game/util/enum/wizard_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:get_it/get_it.dart';
 
 class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
   Wizard({super.position}) : super(scale: Vector2(0.7, 0.7), anchor: Anchor.center);
 
   late Lifeline lifeline;
+  int rewardCoin = 100;
 
   @override
   async.FutureOr<void> onLoad() {
@@ -31,7 +35,7 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
     final run = spriteAnimationSequence(
         image: gameRef.images.fromCache(WizardState.run.asset), amount: 6, stepTime: 0.1, textureSize: Vector2.all(80), isLoop: false);
     final attack = spriteAnimationSequence(
-        image: gameRef.images.fromCache(WizardState.attack.asset), amountPerRow: 3, amount: 10, stepTime: 0.2, textureSize: Vector2.all(80));
+        image: gameRef.images.fromCache(WizardState.attack.asset), amountPerRow: 3, amount: 10, stepTime: 0.1, textureSize: Vector2.all(80));
     final harm =
         spriteAnimationSequence(image: gameRef.images.fromCache(WizardState.harm.asset), amount: 3, stepTime: 0.3, textureSize: Vector2.all(80));
     final death = spriteAnimationSequence(
@@ -52,14 +56,12 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
     return super.onLoad();
   }
 
-  onTurnRange(Set<Vector2> intersect, PositionComponent other) {}
-
   viewRange(Set<Vector2> intersect, PositionComponent other) async {
     if (other is Player) {
       guardingWalk?.cancel();
       behavior.horizontalMovement = 0;
       current = WizardState.idle;
-      await conversation();
+      await conversation(other);
       if (other.position.x > position.x) {
         turnRight();
       } else {
@@ -107,51 +109,76 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
   }
 
   bool isConversationComplete = false;
-  conversation() async {
+  conversation(Player player) async {
     if (isConversationComplete) return;
     final completer = async.Completer();
-    gameRef.level.startConversation("heroVsWizard", gameRef, onCompete: () {
-      isConversationComplete = true;
-      completer.complete();
-    });
+    player
+      ..behavior.horizontalMovement = 0
+      ..current = PlayerState.idle;
+    gameRef
+      ..overlays.remove("controller")
+      ..level.startConversation("heroVsWizard", gameRef, onCompete: () {
+        isConversationComplete = true;
+        gameRef.overlays.add("controller");
+        completer.complete();
+      });
     return await completer.future;
   }
+
+  int hitCount = 0;
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       if (other.isAttacking) {
         current = WizardState.harm;
+        harmed(other.damageCapacity * 0.09);
         animationTicker?.onFrame = (index) {
-          if (index == 2) {
+          if (index == 2 && current != WizardState.die) {
             current = WizardState.attack;
           }
         };
-        //   // Future.delayed(const Duration(microseconds: 200), () {
-        //   //   current = WizardState.idle;
-        //   // });
+        hitCount += 1;
+        if (hitCount == 3 && current != WizardState.die) {
+          hitCount = 0;
+          avoidHit();
+        }
       }
     }
 
     super.onCollision(intersectionPoints, other);
   }
 
-  harmed() {}
+  void harmed(double damageCapacity) {
+    lifeline.reduce(damageCapacity);
+    final playerEarnedCoin = GetIt.I.get<EarnedCoinCubit>();
+    if (lifeline.health == 0) {
+      playerEarnedCoin.receivedCoin(rewardCoin);
+      current = WizardState.die;
+      Future.delayed(Duration(milliseconds: (animation!.frames.first.stepTime * animation!.frames.length * 1000).toInt()), () => removeFromParent());
+    }
+  }
 
   avoidHit() {
     behavior
-      ..applyForceY(-2.5)
+      ..applyForceY(-2.8)
       ..isOnGround = false;
-    current = WizardState.run;
+    current = WizardState.idle;
     if (isFacingRight) {
       behavior
-        ..xVelocity = 80
+        ..xVelocity = 110
         ..horizontalMovement = 1;
     } else {
       behavior
-        ..xVelocity = 80
+        ..xVelocity = 110
         ..horizontalMovement = -1;
     }
+  }
+
+  @override
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is GroundBlock) behavior.horizontalMovement = 0;
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override
@@ -181,5 +208,12 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
         moveRight();
       }
     });
+  }
+
+  @override
+  void onCollideOnWall(GroundType type) {
+    behavior.horizontalMovement = 0;
+    current = WizardState.idle;
+    super.onCollideOnWall(type);
   }
 }
