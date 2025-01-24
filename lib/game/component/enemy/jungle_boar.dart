@@ -87,6 +87,14 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
               turnRight(); // if left facing it turn to right
             }
           }
+        } else if (other.current == PlayerState.shield) {
+          if (other.isFacingRight != isFacingRight) {
+            if (isFacingRight) {
+              turnLeft(); // if right facing it turn to left
+            } else {
+              turnRight(); // if left facing it turn to right
+            }
+          }
         } else {
           other.harmedBy(this, damageCapacity * 15, playHurtingSound: true);
         }
@@ -104,6 +112,9 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
         audioPlayer.playRoarBoar();
         harmed(damageCapacity * 0.5);
       }
+      // else if(other.current == PlayerState.shield) {
+      //   other.isFacingRight && (other.position.x + other.size.x) <=
+      // }
     }
     super.onCollision(intersectionPoints, other);
   }

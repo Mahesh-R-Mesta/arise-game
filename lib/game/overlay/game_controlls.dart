@@ -4,6 +4,7 @@ import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
+import 'package:arise_game/util/constant/color_constant.dart';
 import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/storage.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
@@ -25,18 +26,28 @@ class GameControls extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-              top: 10,
-              left: 10,
+              top: 0,
+              left: 0,
               child: Material(
                 color: Colors.transparent,
                 child: SizedBox(
-                  child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Image.asset(GameAssets.coin, width: 25, height: 25),
-                    const SizedBox(width: 5),
-                    BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
-                      return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
-                    })
-                  ]),
+                  height: 35,
+                  // width: 100,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: AppColor.dimOrange.withAlpha(60),
+                      border: Border.all(color: AppColor.darkOrange, width: 1),
+                    ),
+                    child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      Image.asset(GameAssets.coin, width: 25, height: 25),
+                      const SizedBox(width: 5),
+                      BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
+                        return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
+                      }),
+                      const SizedBox(width: 20),
+                      Image.asset(GameAssets.shield, height: 30, width: 30)
+                    ]),
+                  ),
                 ),
               )),
           Positioned(
@@ -64,9 +75,12 @@ class GameControls extends StatelessWidget {
               bottom: 100,
               right: 30,
               child: GestureDetector(
+                  onTap: () => buttonBridge.attackTap(),
+                  onLongPress: () => buttonBridge.activateShield(),
+                  // onLongPressCancel: () => buttonBridge.inActivateShield(),
                   // onDoubleTap: () => buttonBridge.attackDoubleTap(),
-                  onTapDown: (_) => buttonBridge.attackDown(),
-                  onTapUp: (details) => buttonBridge.attackUp(),
+                  // onTapDown: (_) => buttonBridge.attackDown(),
+                  // onTapUp: (details) => buttonBridge.attackUp(),
                   child: Image.asset(GameAssets.attack))),
           Positioned(
               right: 10,

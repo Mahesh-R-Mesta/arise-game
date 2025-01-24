@@ -10,6 +10,7 @@ import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
+import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:get_it/get_it.dart';
@@ -146,10 +147,16 @@ abstract class Monster extends GroundCharacterEntity {
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       behavior.horizontalMovement = 0;
+
       if (!other.isAttacking && current != MonsterState.die) {
         current = MonsterState.attack;
         if (animationTicker!.currentIndex > 5) {
-          other.harmedBy(this, damagePower);
+          bool shieldWorking = other.current == PlayerState.shield &&
+              ((other.isFacingRight && (other.position.x) <= position.x) || (!other.isFacingRight && ((other.position.x) >= (position.x)))) &&
+              isFacingRight != other.isFacingRight;
+          if (!shieldWorking) {
+            other.harmedBy(this, damagePower);
+          }
         }
         // }
         // else if (other.isFacingRight == isFacingRight && other.current != PlayerState.attack) {
