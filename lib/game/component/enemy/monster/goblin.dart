@@ -42,8 +42,8 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.goblinIdle), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final attack = spriteAnimationSequence(
         image: gameRef.images.fromCache(EnemyAssets.goblinSwordAttack), amount: 8, stepTime: 0.1, textureSize: Vector2.all(150));
-    final death =
-        spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.goblinDie), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
+    final death = spriteAnimationSequence(
+        image: gameRef.images.fromCache(EnemyAssets.goblinDie), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150), isLoop: false);
     final harm =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.goblinHarm), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final running =

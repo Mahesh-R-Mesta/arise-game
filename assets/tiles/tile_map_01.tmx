@@ -71,7 +71,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="spawn">
-  <object id="1" name="Player" type="Player" x="145.501" y="80.9166">
+  <object id="1" name="Player" type="Player" x="151.001" y="73.2499">
    <properties>
     <property name="damageCap" type="float" value="1"/>
     <property name="jumpForce" type="float" value="-2.4"/>
@@ -124,7 +124,7 @@
   <object id="34" name="rightGroundWall" type="rightGroundWall" x="696.292" y="146.076" width="3.54167" height="24.5151"/>
   <object id="35" name="leftGroundWall" type="leftGroundWall" x="668.208" y="123.072" width="4.04167" height="48.1818"/>
   <object id="36" name="leftGroundWall" type="leftGroundWall" x="717.083" y="145.871" width="4.04167" height="24.5909"/>
-  <object id="38" name="rightGroundWall" type="rightGroundWall" x="888.667" y="146.697" width="4.16667" height="26.0606"/>
+  <object id="38" name="rightGroundWall" type="rightGroundWall" x="888.667" y="147.424" width="4.16667" height="25.3333"/>
   <object id="39" name="ground" type="ground" x="890.171" y="144.633" width="451.53" height="4.67424">
    <polygon points="0,0 451.53,0 451.53,4.67424 0,4.67424"/>
   </object>
@@ -232,14 +232,14 @@
   <object id="102" name="goblin" type="goblin_attacker" x="1259.08" y="117.333">
    <properties>
     <property name="damage" type="float" value="2"/>
-    <property name="faceLeft" type="bool" value="true"/>
+    <property name="faceDir" type="bool" value="true"/>
     <property name="projectileAttack" type="bool" value="true"/>
     <property name="reward" type="int" value="40"/>
     <property name="takeAround" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
-  <object id="104" name="flying_eye" type="flying_eye_attacker" x="1046.67" y="58">
+  <object id="104" name="flying_eye" type="flying_eye_attacker" x="1047.17" y="58">
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>

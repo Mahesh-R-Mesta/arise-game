@@ -133,7 +133,8 @@ class GameWorld extends LeapWorld {
         final damage = enemy.properties.byName["damage"]!.value as double;
         final reward = enemy.properties.byName["reward"]!.value as int;
         final facingRight = (enemy.properties.byName["faceDir"]?.value as bool?) ?? false;
-        add(FlyingEye(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward));
+        final proAttack = enemy.properties.byName["projectileAttack"]!.value as bool;
+        add(FlyingEye(position: position, damagePower: damage, faceRight: facingRight, rewardCoins: reward, projectileAttack: proAttack));
       } else if (enemy.class_ == "wizard") {
         add(Wizard(position: position));
       }

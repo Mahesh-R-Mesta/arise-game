@@ -61,6 +61,12 @@ abstract class Monster extends GroundCharacterEntity {
 
   projectileAlert(Set<Vector2> intersect, PositionComponent other) {
     if (other is Player) {
+      if (isFacingRight && other.position.x < position.x) {
+        turnLeft();
+      }
+      if (!isFacingRight && other.position.x > position.x) {
+        turnRight();
+      }
       guardingWalk?.cancel();
       if (!animations!.containsKey(MonsterState.bombing)) return;
       behavior.horizontalMovement = 0;
