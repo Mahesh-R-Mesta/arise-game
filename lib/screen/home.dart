@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/game.dart';
@@ -66,9 +67,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         child: Stack(
           children: [
             //"assets/images/background/background_layer_1.png"
-            Container(
-              decoration: BoxDecoration(image: DecorationImage(image: AssetImage(AppAsset.sunRise), fit: BoxFit.fill)),
-              child: BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), child: SizedBox.expand()),
+            Opacity(
+              opacity: 0.9,
+              child: Container(
+                decoration: BoxDecoration(image: DecorationImage(image: AssetImage(AppAsset.sunRise), fit: BoxFit.fill)),
+                child: BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), child: SizedBox.expand()),
+              ),
             ),
             Positioned(
                 top: 15,
@@ -95,6 +99,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       size: Size(150, 50),
                       text: 'NEW GAME',
                       onTap: () async {
+                        context.read<EarnedCoinCubit>().reset();
                         context.read<GameBloc>().add(GameStart(level: 1));
                         await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
                       }),

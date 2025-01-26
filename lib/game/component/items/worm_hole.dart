@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/helper/object_entity.dart';
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/game/overlay/game_activity_overlay.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
@@ -42,30 +41,24 @@ class WormHole extends GameObjectAnime with HasGameRef<AriseGame> {
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player && type == Worm.incoming) {
-      gameRef.overlays.remove("controller");
       other
         ..current = PlayerState.idle
         ..behavior.horizontalMovement = 0;
-      gameRef.overlays.addEntry("wormHole", (_, game) {
-        return GameActivityOverlayButton(
-            onTap: () {
-              gameRef.overlays.remove("wormHole");
-              other
-                ..current = PlayerState.walking
-                ..behavior.xVelocity = 45
-                ..behavior.horizontalMovement = 1;
-              Future.delayed(const Duration(seconds: 4), () {
-                other.removeFromParent();
-                Future.delayed(const Duration(seconds: 2), () {
-                  gameRef.overlays.add("gameWon");
-                  removeFromParent();
-                });
-              });
-            },
-            message: "Oh! Its a  portal, lets get into it",
-            doText: "GO");
+      gameRef.overlays.remove("controller");
+      gameRef.level.startConversation("wizardPortal", gameRef, onCompete: () {
+        gameRef.overlays.remove("wormHole");
+        other
+          ..current = PlayerState.walking
+          ..behavior.xVelocity = 45
+          ..behavior.horizontalMovement = 1;
+        Future.delayed(const Duration(seconds: 3), () {
+          other.removeFromParent();
+          Future.delayed(const Duration(seconds: 2), () {
+            gameRef.overlays.add("gameWon");
+            removeFromParent();
+          });
+        });
       });
-      gameRef.overlays.add("wormHole");
     }
     super.onCollisionStart(intersectionPoints, other);
   }

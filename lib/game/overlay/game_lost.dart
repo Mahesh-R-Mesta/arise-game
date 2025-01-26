@@ -39,6 +39,7 @@ class GameLost extends StatelessWidget {
                       restart();
                       final gameBloc = context.read<GameBloc>();
                       gameBloc.add(GameRestart());
+                      context.read<EarnedCoinCubit>().revertPoint();
                     },
                     widget: Icon(Icons.replay_outlined, color: Colors.white, size: 40)),
                 const SizedBox(width: 50),
