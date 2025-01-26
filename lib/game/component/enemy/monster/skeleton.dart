@@ -72,6 +72,9 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
   }
 
   @override
+  double get resistanceOverAttack => 0.6;
+
+  @override
   double runSpeed() => 60;
 
   @override

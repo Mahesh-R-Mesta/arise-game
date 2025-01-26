@@ -82,6 +82,9 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
   }
 
   @override
+  double get resistanceOverAttack => 0.5;
+
+  @override
   double runSpeed() => 70;
 
   @override
