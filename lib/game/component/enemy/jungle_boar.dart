@@ -62,7 +62,7 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   harmed(double damage) {
     lifeline.reduce(damage);
     harmZone.blinkIt();
-    if (lifeline.health == 0) death();
+    if (lifeline.health == 0 && current != PlayerState.death) death();
   }
 
   @override
@@ -131,7 +131,6 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
 
   void death() {
     current = PlayerState.death;
-
     audioPlayer.boarRoarPlayer.stop();
     Future.delayed(Duration(milliseconds: 800), () {
       playerEarnedCoin.receivedCoin(damageReward);

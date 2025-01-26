@@ -90,7 +90,7 @@ class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> 
       if (other.isAttacking) {
         current = MonsterState.harm;
         harmed(other.damageCapacity);
-      } else {
+      } else if (current != MonsterState.die) {
         current = MonsterState.bombing;
       }
     }
