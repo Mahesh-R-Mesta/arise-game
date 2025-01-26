@@ -1,4 +1,4 @@
-package com.example.arise_game
+package com.geekcode.arise_game
 
 import io.flutter.embedding.android.FlutterActivity
 
