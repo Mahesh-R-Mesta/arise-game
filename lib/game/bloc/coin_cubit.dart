@@ -6,8 +6,13 @@ class EarnedCoinCubit extends Cubit<int> {
   EarnedCoinCubit() : super(0);
 
   final gameAudio = GetIt.I.get<AudioService>();
+  int lastCoinEarned = 0;
 
   reset() => emit(0);
+
+  checkLastPoint() => lastCoinEarned = state;
+
+  revertPoint() => emit(lastCoinEarned);
 
   receivedCoin(int amount) {
     gameAudio.playCoinReceive();
