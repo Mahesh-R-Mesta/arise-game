@@ -150,7 +150,10 @@ class PlayerBehavior extends Behavior<Player> {
       if (parent.behavior.horizontalMovement != 0) {
         parent.current = PlayerState.running;
       } else {
-        parent.current = PlayerState.idle;
+        parent.current = PlayerState.jumpAfter;
+        parent.animationTicker?.onComplete = () {
+          parent.current = PlayerState.idle;
+        };
       }
     }
     super.update(dt);

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
@@ -60,9 +61,16 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     final jumpingAnimation = spriteAnimationSequence(
         image: game.images.fromCache(character.asset1),
         texturePosition: Vector2(0, 56 * 3),
-        amount: 16,
+        amount: 14,
         amountPerRow: 8,
         stepTime: 0.06,
+        textureSize: Vector2(56, 56),
+        isLoop: false);
+    final jumpingAfter = spriteAnimationSequence(
+        image: game.images.fromCache(character.asset1),
+        texturePosition: Vector2(6 * 56, 56 * 4),
+        amount: 2,
+        stepTime: 0.1,
         textureSize: Vector2(56, 56),
         isLoop: false);
     final deathAnimation = spriteAnimationSequence(
@@ -106,6 +114,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
       PlayerState.idle: idleAnimation,
       PlayerState.running: runningAnimation,
       PlayerState.jumping: jumpingAnimation,
+      PlayerState.jumpAfter: jumpingAfter,
       PlayerState.attack: attackAnimation,
       PlayerState.attack1: attack1Animation,
       PlayerState.death: deathAnimation,
