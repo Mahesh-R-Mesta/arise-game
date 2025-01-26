@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
-import 'package:arise_game/game/game.dart';
 import 'package:arise_game/screen/guide_popup.dart';
+import 'package:arise_game/screen/leader_board.dart';
 import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
 import 'package:arise_game/screen/quit_confirm_popup.dart';
@@ -101,7 +101,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       onTap: () async {
                         context.read<EarnedCoinCubit>().reset();
                         context.read<GameBloc>().add(GameStart(level: 1));
-                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
+                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LeaderBoardScreen()));
+                        // await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
                       }),
                   WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
                   WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
