@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/component/enemy/monster/monster.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
@@ -24,6 +25,9 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
 
   // final damagePower = 2.0;
   // final rewardPoint = 40;
+
+  @override
+  double get resistanceOverAttack => 0.75;
 
   @override
   FutureOr<void> onLoad() {
@@ -54,7 +58,7 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
       MonsterState.running: running,
       MonsterState.bombing: bombing
     };
-    if (takeAround) takeARound(1000);
+    if (takeAround) takeARound(1000 + Random().nextInt(500));
     return super.onLoad();
   }
 
@@ -74,5 +78,5 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
   double runSpeed() => 60;
 
   @override
-  double walkSpeed() => 40;
+  double walkSpeed() => 30;
 }

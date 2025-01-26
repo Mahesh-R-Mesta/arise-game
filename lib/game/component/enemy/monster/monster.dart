@@ -23,6 +23,8 @@ abstract class Monster extends GroundCharacterEntity {
 
   bool activeFollow = false;
 
+  double get resistanceOverAttack => 0.5;
+
   int hit = 0;
   int hitLimit = 30;
 
@@ -92,10 +94,10 @@ abstract class Monster extends GroundCharacterEntity {
     guardingWalk = async.Timer.periodic(Duration(milliseconds: millis), (_) {
       if (isFacingRight) {
         turnLeft();
-        moveLeft();
+        moveLeft(walkSpeed());
       } else {
         turnRight();
-        moveRight();
+        moveRight(walkSpeed());
       }
     });
   }
@@ -104,10 +106,10 @@ abstract class Monster extends GroundCharacterEntity {
 
   double runSpeed();
 
-  moveLeft() {
+  moveLeft(double speed) {
     current = MonsterState.running;
     behavior
-      ..applyForceX(walkSpeed())
+      ..applyForceX(speed)
       ..horizontalMovement = -1;
   }
 
@@ -118,10 +120,10 @@ abstract class Monster extends GroundCharacterEntity {
     }
   }
 
-  moveRight() {
+  moveRight(double speed) {
     current = MonsterState.running;
     behavior
-      ..applyForceX(walkSpeed())
+      ..applyForceX(speed)
       ..horizontalMovement = 1;
   }
 
@@ -133,11 +135,11 @@ abstract class Monster extends GroundCharacterEntity {
       if (other.position.x > position.x) {
         turnRight();
         if (isPlayerHittingWall) return;
-        moveRight();
+        moveRight(runSpeed());
       } else {
         turnLeft();
         if (isPlayerHittingWall) return;
-        moveLeft();
+        moveLeft(runSpeed());
       }
     }
   }
@@ -164,7 +166,7 @@ abstract class Monster extends GroundCharacterEntity {
         if (MonsterState.die == current) return super.onCollision(intersectionPoints, other);
         current = MonsterState.harm;
         onHarmed();
-        harmed(other.damageCapacity * 0.5);
+        harmed(other.damageCapacity * (1 - resistanceOverAttack));
       }
     }
     super.onCollision(intersectionPoints, other);

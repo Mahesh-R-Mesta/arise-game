@@ -6,7 +6,6 @@ import 'package:arise_game/game/component/items/house_item.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/overlay/game_activity_overlay.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
-import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
@@ -34,7 +33,6 @@ class HealthSyrup extends GameObjectSprite with HasGameRef<AriseGame> {
                 gameRef.overlays.remove("syrup");
                 removeFromParent();
                 other.lifeline.resetHealth();
-                other.current = PlayerState.lightning;
               }));
       gameRef.overlays.add("syrup");
     }
