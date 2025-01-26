@@ -6,6 +6,7 @@ import 'package:arise_game/util/audio.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/controller.dart';
 import 'package:arise_game/util/storage.dart';
+import 'package:arise_game/util/widget/coin_pannel.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,16 +28,20 @@ class GameControls extends StatelessWidget {
           Positioned(
               top: 10,
               left: 10,
-              child: Material(
-                color: Colors.transparent,
-                child: SizedBox(
-                  child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Image.asset(GameAssets.coin, width: 25, height: 25),
-                    const SizedBox(width: 5),
-                    BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
-                      return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
-                    })
-                  ]),
+              child: CustomPaint(
+                painter: PanelPainter(),
+                child: Material(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 2, bottom: 2, left: 16, right: 20),
+                    child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      Image.asset(GameAssets.coin, width: 25, height: 25),
+                      const SizedBox(width: 5),
+                      BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
+                        return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
+                      })
+                    ]),
+                  ),
                 ),
               )),
           Positioned(
@@ -60,14 +65,7 @@ class GameControls extends StatelessWidget {
                   onTapDown: (_) => buttonBridge.onJumpDown(),
                   onTapUp: (details) => buttonBridge.onJumpUp(),
                   child: Image.asset(GameAssets.arrowUp))),
-          Positioned(
-              bottom: 100,
-              right: 30,
-              child: GestureDetector(
-                  // onDoubleTap: () => buttonBridge.attackDoubleTap(),
-                  onTapDown: (_) => buttonBridge.attackDown(),
-                  onTapUp: (details) => buttonBridge.attackUp(),
-                  child: Image.asset(GameAssets.attack))),
+          Positioned(bottom: 100, right: 30, child: GestureDetector(onTap: () => buttonBridge.attackTap(), child: Image.asset(GameAssets.attack))),
           Positioned(
               right: 10,
               top: 10,
