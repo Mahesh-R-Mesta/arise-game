@@ -1,6 +1,6 @@
 import 'package:arise_game/util/constant/assets_constant.dart';
 
-enum PlayerState { idle, walking, running, jumping, lightning, shield, attack, attack1, attack2, neal, death, harmed }
+enum PlayerState { idle, walking, running, jumping, jumpAfter, lightning, shield, attack, attack1, attack2, neal, death, harmed }
 
 enum PlayerCharacter {
   red(GameAssets.characterRed, GameAssets.characterRed2),
