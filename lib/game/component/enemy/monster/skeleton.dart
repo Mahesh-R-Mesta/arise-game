@@ -35,8 +35,8 @@ class Skeleton extends Monster with HasGameRef<AriseGame> {
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonIdle), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final attack =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonAttack), amount: 8, stepTime: 0.1, textureSize: Vector2.all(150));
-    final death =
-        spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonDead), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
+    final death = spriteAnimationSequence(
+        image: gameRef.images.fromCache(EnemyAssets.skeletonDead), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150), isLoop: false);
     final harm =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.skeletonHarmed), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final running =
