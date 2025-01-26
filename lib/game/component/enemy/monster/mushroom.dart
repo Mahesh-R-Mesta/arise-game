@@ -36,8 +36,8 @@ class Mushroom extends Monster with HasGameRef<AriseGame> {
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.mushroomIdle), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final attack =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.mushroomAttack), amount: 8, stepTime: 0.1, textureSize: Vector2.all(150));
-    final death =
-        spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.mushroomDeath), amount: 4, stepTime: 0.3, textureSize: Vector2.all(150));
+    final death = spriteAnimationSequence(
+        image: gameRef.images.fromCache(EnemyAssets.mushroomDeath), amount: 4, stepTime: 0.3, textureSize: Vector2.all(150), isLoop: true);
     final harm =
         spriteAnimationSequence(image: gameRef.images.fromCache(EnemyAssets.mushroomHarmed), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150));
     final running =

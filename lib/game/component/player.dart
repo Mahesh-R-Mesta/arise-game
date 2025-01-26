@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/behaviour/camera_behavior.dart';
 import 'package:arise_game/game/component/behaviour/player_behavior.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
