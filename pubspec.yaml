@@ -46,6 +46,11 @@ dependencies:
   url_launcher: ^6.3.1
   get_storage: ^2.1.1
   in_app_review: ^2.0.10
+  firebase_core: ^3.10.1
+  firebase_database: ^11.3.1
+  device_info_plus: ^11.2.1
+  fluttertoast: ^8.2.10
+  connectivity_plus: ^6.1.2
 
 dev_dependencies:
   flutter_test:

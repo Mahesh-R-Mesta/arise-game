@@ -10,7 +10,7 @@ import 'package:arise_game/game/overlay/game_resume.dart';
 import 'package:arise_game/game/overlay/game_start_intro.dart';
 import 'package:arise_game/game/overlay/won_overlay.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
-import 'package:arise_game/util/levels.dart';
+import 'package:arise_game/service/levels.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

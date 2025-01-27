@@ -2,6 +2,7 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
+import 'package:arise_game/screen/leader_board/add_player.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class GameWon extends StatelessWidget {
                 })
               ]),
             ),
+
             if (!isLastGame)
               WoodenButton(
                   size: Size(170, 55),
@@ -44,6 +46,13 @@ class GameWon extends StatelessWidget {
                     gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
                   },
                   text: "NEXT"),
+
+            WoodenButton(
+                size: Size(170, 55),
+                onTap: () {
+                  showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
+                },
+                text: "SUBMIT SCORE"),
             WoodenButton(
                 size: Size(170, 55),
                 onTap: () {

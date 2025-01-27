@@ -1,12 +1,15 @@
+import 'package:arise_game/util/firebase_option.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player_character.dart';
 import 'package:arise_game/game/config.dart';
-import 'package:arise_game/util/controller.dart';
-import 'package:arise_game/util/audio.dart';
-import 'package:arise_game/util/storage.dart';
+import 'package:arise_game/service/controller.dart';
+import 'package:arise_game/service/audio.dart';
+import 'package:arise_game/service/leaderboard_database.dart';
+import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/screen/home.dart';
 import 'package:arise_game/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +19,7 @@ import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseSetting.option);
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
   await GetStorage.init();
@@ -24,7 +28,8 @@ void main() async {
     ..registerLazySingleton(GameButtonBridge.new)
     ..registerLazySingleton(AudioService.new)
     ..registerLazySingleton(EarnedCoinCubit.new)
-    ..registerLazySingleton(LocalStorage.new);
+    ..registerLazySingleton(LocalStorage.new)
+    ..registerLazySingleton(LeaderboardDatabase.new);
   runApp(const MyApp());
 }
 

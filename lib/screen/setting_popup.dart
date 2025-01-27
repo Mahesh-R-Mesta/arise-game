@@ -1,5 +1,5 @@
 import 'package:arise_game/game/bloc/player_character.dart';
-import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/service/audio.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 
 import 'package:flame/components.dart';

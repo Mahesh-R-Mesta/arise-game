@@ -3,17 +3,19 @@ import 'dart:ui';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
+import 'package:arise_game/game/game.dart';
 import 'package:arise_game/screen/guide_popup.dart';
-import 'package:arise_game/screen/leader_board.dart';
-import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/screen/leader_board/leader_board.dart';
+import 'package:arise_game/service/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
 import 'package:arise_game/screen/quit_confirm_popup.dart';
-import 'package:arise_game/screen/sertting_popup.dart';
+import 'package:arise_game/screen/setting_popup.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -29,6 +31,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    FToast().init(context);
     gameAudio.initialize();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
@@ -66,7 +69,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       body: SizedBox.expand(
         child: Stack(
           children: [
-            //"assets/images/background/background_layer_1.png"
             Opacity(
               opacity: 0.9,
               child: Container(
@@ -88,6 +90,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     size: Size.square(55),
                     onTap: () => GuidePopup(context: context).show(),
                     widget: Icon(Icons.question_mark, size: 30, color: Colors.white))),
+            Positioned(
+                bottom: 15,
+                left: 15,
+                child: WoodenSquareButton(
+                    size: Size.square(55),
+                    onTap: () async => await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LeaderBoardScreen())),
+                    widget: Icon(Icons.leaderboard, size: 30, color: Colors.white))),
             SizedBox.expand(
               child: Column(
                 spacing: 10,
@@ -101,8 +110,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       onTap: () async {
                         context.read<EarnedCoinCubit>().reset();
                         context.read<GameBloc>().add(GameStart(level: 1));
-                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LeaderBoardScreen()));
-                        // await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
+
+                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
                       }),
                   WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
                   WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())

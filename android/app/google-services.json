@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "235423944325",
+    "firebase_url": "https://arise-game-33efb-default-rtdb.firebaseio.com",
+    "project_id": "arise-game-33efb",
+    "storage_bucket": "arise-game-33efb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235423944325:android:361941c77354329a6463ec",
+        "android_client_info": {
+          "package_name": "com.geekcode.arise_game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOU7QQ-ZZR2CzTxYqSB4ZSytF4t_Eqmrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

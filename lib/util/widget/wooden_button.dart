@@ -28,7 +28,7 @@ class WoodenButton extends StatelessWidget {
                   child: text != null
                       ? Text(
                           text!,
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
+                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500, color: Colors.white),
                         )
                       : widget)
             ],

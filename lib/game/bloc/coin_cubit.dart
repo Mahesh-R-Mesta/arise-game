@@ -1,4 +1,4 @@
-import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/service/audio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
