@@ -4,7 +4,7 @@ import 'package:arise_game/game/component/collisions/bomb_zone.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 import 'package:arise_game/game/component/helper/object_entity.dart';
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/service/audio.dart';
 import 'package:arise_game/util/enum/projectile_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';

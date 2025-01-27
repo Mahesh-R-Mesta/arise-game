@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:arise_game/game/config.dart';
-import 'package:arise_game/util/levels.dart';
+import 'package:arise_game/service/levels.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/input.dart';

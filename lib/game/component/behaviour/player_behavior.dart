@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:arise_game/game/component/player.dart';
-import 'package:arise_game/util/audio.dart';
-import 'package:arise_game/util/controller.dart';
+import 'package:arise_game/service/audio.dart';
+import 'package:arise_game/service/controller.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:get_it/get_it.dart';

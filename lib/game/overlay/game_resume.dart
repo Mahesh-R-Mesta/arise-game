@@ -2,7 +2,7 @@ import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
-import 'package:arise_game/util/audio.dart';
+import 'package:arise_game/service/audio.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

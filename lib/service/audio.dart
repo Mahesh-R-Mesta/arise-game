@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:arise_game/util/constant/assets_constant.dart';
-import 'package:arise_game/util/storage.dart';
+import 'package:arise_game/service/local_storage.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class AudioService {
