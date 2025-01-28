@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.13'
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -29,6 +29,9 @@ jobs:
       
       - name: 📦 Cloning telebot-cli
         run: git clone https://github.com/Mahesh-R-Mesta/telebot_cli.git
+
+      - name: 📦 Upgarding pip
+        run: pip install --upgrade pip
 
       - name: 📦 Installing telebot-cli
         run: |
