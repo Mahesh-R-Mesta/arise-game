@@ -19,17 +19,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
           flutter-version: 3.27.1
-      # - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      
+      - name: 📦 Cloning telebot-cli
+        run: git clone https://github.com/Mahesh-R-Mesta/telebot_cli.git
 
+      - name: 📦 Installing telebot-cli
+        run: pip install setup.py
+        
+      # - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
       - name: 📦 Get packages
         run: dart pub get
 
       - name: 🏭 Building Application
         run: flutter build apk --release
+
+      - name: Send file through telegram bot
+        run: |
+          cd build/app/output/flutter-apk/
+          telebot-cli set-token "${{ secrets.TELEGRAM_TOKEN }}"
+          telebot-cli set-chatid "${{ secrets.TELEGRAM_CHAT_ID }}"
+          telebot-cli -sendfile "app-release.apk"
+      
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
