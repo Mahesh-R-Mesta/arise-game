@@ -36,7 +36,7 @@ jobs:
       - name: 📦 Installing telebot-cli
         run: |
           cd telebot_cli
-          pip install setup.py
+          pip install .
           cd ..
           ls
         
