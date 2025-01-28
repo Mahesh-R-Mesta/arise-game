@@ -98,4 +98,5 @@ mixin AssetSvg {
   static const String flame = "${path}fire.svg";
   static const String woodBt = "${path}woodbt.svg";
   static const String woodSqBt = "${path}woodsqbt.svg";
+  static const String woodBoard = "${path}woodboard.svg";
 }

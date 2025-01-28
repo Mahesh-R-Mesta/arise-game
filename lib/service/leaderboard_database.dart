@@ -7,8 +7,8 @@ class LeaderboardDatabase {
 
   registerPlayerScore(String playerName, int score) async {
     final deviceInfo = await DeviceInfoPlugin().androidInfo;
-    DatabaseReference reference = FirebaseDatabase.instance.ref("$keyPath/${deviceInfo.id.replaceAll('.', '-')}"); //
-    await reference.set({"name": playerName, "score": score});
+    DatabaseReference reference = FirebaseDatabase.instance.ref(keyPath);
+    await reference.child(deviceInfo.id.replaceAll('.', '-')).set({"name": playerName, "score": score});
   }
 
   Future<List<PlayerRank>> loadUserScores() async {
@@ -19,7 +19,7 @@ class LeaderboardDatabase {
     if (mapData == null) return [];
     final data = mapData.cast<String, dynamic>();
     players = data.keys.map((key) => PlayerRank(id: key, name: data[key]["name"], amount: data[key]["score"])).toList();
-    players.sort((p1, p2) => p1.amount.compareTo(p2.amount));
+    players.sort((p1, p2) => p2.amount.compareTo(p1.amount));
     return players;
   }
 }

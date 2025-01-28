@@ -42,7 +42,7 @@ class LeaderBoardScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: const Text('Top Players',
-                            textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                            textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 19, fontWeight: FontWeight.w600)),
                       )))),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,12 +88,16 @@ class LeaderBoardScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              title: Text(
-                                player.name,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                              title: SizedBox(
+                                width: 150,
+                                child: Text(
+                                  player.name,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               trailing: Row(

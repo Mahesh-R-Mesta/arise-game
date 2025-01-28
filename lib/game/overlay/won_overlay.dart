@@ -35,32 +35,35 @@ class GameWon extends StatelessWidget {
                 })
               ]),
             ),
-
-            if (!isLastGame)
-              WoodenButton(
-                  size: Size(170, 55),
-                  onTap: () {
-                    nexLevel.call();
-                    final gameBloc = context.read<GameBloc>();
-                    context.read<EarnedCoinCubit>().checkLastPoint();
-                    gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
-                  },
-                  text: "NEXT"),
-
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () {
-                  showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
-                },
-                text: "SUBMIT SCORE"),
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () {
-                  game.overlays.remove("gameWon");
-                  context.read<GameBloc>().add(GameEnd());
-                  Navigator.of(context).pop();
-                },
-                text: "BACK"),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WoodenButton(
+                    size: Size(170, 55),
+                    onTap: () {
+                      game.overlays.remove("gameWon");
+                      context.read<GameBloc>().add(GameEnd());
+                      Navigator.of(context).pop();
+                    },
+                    text: "BACK"),
+                WoodenButton(
+                    size: Size(170, 55),
+                    onTap: () {
+                      showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
+                    },
+                    text: "SUBMIT SCORE"),
+                if (!isLastGame)
+                  WoodenButton(
+                      size: Size(170, 55),
+                      onTap: () {
+                        nexLevel.call();
+                        final gameBloc = context.read<GameBloc>();
+                        context.read<EarnedCoinCubit>().checkLastPoint();
+                        gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
+                      },
+                      text: "NEXT"),
+              ],
+            )
             // ElevatedButton(
             //     onPressed: () {
             //       game.overlays.remove("gameWon");
