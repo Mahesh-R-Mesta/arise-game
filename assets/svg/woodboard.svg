@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <!-- Main wooden board background -->
+  <rect x="20" y="20" width="160" height="110" fill="#D2B48C"/>
+  
+  <!-- Wood grain texture for the main board -->
+  <path d="M30 35 Q100 40 170 35" stroke="#BC8F5E" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M30 55 Q100 60 170 55" stroke="#BC8F5E" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M30 75 Q100 80 170 75" stroke="#BC8F5E" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M30 95 Q100 100 170 95" stroke="#BC8F5E" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M30 115 Q100 120 170 115" stroke="#BC8F5E" stroke-width="2" fill="none" opacity="0.5"/>
+  
+  <!-- Wooden frame -->
+  <!-- Top frame -->
+  <rect x="10" y="10" width="180" height="20" fill="#8B4513"/>
+  <rect x="10" y="10" width="180" height="5" fill="#A0522D"/>
+  <!-- Bottom frame -->
+  <rect x="10" y="120" width="180" height="20" fill="#8B4513"/>
+  <rect x="10" y="135" width="180" height="5" fill="#A0522D"/>
+  <!-- Left frame -->
+  <rect x="10" y="10" width="20" height="130" fill="#8B4513"/>
+  <rect x="10" y="10" width="5" height="130" fill="#A0522D"/>
+  <!-- Right frame -->
+  <rect x="170" y="10" width="20" height="130" fill="#8B4513"/>
+  <rect x="185" y="10" width="5" height="130" fill="#A0522D"/>
+  
+  <!-- Frame corner details -->
+  <rect x="10" y="10" width="20" height="20" fill="#654321"/>
+  <rect x="170" y="10" width="20" height="20" fill="#654321"/>
+  <rect x="10" y="120" width="20" height="20" fill="#654321"/>
+  <rect x="170" y="120" width="20" height="20" fill="#654321"/>
+</svg>

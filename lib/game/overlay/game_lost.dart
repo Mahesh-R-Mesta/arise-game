@@ -35,9 +35,18 @@ class GameLost extends StatelessWidget {
             ])),
             Row(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 WoodenSquareButton(
-                    size: Size.square(70),
+                    size: Size.square(68),
+                    onTap: () {
+                      context.read<GameBloc>().add(GameEnd());
+                      Navigator.of(context).pop();
+                    },
+                    widget: Icon(Icons.arrow_back, color: Colors.white, size: 40)),
+                const SizedBox(width: 30),
+                WoodenSquareButton(
+                    size: Size.square(68),
                     onTap: () async {
                       restart();
                       final gameBloc = context.read<GameBloc>();
@@ -45,22 +54,15 @@ class GameLost extends StatelessWidget {
                       context.read<EarnedCoinCubit>().revertPoint();
                     },
                     widget: Icon(Icons.replay_outlined, color: Colors.white, size: 40)),
-                const SizedBox(width: 50),
-                WoodenSquareButton(
-                    size: Size.square(70),
+                const SizedBox(width: 30),
+                WoodenButton(
+                    size: Size(170, 56),
                     onTap: () {
-                      context.read<GameBloc>().add(GameEnd());
-                      Navigator.of(context).pop();
+                      showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
                     },
-                    widget: Icon(Icons.arrow_back, color: Colors.white, size: 40))
+                    text: "SUBMIT SCORE"),
               ],
             ),
-            WoodenButton(
-                size: Size(170, 55),
-                onTap: () {
-                  showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
-                },
-                text: "SUBMIT SCORE"),
           ],
         ),
       ),
