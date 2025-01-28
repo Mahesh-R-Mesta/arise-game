@@ -50,8 +50,8 @@ jobs:
       - name: Send file through telegram bot
         run: |
           cd build/app/outputs/flutter-apk/
-          telebot-cli setting --set-token "${{ secrets.TELEGRAM_TOKEN }}"
-          telebot-cli setting --set-chatid "${{ secrets.TELEGRAM_CHAT_ID }}"
+          telebot-cli setting --set-token ${{ secrets.TELEGRAM_TOKEN }}
+          telebot-cli setting --set-chatid ${{ secrets.TELEGRAM_CHAT_ID }}
           telebot-cli sendfile -f "app-release.apk"
       
 
