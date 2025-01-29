@@ -49,6 +49,7 @@ class InfoPopup extends StatelessWidget {
                       (text: "Anokolisa, ", link: "https://anokolisa.itch.io/"),
                       (text: "Luizmelo, ", link: "https://luizmelo.itch.io/"),
                       (text: "Raphael Hatencia, ", link: "https://ragnapixel.itch.io/"),
+                      (text: "lionheart963", link: "https://lionheart963.itch.io/wizard"),
                       (text: "from ", link: null),
                       (text: "Itch.io", link: "https://itch.io/game-assets/free")
                     ]),
