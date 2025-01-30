@@ -81,11 +81,7 @@ class Level {
         map: "tile_map_02.tmx",
         conversation: [
           Conversation(key: "wizardPortal", talks: [
-            PlayerTalk(key: "pc-6", doText: "NEXT", message: "What... is this? It hums with a strange power, like nothing I’ve ever seen"),
-            PlayerTalk(
-                key: "pc-7",
-                doText: "NEXT",
-                message: "Could this be the wizard’s doing? If it leads to answers, I have no choice but to step through"),
+            PlayerTalk(key: "pc-7", doText: "NEXT", message: "Another portal, I have no choice but to step through it. again"),
           ]),
           Conversation(key: "magicalSword", talks: [
             PlayerTalk(
