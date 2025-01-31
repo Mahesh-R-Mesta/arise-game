@@ -3,11 +3,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ToastMessage extends StatelessWidget {
   final String message;
-  const ToastMessage({super.key, required this.message});
+  final ToastGravity gravity;
+  const ToastMessage({super.key, required this.message, this.gravity = ToastGravity.BOTTOM});
 
   show() {
     final fToast = FToast();
-    fToast.showToast(child: ToastMessage(message: message), gravity: ToastGravity.BOTTOM, fadeDuration: Duration(seconds: 2));
+    fToast.showToast(child: ToastMessage(message: message), gravity: gravity, fadeDuration: Duration(seconds: 2));
   }
 
   @override

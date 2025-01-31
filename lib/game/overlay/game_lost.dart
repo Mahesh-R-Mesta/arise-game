@@ -16,6 +16,7 @@ class GameLost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Material(
       color: Colors.black54,
       child: SizedBox.expand(
@@ -23,7 +24,7 @@ class GameLost extends StatelessWidget {
           spacing: 15,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/app/logo.png", width: 150, height: 150),
+            Image.asset("assets/images/app/logo.png", width: 0.3 * size.width, height: 0.3 * size.height),
             Text("You Lost", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38, color: Colors.white)),
             SizedBox(
                 child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [

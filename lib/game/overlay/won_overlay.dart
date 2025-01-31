@@ -16,6 +16,7 @@ class GameWon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Material(
       color: Colors.black54,
       child: SizedBox.expand(
@@ -23,7 +24,7 @@ class GameWon extends StatelessWidget {
           spacing: 15,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(isLastGame ? AppAsset.cup : AppAsset.logo, width: 150, height: 150),
+            Image.asset(isLastGame ? AppAsset.cup : AppAsset.logo, width: 0.3 * size.width, height: 0.3 * size.height),
             Text(isLastGame ? "🎉 Congratulations, You Won 🎉" : "You Won",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white)),
             SizedBox(
