@@ -10,6 +10,7 @@ import 'package:arise_game/service/audio.dart';
 import 'package:arise_game/screen/info_popup.dart';
 import 'package:arise_game/screen/quit_confirm_popup.dart';
 import 'package:arise_game/screen/setting_popup.dart';
+import 'package:arise_game/service/leaderboard_database.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     FToast().init(context);
+    GetIt.I.get<LeaderboardDatabase>().listenForAddedPlayer();
     gameAudio.initialize();
     WidgetsBinding.instance.addObserver(this);
     super.initState();

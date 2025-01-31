@@ -15,6 +15,7 @@ class GameResumeOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameAudio = GetIt.I.get<AudioService>();
+    final size = MediaQuery.of(context).size;
     return Material(
       color: Colors.black54,
       child: SizedBox.expand(
@@ -22,7 +23,7 @@ class GameResumeOverlay extends StatelessWidget {
           spacing: 20,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/app/logo.png", width: 150, height: 150),
+            Image.asset("assets/images/app/logo.png", width: 0.3 * size.width, height: 0.3 * size.height),
             SizedBox(
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 Image.asset("assets/images/coin.png", width: 25, height: 25),
