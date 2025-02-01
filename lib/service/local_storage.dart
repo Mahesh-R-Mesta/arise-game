@@ -9,6 +9,7 @@ class LocalStorage {
   final String _effectSound = "EFFECT_SOUND";
   final String _heroCharacter = "HERO_CHARACTER";
   final String _reviewStatus = "REVIEW_STATUS";
+  final String _levelStatus = "LEVEL_STATUS";
 
   set enableBgSound(bool enable) {
     _box.write(_bgSoundEffect, enable);
@@ -21,6 +22,9 @@ class LocalStorage {
 
   set setReviewRequestedCount(int count) => _box.write(_reviewStatus, count);
   int get reviewRequestCount => _box.read<int>(_reviewStatus) ?? 0;
+
+  set setMaxLevelCompleted(int level) => _box.write(_levelStatus, level);
+  int get maxLevelCompleted => _box.read(_levelStatus) ?? 1;
 
   set setPlayerCharacter(PlayerCharacter character) => _box.write(_heroCharacter, character.index);
   PlayerCharacter get getPlayerCharacter => PlayerCharacter.values[_box.read<int>(_heroCharacter) ?? 0];

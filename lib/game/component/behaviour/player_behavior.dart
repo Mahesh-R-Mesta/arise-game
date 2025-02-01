@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/service/audio.dart';
@@ -91,11 +92,12 @@ class PlayerBehavior extends Behavior<Player> {
         audioService.playSwordSound();
         parent.animationTicker?.onFrame = (frame) {
           if ((parent.current == PlayerState.attack && frame == 6) || (parent.current == PlayerState.attack1 && frame == 7)) {
-            if (lastTapped) {
+            if (lastTapped && Random().nextBool()) {
               swingSword();
               lastTapped = false;
               return;
             }
+            lastTapped = false;
             parent.current = PlayerState.idle;
           }
         };
