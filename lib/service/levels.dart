@@ -8,10 +8,17 @@ class Level {
   final String map;
   final List<String> instructions;
   final String level;
+  final int levelValue;
   final bool isFinal;
   final List<Conversation> conversation;
 
-  Level({required this.level, required this.map, required this.instructions, this.isFinal = false, this.conversation = const []});
+  Level(
+      {required this.level,
+      required this.levelValue,
+      required this.map,
+      required this.instructions,
+      this.isFinal = false,
+      this.conversation = const []});
 
   startConversation(String talkId, AriseGame game, {Function? onCompete, Function(int)? indexEvent}) {
     final converse = conversation.firstWhere((talk) => talk.key == talkId);
@@ -49,6 +56,7 @@ class Level {
 
   static List<Level> levels = [
     Level(
+        levelValue: 1,
         level: "The Warrior’s Return (Level 1)",
         instructions: [
           "Fight through the overrun village and uncover the source of the monsters",
@@ -76,6 +84,7 @@ class Level {
           ])
         ]),
     Level(
+        levelValue: 2,
         level: "Through the Veil (Level 2)",
         instructions: ["Explore the twisted version of the village, defeat stronger monsters", "And retrieve the magical sword to kill wizard"],
         map: "tile_map_02.tmx",
@@ -95,6 +104,7 @@ class Level {
           ])
         ]),
     Level(
+        levelValue: 3,
         level: "The Wizard’s Palace (Level 3)",
         instructions: ["Storm the wizard’s palace, defeat his minions", "Face the wizard himself. End his reign of terror and save the village"],
         map: "tile_map_03.tmx",

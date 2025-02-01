@@ -2,7 +2,6 @@ import 'package:arise_game/model/player_rank.dart';
 import 'package:arise_game/util/widget/toast.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LeaderboardDatabase {
   final String keyPath = "leader_board";
@@ -36,10 +35,10 @@ class LeaderboardDatabase {
       final data = mapData.cast<String, dynamic>();
       if (justRegisteredName == data["name"]) return justRegisteredName = null;
       final player = PlayerRank(id: "", name: data["name"], amount: data["score"]);
-      ToastMessage(message: "${player.name} earned ${player.amount} shiny coins!", gravity: ToastGravity.BOTTOM_LEFT).show();
+      ToastMessage(message: "${player.name} earned ${player.amount} shiny coins!").show();
     }
 
-    reference.onChildAdded.listen(showToast);
+    // reference.onChildAdded.listen(showToast);
     reference.onChildChanged.listen(showToast);
   }
 }
