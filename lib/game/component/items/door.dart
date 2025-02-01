@@ -31,7 +31,7 @@ class Door extends GameObjectSprite with HasGameRef<AriseGame> {
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     gameRef.overlays
-        .addEntry("doorOpen", (ctx, game) => GameActivityOverlayButton(message: "Lets open door", doText: "OPEN", onTap: () => moveToNextDoor()));
+        .addEntry("doorOpen", (ctx, game) => GameActivityOverlayButton(message: "Door, open!", doText: "OPEN", onTap: () => moveToNextDoor()));
     if (other is Player) {
       gameRef.overlays.add("doorOpen");
     }

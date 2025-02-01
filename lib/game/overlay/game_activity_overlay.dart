@@ -29,7 +29,7 @@ class GameActivityOverlayButton extends StatelessWidget {
           color: Color(0xfffbedea),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(width: 2.0, color: Color(0xff9a6c55))),
           child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 60, maxHeight: 85),
+            constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 66, maxHeight: 85),
             // size: size,
             child: Row(
               mainAxisSize: MainAxisSize.min,

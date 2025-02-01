@@ -35,7 +35,7 @@ class LeaderBoardScreen extends StatelessWidget {
           Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
-                  width: 200,
+                  width: 0.50 * MediaQuery.of(context).size.height,
                   child: Card(
                       color: Colors.black38,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

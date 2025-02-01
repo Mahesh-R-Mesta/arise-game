@@ -218,15 +218,15 @@
   <object id="2" name="ground" type="ground" x="143.5" y="167.625" width="1678.75" height="7.25"/>
   <object id="3" name="ground" type="ground" x="0.166333" y="120.792" width="140.667" height="5.75"/>
   <object id="4" name="leftGroundWall" type="leftGroundWall" x="138.208" y="123.625" width="4.91667" height="50.0833"/>
-  <object id="12" name="ground" type="ground" x="169.199" y="122.464" width="21.9753" height="5.75"/>
+  <object id="12" name="ground" type="ground" x="172.727" y="120.981" width="17.1969" height="7.23295"/>
   <object id="22" name="leftGroundWall" type="leftGroundWall" x="187.034" y="124.404" width="5" height="18.884"/>
-  <object id="26" name="ground" type="ground" x="218.083" y="121.957" width="19.3627" height="5.75"/>
+  <object id="26" name="ground" type="ground" x="219.844" y="121.957" width="17.6013" height="5.75"/>
   <object id="27" name="leftGroundWall" type="leftGroundWall" x="234.583" y="123.783" width="5" height="18.9275"/>
   <object id="28" name="rightGroundWall" type="rightGroundWall" x="215.75" y="124.143" width="5.33333" height="18.4617"/>
-  <object id="29" name="ground" type="ground" x="267.083" y="120.29" width="18.667" height="5.75"/>
+  <object id="29" name="ground" type="ground" x="269.094" y="120.29" width="16.6556" height="5.75"/>
   <object id="30" name="leftGroundWall" type="leftGroundWall" x="283.583" y="122.203" width="4.56522" height="18.8405"/>
   <object id="31" name="rightGroundWall" type="rightGroundWall" x="264.75" y="122.15" width="5.33333" height="18.7878"/>
-  <object id="35" name="ground" type="ground" x="314.416" y="119.623" width="19.667" height="5.75"/>
+  <object id="35" name="ground" type="ground" x="316.246" y="119.623" width="17.8375" height="5.75"/>
   <object id="36" name="leftGroundWall" type="leftGroundWall" x="330.916" y="121.797" width="5" height="18.5796"/>
   <object id="37" name="rightGroundWall" type="rightGroundWall" x="312.084" y="121.483" width="4.89855" height="18.7878"/>
   <object id="43" name="ground" type="ground" x="363.416" y="144.625" width="258.144" height="5.75"/>
@@ -264,7 +264,7 @@
   <object id="114" name="leftGroundWall" type="leftGroundWall" x="2011.42" y="170.576" width="4.625" height="25.1552"/>
   <object id="126" name="rightGroundWall" type="rightGroundWall" x="2722.47" y="79.9015" width="4.0606" height="92.6969"/>
   <object id="127" name="leftGroundWall" type="leftGroundWall" x="91.5417" y="49.4583" width="4.91667" height="74.5833"/>
-  <object id="130" name="rightGroundWall" type="rightGroundWall" x="168.333" y="123.894" width="5.33333" height="18.9617"/>
+  <object id="130" name="rightGroundWall" type="rightGroundWall" x="168.333" y="123.707" width="5.33333" height="19.1492"/>
   <object id="150" name="leftGroundWall" type="leftGroundWall" x="1248.5" y="114.993" width="5" height="27.6813"/>
   <object id="152" name="topFloor" type="topFloor" x="1224.17" y="140.083" width="30.6667" height="4.5"/>
   <object id="153" name="topFloor" type="topFloor" x="1250" y="113.083" width="160.667" height="4.5"/>

@@ -6,10 +6,12 @@ import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/game.dart';
 import 'package:arise_game/screen/guide_popup.dart';
 import 'package:arise_game/screen/leader_board/leader_board.dart';
+import 'package:arise_game/screen/popup/level_selection_popup.dart';
 import 'package:arise_game/service/audio.dart';
-import 'package:arise_game/screen/info_popup.dart';
-import 'package:arise_game/screen/quit_confirm_popup.dart';
+import 'package:arise_game/screen/popup/info_popup.dart';
+import 'package:arise_game/screen/popup/quit_confirm_popup.dart';
 import 'package:arise_game/screen/setting_popup.dart';
+import 'package:arise_game/service/leaderboard_database.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
@@ -18,6 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:in_app_update/in_app_update.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,9 +35,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     FToast().init(context);
+    GetIt.I.get<LeaderboardDatabase>().listenForAddedPlayer();
     gameAudio.initialize();
     WidgetsBinding.instance.addObserver(this);
+    updateApp();
     super.initState();
+  }
+
+  updateApp() {
+    InAppUpdate.checkForUpdate().then((info) async {
+      await InAppUpdate.startFlexibleUpdate();
+    }).catchError((error) {
+      debugPrint("$error");
+    });
   }
 
   requestAppReview() async {
@@ -108,10 +121,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       size: Size(150, 50),
                       text: 'NEW GAME',
                       onTap: () async {
+                        LevelSelection(
+                            context: context,
+                            onLevelSelect: (level) async {
+                              context.read<GameBloc>().add(GameStart(level: level));
+                              await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
+                            }).show();
                         context.read<EarnedCoinCubit>().reset();
-                        context.read<GameBloc>().add(GameStart(level: 1));
-
-                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
                       }),
                   WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
                   WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
