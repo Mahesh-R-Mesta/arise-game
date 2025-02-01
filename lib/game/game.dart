@@ -38,7 +38,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
           overlayBuilderMap: {
             "startGame": (context, game) => GameStartIntro(level: currentLevel, game: game as AriseGame),
             "controller": (context, game) => GameControls(game: game as AriseGame),
-            "gameWon": (context, game) => GameWon(game: game as AriseGame, isLastGame: currentLevel.isFinal, nexLevel: () => gameKey = UniqueKey()),
+            "gameWon": (context, game) => GameWon(game: game as AriseGame, level: currentLevel, nexLevel: () => gameKey = UniqueKey()),
             "gameLost": (context, game) => GameLost(game: game as AriseGame, restart: () => gameKey = UniqueKey()),
             "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
           },

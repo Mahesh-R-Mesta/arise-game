@@ -52,6 +52,7 @@ dependencies:
   fluttertoast: ^8.2.10
   # in_app_update: ^4.2.3
   connectivity_plus: ^6.1.2
+  in_app_update: ^4.2.3
 
 dev_dependencies:
   flutter_test:
