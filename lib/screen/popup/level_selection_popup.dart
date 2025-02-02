@@ -18,7 +18,7 @@ class LevelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final levelCompleted = 5; //LocalStorage.instance.maxLevelCompleted;
+    final levelCompleted = LocalStorage.instance.maxLevelCompleted;
     return Center(
         child: Material(
             elevation: 3,
