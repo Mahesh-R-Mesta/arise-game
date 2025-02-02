@@ -112,11 +112,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     widget: Icon(Icons.leaderboard, size: 30, color: Colors.white))),
             SizedBox.expand(
               child: Column(
-                spacing: 10,
+                spacing: 8,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(AppAsset.logo, width: 130, height: 130),
+                  WoodenButton(
+                      size: Size(150, 50),
+                      text: 'STORY',
+                      onTap: () async {
+                        context.read<GameBloc>().add(GameStart(level: 0));
+                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
+                        context.read<EarnedCoinCubit>().reset();
+                      }),
                   WoodenButton(
                       size: Size(150, 50),
                       text: 'NEW GAME',

@@ -54,8 +54,8 @@ abstract class Monster extends GroundCharacterEntity {
     }
     current = MonsterState.idle;
     add(RectangleHitbox(anchor: Anchor.center, position: Vector2(width / 2, (height / 2) + 6), size: hitBox));
-    add(MonsterSight(inViewRang: viewRange, visibleRange: visibleRange, parentSize: size));
-    if (projectileRange != null) add(MonsterSight(inViewRang: projectileAlert, visibleRange: projectileRange!, parentSize: size));
+    add(ViewSight(inViewRang: viewRange, visibleRange: visibleRange, parentSize: size));
+    if (projectileRange != null) add(ViewSight(inViewRang: projectileAlert, visibleRange: projectileRange!, parentSize: size));
     return super.onLoad();
   }
 

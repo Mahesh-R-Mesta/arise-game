@@ -19,6 +19,7 @@ import 'package:arise_game/game/component/items/shape.dart';
 import 'package:arise_game/game/component/items/house_item.dart';
 import 'package:arise_game/game/component/items/sword.dart';
 import 'package:arise_game/game/component/player.dart';
+import 'package:arise_game/game/component/villagers/villager.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/util/enum/monster_enum.dart';
 import 'package:flame/components.dart';
@@ -171,6 +172,9 @@ class GameWorld extends LeapWorld {
         add(CompletedRange(position: position, size: Vector2(item.width * GameViewConfig.incValue(), item.height * GameViewConfig.incValue())));
       } else if (item.class_ == "lever") {
         add(LeverStick(position: position));
+      } else if (item.class_ == "villager") {
+        final type = item.properties.byName["type"]!.value as String;
+        add(Villager(position: position, type: VillagerType.parse(type)));
       }
     }
   }

@@ -18,7 +18,7 @@ class LevelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final levelCompleted = LocalStorage.instance.maxLevelCompleted;
+    final levelCompleted = 5; //LocalStorage.instance.maxLevelCompleted;
     return Center(
         child: Material(
             elevation: 3,
@@ -31,7 +31,18 @@ class LevelSelection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  WoodenButton(text: "Level-1", size: Size(150, 50), onTap: () => onLevelSelect.call(1)),
+                  WoodenButton(
+                      text: "Level-1",
+                      size: Size(150, 50),
+                      onTap: () {
+                        // if (levelCompleted == 0) {
+                        //   onLevelSelect.call(0);
+                        //   LocalStorage.instance.setMaxLevelCompleted = levelCompleted + 1;
+                        //   return;
+                        // }
+                        // LocalStorage.instance.setMaxLevelCompleted = 0;
+                        onLevelSelect.call(1);
+                      }),
                   Opacity(
                       opacity: levelCompleted >= 2 ? 1 : 0.5,
                       child: WoodenButton(text: "Level-2", size: Size(150, 50), onTap: () => levelCompleted >= 2 ? onLevelSelect.call(2) : null)),

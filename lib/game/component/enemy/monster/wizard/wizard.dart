@@ -49,7 +49,7 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
     };
     add(lifeline);
     add(RectangleHitbox(anchor: Anchor.center, position: Vector2(size.x / 2, size.y / 2), size: Vector2(65, 120)));
-    add(MonsterSight(inViewRang: viewRange, visibleRange: Vector2(600, 60), parentSize: size));
+    add(ViewSight(inViewRang: viewRange, visibleRange: Vector2(600, 60), parentSize: size));
     current = WizardState.idle;
 
     walk();

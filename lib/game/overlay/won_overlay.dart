@@ -30,7 +30,12 @@ class GameWon extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(level.isFinal ? AppAsset.cup : AppAsset.logo, width: 0.3 * size.width, height: 0.3 * size.height),
-            Text(level.isFinal ? "🎉 Congratulations, You Won 🎉" : "You Won",
+            Text(
+                level.levelValue == 0
+                    ? "Start The Game"
+                    : level.isFinal
+                        ? "🎉 Congratulations, You Won 🎉"
+                        : "You Won",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white)),
             SizedBox(
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -44,20 +49,22 @@ class GameWon extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                WoodenButton(
-                    size: Size(170, 55),
-                    onTap: () {
-                      game.overlays.remove("gameWon");
-                      context.read<GameBloc>().add(GameEnd());
-                      Navigator.of(context).pop();
-                    },
-                    text: "BACK"),
-                WoodenButton(
-                    size: Size(170, 55),
-                    onTap: () {
-                      showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
-                    },
-                    text: "SUBMIT SCORE"),
+                if (level.levelValue != 0)
+                  WoodenButton(
+                      size: Size(170, 55),
+                      onTap: () {
+                        game.overlays.remove("gameWon");
+                        context.read<GameBloc>().add(GameEnd());
+                        Navigator.of(context).pop();
+                      },
+                      text: "BACK"),
+                if (level.levelValue != 0)
+                  WoodenButton(
+                      size: Size(170, 55),
+                      onTap: () {
+                        showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
+                      },
+                      text: "SUBMIT SCORE"),
                 if (!level.isFinal)
                   WoodenButton(
                       size: Size(170, 55),
