@@ -195,8 +195,8 @@
   </object>
   <object id="49" name="rightGroundWall" type="rightGroundWall" x="361.047" y="124.765" width="3.95833" height="26.0985"/>
   <object id="50" name="leftGroundWall" type="leftGroundWall" x="378.336" y="124.28" width="5" height="47.9393"/>
-  <object id="51" name="ground" type="ground" x="381.042" y="166.58" width="2429.96" height="5.84091">
-   <polygon points="0,0 2429.96,0 2429.96,5.84091 0,5.84091"/>
+  <object id="51" name="ground" type="ground" x="381.042" y="167.33" width="2429.96" height="5.09091">
+   <polygon points="0,0 2429.96,0 2429.96,5.09091 0,5.09091"/>
   </object>
   <object id="54" name="rightGroundWall" type="rightGroundWall" x="984.521" y="78.2235" width="3.95833" height="62.803"/>
   <object id="55" name="rightGroundWall" type="rightGroundWall" x="1081.52" y="28.2235" width="3.95833" height="47.8863"/>
@@ -243,8 +243,8 @@
   <object id="120" name="leftGroundWall" type="leftGroundWall" x="2252.88" y="44.164" width="4.20183" height="98.6858"/>
   <object id="144" name="rightGroundWall" type="rightGroundWall" x="1080.02" y="90.3485" width="5.45833" height="26.6363"/>
   <object id="146" name="topFloor" type="topFloor" x="1080.44" y="115" width="866.197" height="4.5"/>
-  <object id="153" name="ground" type="ground" x="1102.48" y="94.7084" width="841.704" height="5.79546">
-   <polygon points="0,0 841.704,0 841.704,5.79546 0,5.79546"/>
+  <object id="153" name="ground" type="ground" x="1102.98" y="95.9584" width="841.204" height="4.54546">
+   <polygon points="0,0 841.204,0 841.204,4.54546 0,4.54546"/>
   </object>
   <object id="168" name="rightGroundWall" type="rightGroundWall" x="1320.02" y="44.0568" width="3.95833" height="54.553"/>
   <object id="169" name="leftGroundWall" type="leftGroundWall" x="1340.83" y="43.822" width="3.18182" height="125.417"/>
@@ -441,7 +441,7 @@
   <object id="251" name="fire_stick" type="fire_stick" x="1536" y="136">
    <point/>
   </object>
-  <object id="262" name="health" type="health" x="1654.55" y="64.8182">
+  <object id="262" name="health" type="health" x="1670.67" y="62.3182">
    <point/>
   </object>
   <object id="263" name="complete" type="complete" x="3687.5" y="101" width="147" height="71"/>
@@ -466,7 +466,7 @@
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
-    <property name="projectileAttack" type="bool" value="true"/>
+    <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
     <property name="takeAround" type="bool" value="false"/>
    </properties>
@@ -476,7 +476,7 @@
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
-    <property name="projectileAttack" type="bool" value="true"/>
+    <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
     <property name="takeAround" type="bool" value="false"/>
    </properties>
@@ -486,7 +486,7 @@
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceDir" type="bool" value="false"/>
-    <property name="projectileAttack" type="bool" value="true"/>
+    <property name="projectileAttack" type="bool" value="false"/>
     <property name="reward" type="int" value="40"/>
     <property name="takeAround" type="bool" value="false"/>
    </properties>

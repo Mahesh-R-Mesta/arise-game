@@ -71,7 +71,7 @@ class Mushroom extends Monster with HasGameRef<AriseGame> {
   }
 
   @override
-  double get resistanceOverAttack => 0.6;
+  double get resistanceOverAttack => 0.42;
 
   @override
   double runSpeed() => 50;

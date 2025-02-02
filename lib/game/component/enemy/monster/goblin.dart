@@ -27,7 +27,7 @@ class Goblin extends Monster with HasGameRef<AriseGame> {
   // final rewardPoint = 40;
 
   @override
-  double get resistanceOverAttack => 0.75;
+  double get resistanceOverAttack => 0.38;
 
   @override
   FutureOr<void> onLoad() {
