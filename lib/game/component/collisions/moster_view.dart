@@ -2,13 +2,13 @@ import 'package:arise_game/game/component/helper/field_entity.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
-class MonsterSight extends GameField with CollisionCallbacks {
+class ViewSight extends GameField with CollisionCallbacks {
   final Vector2 parentSize;
   final Vector2 visibleRange;
   final Anchor anchor;
   final Function(Set<Vector2> intersect, PositionComponent other) inViewRang;
 
-  MonsterSight({required this.parentSize, this.anchor = Anchor.center, required this.visibleRange, required this.inViewRang});
+  ViewSight({required this.parentSize, this.anchor = Anchor.center, required this.visibleRange, required this.inViewRang});
   @override
   void onLoad() {
     anchor = Anchor.center;

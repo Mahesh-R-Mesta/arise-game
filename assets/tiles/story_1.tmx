@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="7" nextobjectid="7">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="11" tilewidth="24" tileheight="24" infinite="0" nextlayerid="8" nextobjectid="17">
  <tileset firstgid="1" source="blue_sky.tsx"/>
  <tileset firstgid="221" source="g_asset.tsx"/>
  <tileset firstgid="477" source="background_layer_2.tsx"/>
@@ -9,7 +9,7 @@
  <tileset firstgid="975" source="rock_2.tsx"/>
  <layer id="1" name="sky" width="50" height="11" parallaxx="0.85">
   <data encoding="csv">
-41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,41,42,43,44,45,46,47,48,49,50,
+685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,685,53,54,55,56,57,58,59,60,41,42,43,44,45,46,47,48,49,50,
 61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,61,62,63,64,65,66,67,68,69,70,
 81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,81,82,83,84,85,86,87,88,89,90,
 101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,101,102,103,104,105,106,107,108,109,110,
@@ -75,11 +75,67 @@
   <object id="6" name="leftGroundWall" type="leftGroundWall" x="88.0417" y="80.4583" width="4.91667" height="85.0833"/>
  </objectgroup>
  <objectgroup id="6" name="spawn">
-  <object id="5" name="Player" type="Player" x="141" y="112">
+  <object id="5" name="Player" type="Player" x="524.5" y="120">
    <properties>
     <property name="damageCap" type="float" value="1"/>
     <property name="jumpForce" type="float" value="-2.4"/>
     <property name="runSpeed" type="float" value="75"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="items">
+  <object id="7" name="villager" type="villager" x="740.558" y="102.657">
+   <properties>
+    <property name="type" value="man"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="9" name="villager" type="villager" x="757.5" y="101">
+   <properties>
+    <property name="type" value="oldMan"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="10" name="villager" type="villager" x="776.5" y="100.5">
+   <properties>
+    <property name="type" value="woman"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="11" name="villager" type="villager" x="807" y="103.5">
+   <properties>
+    <property name="type" value="oldWoman"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="12" name="villager" type="villager" x="831.5" y="100.5">
+   <properties>
+    <property name="type" value="boy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="13" name="villager" type="villager" x="869" y="107">
+   <properties>
+    <property name="type" value="woman"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="14" name="villager" type="villager" x="696.5" y="108.5">
+   <properties>
+    <property name="type" value="man"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="villager" type="villager" x="790.5" y="113.5">
+   <properties>
+    <property name="type" value="boy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="16" name="villager" type="villager" x="719" y="101">
+   <properties>
+    <property name="type" value="oldWoman"/>
    </properties>
    <point/>
   </object>

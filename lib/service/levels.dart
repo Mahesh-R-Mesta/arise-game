@@ -56,6 +56,38 @@ class Level {
 
   static List<Level> levels = [
     Level(
+        levelValue: 0,
+        level: "The Warrior’s Return",
+        instructions: [],
+        map: "story_1.tmx",
+        conversation: [
+          Conversation(key: "storyPlay", talks: [
+            PlayerTalk(key: "st-1", doText: "NEXT", message: "Stop! What’s happening? Why are you leaving the village?"),
+            PlayerTalk(
+                image: AppAsset.villager,
+                character: "Villager",
+                key: "st-2",
+                doText: "NEXT",
+                message: "It’s the wizard! He’s unleashed monsters—goblins, skeletons, flying horrors! They’re tearing the village apart!"),
+            PlayerTalk(key: "st-3", doText: "NEXT", message: "The wizard? But... he was supposed to protect us. Are you saying he’s behind this?"),
+            PlayerTalk(
+                image: AppAsset.villager,
+                character: "Villager",
+                key: "st-4",
+                doText: "NEXT",
+                message:
+                    "Protect us? He never cared about us! He came here with his dark magic, pretending to help, but all along he was planning this. The monsters are his creations!"),
+            PlayerTalk(key: "st-5", doText: "NEXT", message: "I should have seen it sooner. He tricked us all. But I won’t let him destroy our home"),
+            PlayerTalk(
+                image: AppAsset.villager,
+                character: "Villager",
+                key: "st-7",
+                doText: "NEXT",
+                message: "Please, be careful. He’s too powerful. If anyone can stop him, it’s you... but don’t underestimate him."),
+            PlayerTalk(key: "st-8", doText: "NEXT", message: "I won’t. Go, find safety. I’ll make sure the wizard pays for what he’s done."),
+          ]),
+        ]),
+    Level(
         levelValue: 1,
         level: "The Warrior’s Return (Level 1)",
         instructions: [
@@ -64,17 +96,17 @@ class Level {
         ],
         map: "tile_map_01.tmx",
         conversation: [
-          Conversation(key: "playStart", talks: [
-            PlayerTalk(key: "pc-1", doText: "NEXT", message: "Hi, my name is Shreehan, and I am a skilled warrior"),
-            PlayerTalk(
-                key: "pc-1",
-                doText: "NEXT",
-                message:
-                    "This was my father’s village, a simple place where we lived in peace... until the wizard turned it into a den of monsters."),
-            PlayerTalk(key: "pc-2", doText: "NEXT", message: "I have arrived in this village to free it from the monsters"),
-            PlayerTalk(key: "pc-3", doText: "NEXT", message: "and to restore my people to their rightful homes"),
-            PlayerTalk(key: "pc-4", doText: "YES", message: "I believe I can count on your support to help me accomplish this mission")
-          ]),
+          // Conversation(key: "playStart", talks: [
+          //   PlayerTalk(key: "pc-1", doText: "NEXT", message: "Hi, my name is Shreehan, and I am a skilled warrior"),
+          //   PlayerTalk(
+          //       key: "pc-1",
+          //       doText: "NEXT",
+          //       message:
+          //           "This was my father’s village, a simple place where we lived in peace... until the wizard turned it into a den of monsters."),
+          //   PlayerTalk(key: "pc-2", doText: "NEXT", message: "I have arrived in this village to free it from the monsters"),
+          //   PlayerTalk(key: "pc-3", doText: "NEXT", message: "and to restore my people to their rightful homes"),
+          //   PlayerTalk(key: "pc-4", doText: "YES", message: "I believe I can count on your support to help me accomplish this mission")
+          // ]),
           Conversation(key: "wizardPortal", talks: [
             PlayerTalk(key: "pc-5", doText: "NEXT", message: "What... is this? It hums with a strange power, like nothing I’ve ever seen"),
             PlayerTalk(

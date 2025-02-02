@@ -18,7 +18,7 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
-    await loadWorldAndMap(tiledMapPath: level.map);
+    await loadWorldAndMap(tiledMapPath: level.map); //level.map);
     debugMode = GameViewConfig.debugMode;
 
     camera = CameraComponent.withFixedResolution(world: world, width: screenSize.width, height: screenSize.height);

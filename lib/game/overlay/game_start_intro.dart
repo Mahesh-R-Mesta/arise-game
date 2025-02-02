@@ -16,6 +16,7 @@ class GameStartIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Material(
         color: Colors.black54,
         child: SizedBox.expand(
@@ -37,7 +38,7 @@ class GameStartIntro extends StatelessWidget {
                     if (level.conversation.any((talk) => talk.key == "playStart") && !restarted) {
                       level.startConversation("playStart", game, onCompete: () => game.overlays.add("controller"));
                     } else {
-                      game.overlays.add("controller");
+                      if (level.levelValue != 0) game.overlays.add("controller");
                     }
                   },
                   text: "Start game"),

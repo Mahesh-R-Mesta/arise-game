@@ -29,7 +29,8 @@ void main() async {
     ..registerLazySingleton(AudioService.new)
     ..registerLazySingleton(EarnedCoinCubit.new)
     ..registerLazySingleton(LocalStorage.new)
-    ..registerLazySingleton(LeaderboardDatabase.new);
+    ..registerLazySingleton(LeaderboardDatabase.new)
+    ..registerLazySingleton(GameBloc.new);
   runApp(const MyApp());
 }
 
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (ctx) => GetIt.I.get<EarnedCoinCubit>()),
           BlocProvider(create: (ctx) => PlayerCharacterCubit()),
-          BlocProvider(create: (ctx) => GameBloc())
+          BlocProvider(create: (ctx) => GetIt.I.get<GameBloc>())
         ],
         child: MaterialApp(
             title: 'First Game',

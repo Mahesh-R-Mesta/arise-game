@@ -24,7 +24,7 @@ class LocalStorage {
   int get reviewRequestCount => _box.read<int>(_reviewStatus) ?? 0;
 
   set setMaxLevelCompleted(int level) => _box.write(_levelStatus, level);
-  int get maxLevelCompleted => _box.read(_levelStatus) ?? 1;
+  int get maxLevelCompleted => _box.read(_levelStatus) ?? 0;
 
   set setPlayerCharacter(PlayerCharacter character) => _box.write(_heroCharacter, character.index);
   PlayerCharacter get getPlayerCharacter => PlayerCharacter.values[_box.read<int>(_heroCharacter) ?? 0];

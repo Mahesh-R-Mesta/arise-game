@@ -131,6 +131,11 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
     gameRef.camera.follow(CameraBehavior(character: this, game: gameRef));
     current = PlayerState.jumping;
+    if (gameRef.level.levelValue == 0) {
+      gameRef.overlays.remove("controller");
+      current = PlayerState.running;
+      behavior.horizontalMovement = 1;
+    }
     // add(PlayerAttackZone(isAttacking: () => isAttacking, size: size));
     // selfConversation();
     return super.onLoad();

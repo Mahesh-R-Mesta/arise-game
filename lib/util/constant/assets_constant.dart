@@ -13,6 +13,7 @@ mixin AppAsset {
   static const String path = "assets/images/app/";
   static const String logo = "${path}logo.png";
   static const String hero = "${path}hero.png";
+  static const String villager = "${path}villager.png";
   static const String wizard = "${path}wizard.png";
   static const String splash = "${path}splash.png";
   static const String sunRise = "${path}sun_rise_2.jpg";
@@ -30,6 +31,27 @@ mixin GameAssets {
   static const String characterRed = "${character}char_red.png"; //character/char_blue_2.png
   static const String characterPurple = "${character}char_purple.png";
   static const String characterGreen = "${character}char_green.png";
+
+  // assets/images/character/villagers/Old_woman/
+  //   - assets/images/character/villagers/Man/
+  //   - assets/images/character/villagers/Boy/
+  //   - assets/images/character/villagers/Woman/
+
+  static const String manWalk = "${character}villagers/Man/Man_walk.png";
+  static const String manIdle = "${character}villagers/Man/Man_idle.png";
+
+  static const String boyWalk = "${character}villagers/Boy/Boy_walk.png";
+  static const String boyIdle = "${character}villagers/Boy/Boy_idle.png";
+
+  static const String oldWomanWalk = "${character}villagers/Old_woman/Old_woman_walk.png";
+  static const String oldWomanIdle = "${character}villagers/Old_woman/Old_woman_idle.png";
+
+  static const String womanWalk = "${character}villagers/Woman/Woman_walk.png";
+  static const String womanIdle = "${character}villagers/Woman/Woman_idle.png";
+
+  static const String oldManWalk = "${character}villagers/Old_man/Old_man_walk.png";
+  static const String oldManIdle = "${character}villagers/Old_man/Old_man_idle.png";
+
   static const String fire = "fire.png";
   static const String decoration = "background/decorations/";
   static const String wormhole = "worm_hole.png"; //character/char_blue_2.png

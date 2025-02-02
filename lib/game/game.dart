@@ -31,7 +31,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     return BlocBuilder<GameBloc, GameState>(buildWhen: (previous, current) {
       return previous.level != current.level || previous.restart != current.restart;
     }, builder: (context, gameBloc) {
-      final currentLevel = Level.levels[gameBloc.level - 1];
+      final currentLevel = Level.levels[gameBloc.level];
       return GameWidget.controlled(
           key: gameKey,
           gameFactory: () => AriseGame(level: currentLevel, screenSize: size, tileSize: GameViewConfig.MODIFIED_TILE, world: GameWorld()),
