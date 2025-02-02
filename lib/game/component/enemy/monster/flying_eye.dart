@@ -35,7 +35,7 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
     final death = spriteAnimationSequence(
         image: gameRef.images.fromCache(EnemyAssets.flyingEyeDeath), amount: 4, stepTime: 0.2, textureSize: Vector2.all(150), isLoop: false);
     final bombing = spriteAnimationSequence(
-        image: gameRef.images.fromCache(EnemyAssets.flyingEyeThrow), amount: 6, stepTime: 0.2, textureSize: Vector2(150, 150));
+        image: gameRef.images.fromCache(EnemyAssets.flyingEyeThrow), amount: 6, stepTime: 0.25, textureSize: Vector2(150, 150));
     animations = {
       MonsterState.idle: flying,
       MonsterState.attack: attack,
@@ -99,7 +99,7 @@ class FlyingEye extends Monster with HasGameRef<AriseGame> {
 
   @override
   getProjectile() {
-    final bomb = ProjectileWeapon(Projectile.eyeBomb, 1.1, posAdjust: Vector2(32, 40));
+    final bomb = ProjectileWeapon(Projectile.eyeBomb, 1.5, posAdjust: Vector2(32, 40));
     bomb.behavior
       ..mass = 0.3
       ..isOnGround = false

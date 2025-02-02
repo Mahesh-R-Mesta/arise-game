@@ -132,7 +132,7 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
     if (other is Player) {
       if (other.isAttacking) {
         current = WizardState.harm;
-        harmed(other.damageCapacity * 0.09);
+        harmed(other.damageCapacity * 0.2);
         animationTicker?.onFrame = (index) {
           if (index == 2 && current != WizardState.die) {
             current = WizardState.attack;
