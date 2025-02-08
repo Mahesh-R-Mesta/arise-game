@@ -1,16 +1,12 @@
 import 'dart:async';
-
 import 'package:arise_game/game/arise_game.dart';
-import 'package:arise_game/game/bloc/player/game_bloc.dart';
-import 'package:arise_game/game/bloc/player/game_event.dart';
-import 'package:arise_game/game/component/collisions/moster_view.dart';
+import 'package:arise_game/game/component/collisions/monster_view.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:get_it/get_it.dart';
 
 enum Actor { walk, idle }
 

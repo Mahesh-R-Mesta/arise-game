@@ -2,7 +2,7 @@ import 'dart:async' as async;
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
-import 'package:arise_game/game/component/collisions/moster_view.dart';
+import 'package:arise_game/game/component/collisions/monster_view.dart';
 import 'package:arise_game/game/component/enemy/monster/wizard/wizard_shoot.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';

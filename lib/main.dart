@@ -14,7 +14,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:flutter/foundation.dart' show kDebugMode;
+// import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:get_storage/get_storage.dart';
 
 void main() async {
@@ -48,6 +48,11 @@ class MyApp extends StatelessWidget {
             title: 'First Game',
             debugShowCheckedModeBanner: false,
             theme: theme(),
-            home: MediaQuery(data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)), child: HomePage())));
+            builder: (context, child) {
+              final mediaQuery = MediaQuery.of(context);
+              final constrained = mediaQuery.textScaler.clamp(minScaleFactor: 1, maxScaleFactor: 1.1);
+              return MediaQuery(data: mediaQuery.copyWith(textScaler: constrained), child: child!);
+            },
+            home: HomePage()));
   }
 }
