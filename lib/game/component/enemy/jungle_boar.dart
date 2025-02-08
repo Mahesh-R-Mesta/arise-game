@@ -47,8 +47,13 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
     lifeline = Lifeline(playerBoxWidth: width);
     final runningAnimation =
         spriteAnimationSequence(image: gameRef.images.fromCache(boar.runAsset), amount: 6, stepTime: 0.2, textureSize: assetSize);
-    final deathAnimation =
-        spriteAnimationSequence(image: gameRef.images.fromCache(boar.deathAsset), amount: 4, stepTime: 0.2, textureSize: assetSize, isLoop: false);
+    final deathAnimation = spriteAnimationSequence(
+        image: gameRef.images.fromCache(boar.deathAsset),
+        texturePosition: Vector2(assetSize.x, 0),
+        amount: 1,
+        stepTime: 0.2,
+        textureSize: assetSize,
+        isLoop: false);
     final harmAnimation =
         spriteAnimationSequence(image: gameRef.images.fromCache(boar.deathAsset), amount: 4, stepTime: 0.1, textureSize: assetSize, isLoop: false);
     animations = {PlayerState.running: runningAnimation, PlayerState.death: deathAnimation, PlayerState.harmed: harmAnimation};
@@ -95,10 +100,10 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
               turnRight(); // if left facing it turn to right
             }
           }
-        } else {
+        } else if (current != PlayerState.death) {
           other.harmedBy(this, damageCapacity * 15, playHurtingSound: true);
         }
-      } else {
+      } else if (current != PlayerState.death) {
         other.harmedBy(this, damageCapacity * 15, playHurtingSound: true);
       }
     }
@@ -137,11 +142,15 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
     isFacingRight = false;
   }
 
+  bool isBoarDead = false;
+
   void death() {
-    behavior.xVelocity = 20;
+    // behavior.xVelocity = 20;
     current = PlayerState.death;
     audioPlayer.boarRoarPlayer.stop();
-    Future.delayed(Duration(milliseconds: 800), () {
+    if (isBoarDead) return;
+    isBoarDead = true;
+    Future.delayed(Duration(milliseconds: 500), () {
       playerEarnedCoin.receivedCoin(damageReward);
       removeFromParent();
     });
