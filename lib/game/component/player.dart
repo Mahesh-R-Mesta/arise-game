@@ -7,7 +7,6 @@ import 'package:arise_game/game/component/enemy/jungle_boar.dart';
 import 'package:arise_game/game/component/enemy/moster_character.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
 import 'package:arise_game/game/component/enemy/projectile_weapon.dart';
-import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/config.dart';
@@ -29,7 +28,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
       : super(anchor: Anchor.center, key: ComponentKey.named("player"));
 
   late Lifeline lifeline;
-  late HarmZone harmZone;
+  // late HarmZone harmZone;
 
   final character = LocalStorage.instance.getPlayerCharacter;
   final playerHitBox = RectangleHitbox(size: Vector2(45, 60), position: Vector2(32, 39));
@@ -106,7 +105,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
         image: game.images.fromCache(character.asset1),
         texturePosition: Vector2(0, 56 * 5),
         amount: 4,
-        stepTime: 0.2,
+        stepTime: 0.08,
         textureSize: Vector2(56, 56),
         isLoop: false);
     animations = {
@@ -123,11 +122,11 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
       PlayerState.harmed: harmedAnime
     };
     lifeline = Lifeline(playerBoxWidth: width, yPosition: 15);
-    harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
+    // harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
     add(PlayerBehavior());
     add(lifeline);
     add(playerHitBox);
-    add(harmZone);
+    // add(harmZone);
     gameRef.camera.viewfinder.anchor = Anchor(0.3, 0.5);
     gameRef.camera.follow(CameraBehavior(character: this, game: gameRef));
     current = PlayerState.jumping;
@@ -143,6 +142,8 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
 
   bool get isAttacking => [PlayerState.attack, PlayerState.attack1, PlayerState.attack2].contains(current);
 
+  bool get isHarmed => current == PlayerState.harmed;
+
   void harmedBy(PositionComponent enemy, double damage, {bool playHurtingSound = true}) {
     if (enemy is ProjectileWeapon && !enemy.isStarted()) return;
 
@@ -150,7 +151,15 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     if (playHurtingSound) audioService.hurt();
 
     if (lifeline.health > 0) {
-      harmZone.blinkIt();
+      // harmZone.blinkIt();
+      current = PlayerState.harmed;
+      behavior.horizontalMovement = 0;
+      animationTicker?.onFrame = (index) {
+        if (animationTicker?.isLastFrame == true) {
+          if (current == PlayerState.harmed) current = PlayerState.idle;
+          animationTicker?.onFrame = null;
+        }
+      };
     }
 
     if (lifeline.health == 0) {

@@ -4,7 +4,6 @@ import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/component/collisions/ground_collision.dart';
 // import 'package:arise_game/game/component/collisions/player_attack_zone.dart';
 import 'package:arise_game/game/component/helper/ground_character.dart';
-import 'package:arise_game/game/component/items/harm_zone.dart';
 import 'package:arise_game/game/component/items/lifeline.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/arise_game.dart';
@@ -32,7 +31,7 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   JungleBoar({required this.boar, required this.damageCapacity, required this.damageReward, required this.speed, super.position, super.size});
 
   late Lifeline lifeline;
-  late HarmZone harmZone;
+  // late HarmZone harmZone;
 
   final assetSize = Vector2(48, 32);
   final playerEarnedCoin = GetIt.I.get<EarnedCoinCubit>();
@@ -46,14 +45,16 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
     behavior.horizontalMovement = -1;
     size = Vector2(assetSize.x * 1.5, assetSize.y * 1.5);
     lifeline = Lifeline(playerBoxWidth: width);
-    final runningAnimation = SpriteAnimation.fromFrameData(
-        gameRef.images.fromCache(boar.runAsset), SpriteAnimationData.sequenced(amount: 6, stepTime: 0.2, textureSize: assetSize));
-    final deathAnimation = SpriteAnimation.fromFrameData(
-        gameRef.images.fromCache(boar.deathAsset), SpriteAnimationData.sequenced(amount: 4, stepTime: 0.2, textureSize: assetSize));
-    animations = {PlayerState.running: runningAnimation, PlayerState.death: deathAnimation};
+    final runningAnimation =
+        spriteAnimationSequence(image: gameRef.images.fromCache(boar.runAsset), amount: 6, stepTime: 0.2, textureSize: assetSize);
+    final deathAnimation =
+        spriteAnimationSequence(image: gameRef.images.fromCache(boar.deathAsset), amount: 4, stepTime: 0.2, textureSize: assetSize, isLoop: false);
+    final harmAnimation =
+        spriteAnimationSequence(image: gameRef.images.fromCache(boar.deathAsset), amount: 4, stepTime: 0.1, textureSize: assetSize, isLoop: false);
+    animations = {PlayerState.running: runningAnimation, PlayerState.death: deathAnimation, PlayerState.harmed: harmAnimation};
     current = PlayerState.running;
-    harmZone = HarmZone(playerSize: size);
-    add(harmZone);
+    // harmZone = HarmZone(playerSize: size);
+    // add(harmZone);
     add(RectangleHitbox(size: size));
     add(lifeline);
     return super.onLoad();
@@ -61,7 +62,14 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
 
   harmed(double damage) {
     lifeline.reduce(damage);
-    harmZone.blinkIt();
+    // harmZone.blinkIt();
+    current = PlayerState.harmed;
+    animationTicker?.onFrame = (index) {
+      if (animationTicker?.isLastFrame == true) {
+        current = PlayerState.running;
+        animationTicker?.onFrame = null;
+      }
+    };
     if (lifeline.health == 0 && current != PlayerState.death) death();
   }
 
@@ -130,6 +138,7 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   }
 
   void death() {
+    behavior.xVelocity = 20;
     current = PlayerState.death;
     audioPlayer.boarRoarPlayer.stop();
     Future.delayed(Duration(milliseconds: 800), () {
