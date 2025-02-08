@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.USE_PERFORMANCE_HINTS"/>
     <application
-        android:label="arise_game"
+        android:label="Arise:The Monster Invasion"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:isGame="true">
