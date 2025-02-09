@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QuitConfirmation extends StatelessWidget {
   final BuildContext context;
@@ -19,17 +20,22 @@ class QuitConfirmation extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           color: Colors.black54,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text("Are you sure want to exit?", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20, color: Colors.white)),
+              Text(
+                "Are you sure want to exit?",
+                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20.sp, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 IconButton(
                   onPressed: () => SystemNavigator.pop(animated: true),
-                  icon: Icon(Icons.check, color: Colors.red, size: 40),
+                  icon: Icon(Icons.check, color: Colors.red, size: 40.sp),
                 ),
                 IconButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  icon: Icon(Icons.close, color: Colors.green, size: 40),
+                  icon: Icon(Icons.close, color: Colors.green, size: 40.sp),
                 ),
               ])
             ],

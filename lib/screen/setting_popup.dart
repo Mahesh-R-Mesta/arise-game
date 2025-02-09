@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 // import 'package:image/image.dart' as img;
 
@@ -34,7 +35,7 @@ class SettingsPopup extends StatelessWidget {
                   child: Column(
                     spacing: 10,
                     children: [
-                      Text("Select character", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white)),
+                      Text("Select character", style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.white)),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
@@ -60,7 +61,8 @@ class SettingsPopup extends StatelessWidget {
                       children: [
                         Align(
                             alignment: Alignment.topRight,
-                            child: IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40))),
+                            child:
+                                IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40.sp))),
                         IconButton(
                             onPressed: () {
                               if (audioPlayer.isBGPlaying()) {
@@ -76,10 +78,10 @@ class SettingsPopup extends StatelessWidget {
                                 ValueListenableBuilder<bool>(
                                     valueListenable: bgAudioEffectNotifier,
                                     builder: (context, isPlaying, _) {
-                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40);
+                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
                                     }),
-                                const SizedBox(width: 15),
-                                Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18, color: Colors.white)),
+                                SizedBox(width: 15.w),
+                                Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
                               ],
                             )),
                         IconButton(
@@ -92,10 +94,10 @@ class SettingsPopup extends StatelessWidget {
                                 ValueListenableBuilder<bool>(
                                     valueListenable: gameSoundEffectNotifier,
                                     builder: (context, isPlaying, _) {
-                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40);
+                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
                                     }),
-                                const SizedBox(width: 15),
-                                Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18, color: Colors.white)),
+                                SizedBox(width: 15.w),
+                                Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
                               ],
                             )),
                       ],

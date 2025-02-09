@@ -1,6 +1,7 @@
 import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelSelection extends StatelessWidget {
   final BuildContext context;
@@ -27,13 +28,13 @@ class LevelSelection extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
               child: Column(
-                spacing: 10,
+                spacing: 10.h,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   WoodenButton(
                       text: "Level-1",
-                      size: Size(150, 50),
+                      size: Size(150, 50.h),
                       onTap: () {
                         // if (levelCompleted == 0) {
                         //   onLevelSelect.call(0);
@@ -45,10 +46,10 @@ class LevelSelection extends StatelessWidget {
                       }),
                   Opacity(
                       opacity: levelCompleted >= 2 ? 1 : 0.5,
-                      child: WoodenButton(text: "Level-2", size: Size(150, 50), onTap: () => levelCompleted >= 2 ? onLevelSelect.call(2) : null)),
+                      child: WoodenButton(text: "Level-2", size: Size(150, 50.h), onTap: () => levelCompleted >= 2 ? onLevelSelect.call(2) : null)),
                   Opacity(
                       opacity: levelCompleted >= 3 ? 1 : 0.5,
-                      child: WoodenButton(text: "Level-3", size: Size(150, 50), onTap: () => levelCompleted >= 3 ? onLevelSelect.call(3) : null)),
+                      child: WoodenButton(text: "Level-3", size: Size(150, 50.h), onTap: () => levelCompleted >= 3 ? onLevelSelect.call(3) : null)),
                 ],
               ),
             )));

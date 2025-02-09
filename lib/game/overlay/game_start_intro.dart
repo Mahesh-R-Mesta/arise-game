@@ -7,6 +7,7 @@ import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameStartIntro extends StatelessWidget {
   final Level level;
@@ -21,17 +22,17 @@ class GameStartIntro extends StatelessWidget {
         color: Colors.black54,
         child: SizedBox.expand(
           child: Column(
-            spacing: 8,
+            spacing: 8.h,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(AppAsset.logo, width: 0.3 * size.width, height: 0.3 * size.height),
-              Text(level.level, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
+              Text(level.level, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: Colors.white)),
               for (final instruction in level.instructions)
-                Text(instruction, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Colors.white)),
+                Text(instruction, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp, color: Colors.white)),
               // Text("Kill wild animals", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white)),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               WoodenButton(
-                  size: Size(170, 55),
+                  size: Size(170, 55.w),
                   onTap: () {
                     game.overlays.remove("startGame");
                     final restarted = context.read<GameBloc>().state.restart > 0;
@@ -44,12 +45,12 @@ class GameStartIntro extends StatelessWidget {
                   text: "Start game"),
               // const SizedBox(height: 5),
               WoodenSquareButton(
-                  size: Size(60, 60),
+                  size: Size(60.h, 60.h),
                   onTap: () {
                     context.read<GameBloc>().add(GameEnd());
                     Navigator.of(context).pop();
                   },
-                  widget: Icon(Icons.arrow_back, color: Colors.white, size: 40)),
+                  widget: Icon(Icons.arrow_back, color: Colors.white, size: 40.sp)),
             ],
           ),
         ));

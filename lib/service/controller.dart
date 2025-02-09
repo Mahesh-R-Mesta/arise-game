@@ -6,8 +6,14 @@ class GameButtonBridge {
   Function()? onAttackTap;
   Function()? onDoubleTap;
 
+  Function()? onStopMove;
+
   void onMoveLeftDown() {
     if (onLeftMove != null) onLeftMove?.call(true);
+  }
+
+  void onStopMoveCall() {
+    if (onStopMove != null) onStopMove?.call();
   }
 
   void onMoveLeftUp() {

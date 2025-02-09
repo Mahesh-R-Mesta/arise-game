@@ -59,6 +59,12 @@ class PlayerBehavior extends Behavior<Player> {
       stopSwordPlay();
     };
 
+    buttonBridge.onStopMove = () {
+      parent.current = PlayerState.idle;
+      parent.behavior.horizontalMovement = 0;
+      stopSwordPlay();
+    };
+
     buttonBridge.onActivateShield = (activate) {
       if (activate) {
         parent

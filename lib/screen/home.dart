@@ -17,6 +17,7 @@ import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -93,32 +94,32 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 top: 15,
                 right: 15,
                 child: WoodenSquareButton(
-                    size: Size.square(55),
+                    size: Size.square(55.w),
                     onTap: () => InfoPopup(context: context).show(),
-                    widget: Icon(Icons.info_outline, size: 30, color: Colors.white))),
+                    widget: Icon(Icons.info_outline, size: 30.sp, color: Colors.white))),
             Positioned(
                 top: 15,
                 left: 15,
                 child: WoodenSquareButton(
-                    size: Size.square(55),
+                    size: Size.square(55.w),
                     onTap: () => GuidePopup(context: context).show(),
-                    widget: Icon(Icons.question_mark, size: 30, color: Colors.white))),
+                    widget: Icon(Icons.question_mark, size: 30.sp, color: Colors.white))),
             Positioned(
                 bottom: 15,
                 left: 15,
                 child: WoodenSquareButton(
-                    size: Size.square(55),
+                    size: Size.square(55.w),
                     onTap: () async => await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LeaderBoardScreen())),
-                    widget: Icon(Icons.leaderboard, size: 30, color: Colors.white))),
+                    widget: Icon(Icons.leaderboard, size: 30.sp, color: Colors.white))),
             SizedBox.expand(
               child: Column(
-                spacing: 8,
+                spacing: 8.h,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppAsset.logo, width: 130, height: 130),
+                  Image.asset(AppAsset.logo, width: 130.h, height: 130.h),
                   WoodenButton(
-                      size: Size(150, 50),
+                      size: Size(150.w, 50.h),
                       text: 'STORY',
                       onTap: () async {
                         context.read<GameBloc>().add(GameStart(level: 0));
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         context.read<EarnedCoinCubit>().reset();
                       }),
                   WoodenButton(
-                      size: Size(150, 50),
+                      size: Size(150.w, 50.h),
                       text: 'NEW GAME',
                       onTap: () async {
                         LevelSelection(
@@ -137,8 +138,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             }).show();
                         context.read<EarnedCoinCubit>().reset();
                       }),
-                  WoodenButton(size: Size(140, 50), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
-                  WoodenButton(size: Size(90, 50), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
+                  WoodenButton(size: Size(140.w, 50.h), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
+                  WoodenButton(size: Size(90.w, 50.h), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
                 ],
               ),
             )

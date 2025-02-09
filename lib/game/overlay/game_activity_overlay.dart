@@ -2,6 +2,7 @@
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/constant/color_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameActivityOverlayButton extends StatelessWidget {
   final String image;
@@ -27,7 +28,7 @@ class GameActivityOverlayButton extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Material(
           color: Color(0xfffbedea),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(width: 2.0, color: Color(0xff9a6c55))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r), side: BorderSide(width: 2.0, color: Color(0xff9a6c55))),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 69, maxHeight: 85),
             // size: size,
@@ -38,8 +39,8 @@ class GameActivityOverlayButton extends StatelessWidget {
               children: [
                 const SizedBox(width: 12),
                 Image.asset(image,
-                    width: 40,
-                    height: 40,
+                    width: 40.h,
+                    height: 40.h,
                     frameBuilder: (_, child, __, ___) => Material(
                         shape:
                             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1.5, color: AppColor.darkOrange)),
