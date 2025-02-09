@@ -9,6 +9,7 @@ import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameWon extends StatelessWidget {
   final AriseGame game;
@@ -26,7 +27,7 @@ class GameWon extends StatelessWidget {
       color: Colors.black54,
       child: SizedBox.expand(
         child: Column(
-          spacing: 15,
+          spacing: 15.h,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(level.isFinal ? AppAsset.cup : AppAsset.logo, width: 0.3 * size.width, height: 0.3 * size.height),
@@ -36,13 +37,13 @@ class GameWon extends StatelessWidget {
                     : level.isFinal
                         ? "🎉 Congratulations, You Won 🎉"
                         : "You Won",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35.sp, color: Colors.white)),
             SizedBox(
               child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Image.asset(GameAssets.coin, width: 25, height: 25),
-                const SizedBox(width: 5),
+                Image.asset(GameAssets.coin, width: 25.h, height: 25.h),
+                SizedBox(width: 5.w),
                 BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
-                  return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.amber));
+                  return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp, color: Colors.amber));
                 })
               ]),
             ),
@@ -51,7 +52,7 @@ class GameWon extends StatelessWidget {
               children: [
                 if (level.levelValue != 0)
                   WoodenButton(
-                      size: Size(170, 55),
+                      size: Size(170.w, 55.h),
                       onTap: () {
                         game.overlays.remove("gameWon");
                         context.read<GameBloc>().add(GameEnd());
@@ -60,14 +61,14 @@ class GameWon extends StatelessWidget {
                       text: "BACK"),
                 if (level.levelValue != 0)
                   WoodenButton(
-                      size: Size(170, 55),
+                      size: Size(170.w, 55.h),
                       onTap: () {
                         showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
                       },
                       text: "SUBMIT SCORE"),
                 if (!level.isFinal)
                   WoodenButton(
-                      size: Size(170, 55),
+                      size: Size(170.w, 55.h),
                       onTap: () {
                         nexLevel.call();
                         final gameBloc = context.read<GameBloc>();

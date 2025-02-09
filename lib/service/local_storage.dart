@@ -10,6 +10,7 @@ class LocalStorage {
   final String _heroCharacter = "HERO_CHARACTER";
   final String _reviewStatus = "REVIEW_STATUS";
   final String _levelStatus = "LEVEL_STATUS";
+  final String _joystickType = "JOYSTICK_TYPE";
 
   set enableBgSound(bool enable) {
     _box.write(_bgSoundEffect, enable);
@@ -19,6 +20,9 @@ class LocalStorage {
 
   set enableEffectSound(bool enable) => _box.write(_effectSound, enable);
   bool get effectSoundState => _box.read<bool>(_effectSound) ?? true;
+
+  set enableJoystick(bool enable) => _box.write(_joystickType, enable);
+  bool get joystickState => _box.read<bool>(_joystickType) ?? false;
 
   set setReviewRequestedCount(int count) => _box.write(_reviewStatus, count);
   int get reviewRequestCount => _box.read<int>(_reviewStatus) ?? 0;

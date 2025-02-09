@@ -1,5 +1,6 @@
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WoodenButton extends StatelessWidget {
@@ -28,7 +29,7 @@ class WoodenButton extends StatelessWidget {
                   child: text != null
                       ? Text(
                           text!,
-                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500, color: Colors.white),
+                          style: TextStyle(fontSize: 19.sp, fontWeight: FontWeight.w500, color: Colors.white),
                         )
                       : widget)
             ],

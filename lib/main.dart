@@ -1,3 +1,4 @@
+import 'package:arise_game/app_config.dart';
 import 'package:arise_game/util/firebase_option.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 // import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:get_storage/get_storage.dart';
@@ -44,15 +46,19 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (ctx) => PlayerCharacterCubit()),
           BlocProvider(create: (ctx) => GetIt.I.get<GameBloc>())
         ],
-        child: MaterialApp(
-            title: 'First Game',
-            debugShowCheckedModeBanner: false,
-            theme: theme(),
-            builder: (context, child) {
-              final mediaQuery = MediaQuery.of(context);
-              final constrained = mediaQuery.textScaler.clamp(minScaleFactor: 1, maxScaleFactor: 1.1);
-              return MediaQuery(data: mediaQuery.copyWith(textScaler: constrained), child: child!);
-            },
-            home: HomePage()));
+        child: ScreenUtilInit(
+          designSize: AppConfig.screenSize,
+          minTextAdapt: true,
+          child: MaterialApp(
+              title: 'First Game',
+              debugShowCheckedModeBanner: false,
+              theme: theme(),
+              builder: (context, child) {
+                final mediaQuery = MediaQuery.of(context);
+                final constrained = mediaQuery.textScaler.clamp(minScaleFactor: 1, maxScaleFactor: 1.1);
+                return MediaQuery(data: mediaQuery.copyWith(textScaler: constrained), child: child!);
+              },
+              home: HomePage()),
+        ));
   }
 }

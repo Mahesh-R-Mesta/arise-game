@@ -3,6 +3,7 @@ import 'package:arise_game/util/constant/account_link.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,8 +19,8 @@ class InfoPopup extends StatelessWidget {
       return InkWell(
         onTap: () => launchUrl(Uri.parse(link)),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          SvgPicture.asset(img, height: 22, width: 22),
-          const SizedBox(width: 8),
+          SvgPicture.asset(img, height: 22.h, width: 22.h),
+          SizedBox(width: 8.w),
           Text(text, style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue, decoration: TextDecoration.underline))
         ]),
       );
@@ -40,9 +41,9 @@ class InfoPopup extends StatelessWidget {
               child: Stack(
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-                    const SizedBox(height: 10),
-                    Text("Credits", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white)),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
+                    Text("Credits", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.sp, color: Colors.white)),
+                    SizedBox(height: 10.h),
                     CreditLinkText(texts: [
                       (text: "Free Pixel Artwork by ", link: null),
                       (text: "Brullov, ", link: "https://brullov.itch.io/"),
@@ -87,13 +88,13 @@ class InfoPopup extends StatelessWidget {
                         link: "https://pixabay.com/music/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47167"
                       )
                     ]),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     Text("Game by: Mahesh R Mesta", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     linkWidget("Linked-In", AssetSvg.linkedIn, AccountLink.linkedIn),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     linkWidget("Instagram", AssetSvg.instagram, AccountLink.instagram),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.end, children: [
                       Text("Made with ", style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
                       SvgPicture.asset(AssetSvg.flutter, width: 20, height: 20),
@@ -104,7 +105,7 @@ class InfoPopup extends StatelessWidget {
                   ]),
                   Align(
                       alignment: Alignment.topRight,
-                      child: IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 35))),
+                      child: IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 35.sp))),
                 ],
               ),
             ),

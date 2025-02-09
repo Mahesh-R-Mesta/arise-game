@@ -4,6 +4,7 @@ import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:arise_game/util/constant/assets_constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GuidePopup extends StatelessWidget {
   final BuildContext context;
@@ -52,7 +53,7 @@ class _GameInfoView extends StatelessWidget {
               )),
           Column(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
             Transform.flip(flipX: flipX, child: icon),
-            Text(text, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white))
+            Text(text, style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600, color: Colors.white))
           ]),
         ],
       ),
@@ -64,7 +65,7 @@ class _GameInfoView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Game Controls", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white)),
+        Text("Game Controls", style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w800, color: Colors.white)),
         Expanded(
             child: GridView(
           shrinkWrap: true,
@@ -72,27 +73,27 @@ class _GameInfoView extends StatelessWidget {
           children: [
             guideContainer(
                 asset: GameAssets.characterBlue,
-                icon: Image.asset(GameAssets.arrowLeft, width: 25, height: 25),
+                icon: Image.asset(GameAssets.arrowLeft, width: 25.h, height: 25.h),
                 text: "Move right",
                 data: SpriteAnimationData.sequenced(
                     texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56))),
             guideContainer(
                 asset: GameAssets.characterBlue,
-                icon: Image.asset(GameAssets.arrowLeft, width: 25, height: 25),
+                icon: Image.asset(GameAssets.arrowLeft, width: 25.h, height: 25.h),
                 text: "Move left",
                 flipX: true,
                 data: SpriteAnimationData.sequenced(
                     texturePosition: Vector2(0, 56 * 2), amount: 8, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56))),
             guideContainer(
                 asset: GameAssets.characterBlue,
-                icon: Image.asset(GameAssets.arrowUp, width: 25, height: 25),
+                icon: Image.asset(GameAssets.arrowUp, width: 25.h, height: 25.h),
                 text: "Jump",
                 flipX: false,
                 data: SpriteAnimationData.sequenced(
                     texturePosition: Vector2(0, 56 * 3), amount: 16, amountPerRow: 8, stepTime: 0.06, textureSize: Vector2(56, 56))),
             guideContainer(
                 asset: GameAssets.characterBlue,
-                icon: Image.asset(GameAssets.attack, width: 25, height: 25),
+                icon: Image.asset(GameAssets.attack, width: 25.h, height: 25.h),
                 text: "Attack",
                 flipX: false,
                 data: SpriteAnimationData.sequenced(
@@ -101,9 +102,9 @@ class _GameInfoView extends StatelessWidget {
                 asset: GameAssets.characterBlue2,
                 icon: Row(
                   children: [
-                    Image.asset(GameAssets.arrowUp, width: 20, height: 20),
+                    Image.asset(GameAssets.arrowUp, width: 20.h, height: 20.h),
                     const SizedBox(width: 10),
-                    Image.asset(GameAssets.attack, width: 20, height: 20)
+                    Image.asset(GameAssets.attack, width: 20.h, height: 20.h)
                   ],
                 ),
                 text: "Jump & Attack",

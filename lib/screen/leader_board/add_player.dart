@@ -5,6 +5,7 @@ import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
@@ -48,7 +49,7 @@ class _AddPlayerToLeaderBoardState extends State<AddPlayerToLeaderBoard> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+                    child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp)),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -65,7 +66,7 @@ class _AddPlayerToLeaderBoardState extends State<AddPlayerToLeaderBoard> {
                       database.registerPlayerScore(playerNameController.text, earnedCoinCubit.state);
                       Navigator.of(context).pop();
                     },
-                    child: Text('Submit', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+                    child: Text('Submit', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp)),
                   ),
                 ],
               ),

@@ -5,6 +5,7 @@ import 'package:arise_game/service/leaderboard_database.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 
 class LeaderBoardScreen extends StatelessWidget {
@@ -25,13 +26,9 @@ class LeaderBoardScreen extends StatelessWidget {
               top: 10,
               left: 10,
               child: WoodenSquareButton(
-                  size: Size.square(55),
+                  size: Size.square(55.w),
                   onTap: () => Navigator.of(context).pop(),
-                  widget: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 33,
-                  ))),
+                  widget: Icon(Icons.arrow_back, color: Colors.white, size: 33.sp))),
           Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
@@ -47,7 +44,7 @@ class LeaderBoardScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 70),
+              SizedBox(height: 70.h),
               Expanded(
                 child: FutureBuilder(
                     future: GetIt.I.get<LeaderboardDatabase>().loadUserScores(),
@@ -89,12 +86,12 @@ class LeaderBoardScreen extends StatelessWidget {
                                 ),
                               ),
                               title: SizedBox(
-                                width: 150,
+                                width: 150.w,
                                 child: Text(
                                   player.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -103,12 +100,12 @@ class LeaderBoardScreen extends StatelessWidget {
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset(GameAssets.coin, width: 25, height: 25),
+                                  Image.asset(GameAssets.coin, width: 25.h, height: 25.h),
                                   Text(
                                     player.amount.toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.yellow,
-                                      fontSize: 18,
+                                      fontSize: 18.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
