@@ -32,7 +32,7 @@ class GameStartIntro extends StatelessWidget {
               // Text("Kill wild animals", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white)),
               SizedBox(height: 10.h),
               WoodenButton(
-                  size: Size(170, 55.w),
+                  size: Size(170, 55.h),
                   onTap: () {
                     game.overlays.remove("startGame");
                     final restarted = context.read<GameBloc>().state.restart > 0;

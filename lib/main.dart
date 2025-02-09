@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (ctx) => GetIt.I.get<GameBloc>())
         ],
         child: ScreenUtilInit(
-          designSize: AppConfig.screenSize,
+          designSize: AppConfig.designSize,
           minTextAdapt: true,
           child: MaterialApp(
               title: 'First Game',

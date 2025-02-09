@@ -41,7 +41,7 @@ class ObjectBehavior<T extends EntityMixin> extends Behavior<T> {
   void update(double dt) {
     if (!isOnGround) {
       yVelocity += (gravity * dt);
-      (parent as PositionComponent).position.y += yVelocity * dt * 40;
+      (parent as PositionComponent).position.y += yVelocity * dt * 30;
     }
     if (xVelocity >= 0) {
       (parent as PositionComponent).position.x += xVelocity * horizontalMovement * dt;
