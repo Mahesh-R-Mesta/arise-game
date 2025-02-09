@@ -1,5 +1,6 @@
 import 'package:arise_game/game/bloc/player_character.dart';
 import 'package:arise_game/service/audio.dart';
+import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 
 import 'package:flame/components.dart';
@@ -21,6 +22,12 @@ class SettingsPopup extends StatelessWidget {
     final audioPlayer = GetIt.I.get<AudioService>();
     final bgAudioEffectNotifier = ValueNotifier<bool>(audioPlayer.isBGPlaying());
     final gameSoundEffectNotifier = ValueNotifier<bool>(audioPlayer.enableGameSoundEffect);
+    final isJoyStickControlNotifier = ValueNotifier<bool>(LocalStorage.instance.joystickState);
+
+    void updateControlState(bool isJoyStick) {
+      LocalStorage.instance.enableJoystick = isJoyStick;
+      isJoyStickControlNotifier.value = isJoyStick;
+    }
 
     return Center(
       child: SizedBox.expand(
@@ -55,52 +62,96 @@ class SettingsPopup extends StatelessWidget {
                   flex: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Align(
-                            alignment: Alignment.topRight,
-                            child:
-                                IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40.sp))),
-                        IconButton(
-                            onPressed: () {
-                              if (audioPlayer.isBGPlaying()) {
-                                audioPlayer.disableBgMusic();
-                                bgAudioEffectNotifier.value = false;
-                              } else if (audioPlayer.isBGNotPlaying()) {
-                                audioPlayer.enableBgMusic();
-                                bgAudioEffectNotifier.value = true;
-                              }
-                            },
-                            icon: Row(
-                              children: [
-                                ValueListenableBuilder<bool>(
-                                    valueListenable: bgAudioEffectNotifier,
-                                    builder: (context, isPlaying, _) {
-                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
-                                    }),
-                                SizedBox(width: 15.w),
-                                Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
-                              ],
-                            )),
-                        IconButton(
-                            onPressed: () {
-                              gameSoundEffectNotifier.value = !gameSoundEffectNotifier.value;
-                              audioPlayer.enableGameSoundEffect = gameSoundEffectNotifier.value;
-                            },
-                            icon: Row(
-                              children: [
-                                ValueListenableBuilder<bool>(
-                                    valueListenable: gameSoundEffectNotifier,
-                                    builder: (context, isPlaying, _) {
-                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
-                                    }),
-                                SizedBox(width: 15.w),
-                                Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
-                              ],
-                            )),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                  onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40.sp))),
+                          Text("CONTROL SETTINGS", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white)),
+                          Divider(color: Colors.white),
+                          ValueListenableBuilder(
+                              valueListenable: isJoyStickControlNotifier,
+                              builder: (context, isJoyStick, _) {
+                                return Row(
+                                  children: [
+                                    InkWell(
+                                        onTap: () => updateControlState(false),
+                                        child: Text("Buttons control",
+                                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: Colors.white))),
+                                    Radio<bool>(
+                                        value: isJoyStick,
+                                        groupValue: false,
+                                        onChanged: (value) => updateControlState(false),
+                                        fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                                          if (states.contains(WidgetState.disabled)) {
+                                            return Colors.white.withAlpha(100);
+                                          }
+                                          return Colors.white;
+                                        })),
+                                    SizedBox(width: 50.w),
+                                    InkWell(
+                                        onTap: () => updateControlState(true),
+                                        child: Text("Joystick control",
+                                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: Colors.white))),
+                                    Radio(
+                                        value: isJoyStick,
+                                        groupValue: true,
+                                        onChanged: (value) => updateControlState(true),
+                                        fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                                          if (states.contains(WidgetState.disabled)) {
+                                            return Colors.white.withAlpha(100);
+                                          }
+                                          return Colors.white;
+                                        })),
+                                  ],
+                                );
+                              }),
+                          SizedBox(height: 35.h),
+                          Text("SOUND SETTINGS", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white)),
+                          Divider(color: Colors.white),
+                          IconButton(
+                              onPressed: () {
+                                if (audioPlayer.isBGPlaying()) {
+                                  audioPlayer.disableBgMusic();
+                                  bgAudioEffectNotifier.value = false;
+                                } else if (audioPlayer.isBGNotPlaying()) {
+                                  audioPlayer.enableBgMusic();
+                                  bgAudioEffectNotifier.value = true;
+                                }
+                              },
+                              icon: Row(
+                                children: [
+                                  ValueListenableBuilder<bool>(
+                                      valueListenable: bgAudioEffectNotifier,
+                                      builder: (context, isPlaying, _) {
+                                        return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
+                                      }),
+                                  SizedBox(width: 15.w),
+                                  Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
+                                ],
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                gameSoundEffectNotifier.value = !gameSoundEffectNotifier.value;
+                                audioPlayer.enableGameSoundEffect = gameSoundEffectNotifier.value;
+                              },
+                              icon: Row(
+                                children: [
+                                  ValueListenableBuilder<bool>(
+                                      valueListenable: gameSoundEffectNotifier,
+                                      builder: (context, isPlaying, _) {
+                                        return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
+                                      }),
+                                  SizedBox(width: 15.w),
+                                  Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
                   ))
             ],

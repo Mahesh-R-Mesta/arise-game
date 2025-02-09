@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 children: [
                   Image.asset(AppAsset.logo, width: 130.h, height: 130.h),
                   WoodenButton(
-                      size: Size(150.w, 50.h),
+                      size: Size(150, 50.h),
                       text: 'STORY',
                       onTap: () async {
                         context.read<GameBloc>().add(GameStart(level: 0));

@@ -18,6 +18,7 @@ mixin AppAsset {
   static const String splash = "${path}splash.png";
   static const String sunRise = "${path}sun_rise_2.jpg";
   static const String cup = "${path}winner_cup.png";
+  static const String woodButton = "${path}woodbt.png";
 }
 
 mixin GameAssets {

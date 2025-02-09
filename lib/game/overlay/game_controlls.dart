@@ -55,15 +55,15 @@ class GameControls extends StatelessWidget {
                 child: GestureDetector(
                     onTapDown: (_) => buttonBridge.onMoveLeftDown(),
                     onTapUp: (_) => buttonBridge.onMoveLeftUp(),
-                    child: RotatedBox(quarterTurns: 2, child: Image.asset(GameAssets.arrowLeft)))),
+                    child: RotatedBox(quarterTurns: 2, child: Image.asset(GameAssets.arrowLeft, width: 70, height: 70, fit: BoxFit.fill)))),
           if (isJoyStick)
             Positioned(
                 bottom: 30,
                 left: 30,
                 child: Joystick(
                     base: JoystickBase(
-                      size: 140,
-                      decoration: JoystickBaseDecoration(),
+                      size: 170.w,
+                      decoration: JoystickBaseDecoration(color: Colors.white.withAlpha(50)),
                       arrowsDecoration: JoystickArrowsDecoration(color: Colors.white54),
                     ),
                     includeInitialAnimation: false,
@@ -82,7 +82,7 @@ class GameControls extends StatelessWidget {
                       buttonBridge.onStopMoveCall();
                     },
                     stick: JoystickStick(
-                      size: 44,
+                      size: 70.w,
                       decoration: JoystickStickDecoration(color: Colors.white),
                     ))),
           if (!isJoyStick)
@@ -92,16 +92,26 @@ class GameControls extends StatelessWidget {
                 child: GestureDetector(
                     onTapDown: (_) => buttonBridge.onMoveRightDown(),
                     onTapUp: (_) => buttonBridge.onMoveRightUp(),
-                    child: Image.asset(GameAssets.arrowLeft))),
+                    child: Image.asset(GameAssets.arrowLeft, width: 70, height: 70, fit: BoxFit.fill))),
           if (!isJoyStick)
             Positioned(
                 bottom: 20,
-                right: 100,
+                right: 180,
                 child: GestureDetector(
                     onTapDown: (_) => buttonBridge.onJumpDown(),
                     onTapUp: (details) => buttonBridge.onJumpUp(),
-                    child: Image.asset(GameAssets.arrowUp))),
-          Positioned(bottom: 100, right: 30, child: GestureDetector(onTap: () => buttonBridge.attackTap(), child: Image.asset(GameAssets.attack))),
+                    child: Image.asset(GameAssets.arrowUp, width: 70, height: 70, fit: BoxFit.fill))),
+          Positioned(
+              bottom: 100,
+              right: 80,
+              child: GestureDetector(
+                  onTap: () => buttonBridge.attackTap(),
+                  child: Image.asset(
+                    GameAssets.attack,
+                    width: 75,
+                    height: 75,
+                    fit: BoxFit.fill,
+                  ))),
           Positioned(
               right: 10,
               top: 10,

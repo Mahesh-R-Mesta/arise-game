@@ -18,8 +18,8 @@ class WoodenButton extends StatelessWidget {
           size: size,
           child: Stack(
             children: [
-              SvgPicture.asset(
-                AssetSvg.woodBt,
+              Image.asset(
+                AppAsset.woodButton,
                 height: size.height,
                 width: size.width,
                 fit: BoxFit.fill,
