@@ -14,7 +14,9 @@ class HealthSyrup extends GameObjectSprite with HasGameRef<AriseGame> {
 
   @override
   FutureOr<void> onLoad() async {
-    behavior.isOnGround = false;
+    behavior
+      ..isOnGround = false
+      ..mass = 0.1;
     sprite = await Sprite.load(GameAssets.syrup, images: gameRef.images);
     add(RectangleHitbox());
 

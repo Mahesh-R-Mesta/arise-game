@@ -39,7 +39,8 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     debugMode = GameViewConfig.playerDebug;
     behavior
       ..xVelocity = 75
-      ..drag = 0.005;
+      ..drag = 0.005
+      ..mass = 0.5;
     final idleAnimation = spriteAnimationSequence(
         image: game.images.fromCache(character.asset1), amount: 6, amountPerRow: 6, stepTime: 0.5, textureSize: Vector2(56, 56));
     final attackAnimation = spriteAnimationSequence(

@@ -13,7 +13,9 @@ class Sword extends GameObjectSprite with HasGameRef<AriseGame> {
 
   @override
   FutureOr<void> onLoad() async {
-    behavior.isOnGround = false;
+    behavior
+      ..isOnGround = false
+      ..mass = 0.3;
     sprite = await Sprite.load(GameAssets.sword, images: gameRef.images);
     add(RectangleHitbox());
 

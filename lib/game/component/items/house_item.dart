@@ -34,7 +34,10 @@ class HouseItemSprite extends GameObjectSprite with HasGameRef<AriseGame> {
   HouseItemSprite({required this.item, super.position});
   @override
   FutureOr<void> onLoad() async {
-    behavior.isOnGround = false;
+    behavior
+      ..isOnGround = false
+      ..mass = 0.1;
+    ;
     switch (item) {
       case HouseItems.table:
         scale = Vector2(1.5, 1.5);

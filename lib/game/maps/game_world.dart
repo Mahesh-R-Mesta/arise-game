@@ -38,6 +38,7 @@ class GameWorld extends LeapWorld {
     addPlayer();
     _addGround();
     _addCoins();
+
     return super.onLoad();
   }
 
