@@ -193,13 +193,6 @@
     <property name="type" type="int" value="2"/>
    </properties>
   </object>
-  <object id="44" name="goblin" type="goblin" x="1667.5" y="152.167">
-   <properties>
-    <property name="damage" type="float" value="0.5"/>
-    <property name="reward" type="int" value="10"/>
-   </properties>
-   <point/>
-  </object>
   <object id="76" name="Boar" type="boar" x="1776.59" y="140.416" width="21.5" height="20.5">
    <properties>
     <property name="damageCapacity" type="float" value="1.2"/>
@@ -248,11 +241,11 @@
    </properties>
    <point/>
   </object>
-  <object id="105" name="goblin" type="goblin_attacker" x="1449.42" y="142.5">
+  <object id="105" name="goblin" type="goblin_attacker" x="1664.09" y="133.167">
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceLeft" type="bool" value="true"/>
-    <property name="projectileAttack" type="bool" value="false"/>
+    <property name="projectileAttack" type="bool" value="true"/>
     <property name="reward" type="int" value="40"/>
     <property name="takeAround" type="bool" value="false"/>
    </properties>

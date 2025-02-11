@@ -30,7 +30,7 @@ class GameActivityOverlayButton extends StatelessWidget {
           color: Color(0xfffbedea),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r), side: BorderSide(width: 2.0, color: Color(0xff9a6c55))),
           child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 69, maxHeight: 85),
+            constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 69, maxHeight: 85.h),
             // size: size,
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -49,7 +49,7 @@ class GameActivityOverlayButton extends StatelessWidget {
                 Flexible(
                   child: Text.rich(TextSpan(
                       text: "$character:",
-                      children: [TextSpan(text: message, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w200))],
+                      children: [TextSpan(text: message, style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w200))],
                       style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
                 ),
                 const SizedBox(width: 5),

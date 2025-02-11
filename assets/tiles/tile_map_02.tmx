@@ -80,7 +80,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="9" name="coins" locked="1">
+ <objectgroup id="9" name="coins">
   <object id="46" type="coin" x="300" y="92.5">
    <properties>
     <property name="amount" type="int" value="10"/>
@@ -214,7 +214,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="5" name="ground_layer" locked="1">
+ <objectgroup id="5" name="ground_layer">
   <object id="2" name="ground" type="ground" x="143.5" y="167.625" width="1678.75" height="7.25"/>
   <object id="3" name="ground" type="ground" x="0.166333" y="120.792" width="140.667" height="5.75"/>
   <object id="4" name="leftGroundWall" type="leftGroundWall" x="138.208" y="123.625" width="4.91667" height="50.0833"/>
@@ -276,7 +276,7 @@
   <object id="178" name="leftGroundWall" type="leftGroundWall" x="1745.58" y="147.449" width="5" height="18.9275"/>
   <object id="179" name="rightGroundWall" type="rightGroundWall" x="1726.75" y="147.809" width="5.33333" height="18.4617"/>
  </objectgroup>
- <objectgroup id="8" name="items" locked="1">
+ <objectgroup id="8" name="items">
   <object id="20" name="wormhole" type="wormhole" x="100.333" y="32.1667">
    <properties>
     <property name="type" value="start"/>
@@ -313,45 +313,45 @@
   <object id="156" name="fire_stick" type="fire_stick" x="1386.33" y="132">
    <point/>
   </object>
-  <object id="157" name="table" type="table" x="1338.67" y="152.167">
+  <object id="157" name="table" type="table" x="1338.67" y="147.167">
    <point/>
   </object>
-  <object id="159" name="table" type="table" x="1624.83" y="218.167">
+  <object id="159" name="table" type="table" x="1624.83" y="213.076">
    <point/>
   </object>
-  <object id="160" name="leftChair" type="leftChair" x="1662.35" y="214.47">
+  <object id="160" name="leftChair" type="leftChair" x="1662.35" y="206.834">
    <point/>
   </object>
-  <object id="161" name="rightChair" type="rightChair" x="1599.83" y="216">
+  <object id="161" name="rightChair" type="rightChair" x="1600.19" y="206.909">
    <point/>
   </object>
   <object id="162" name="bookShelf2" type="bookShelf2" x="1720.67" y="200.333">
    <point/>
   </object>
-  <object id="171" name="bookShelf1" type="bookShelf1" x="1540" y="205.667">
+  <object id="171" name="bookShelf1" type="bookShelf1" x="1539.64" y="203.122">
    <point/>
   </object>
-  <object id="181" name="door" type="door" x="1286.67" y="132.667">
+  <object id="181" name="door" type="door" x="1288" y="128">
    <properties>
     <property name="front" type="bool" value="true"/>
     <property name="id" value="ground1"/>
    </properties>
    <point/>
   </object>
-  <object id="183" name="door" type="door" x="1315" y="207.333">
+  <object id="183" name="door" type="door" x="1315.91" y="201.878">
    <properties>
     <property name="front" type="bool" value="false"/>
     <property name="id" value="ground1"/>
    </properties>
    <point/>
   </object>
-  <object id="184" name="leftChair" type="leftChair" x="1382.33" y="151.333">
+  <object id="184" name="leftChair" type="leftChair" x="1382.33" y="145.333">
    <point/>
   </object>
   <object id="185" name="newSword" type="magicalSword" x="1696" y="223.667">
    <point/>
   </object>
-  <object id="190" name="health" type="health" x="1635.64" y="207.273">
+  <object id="190" name="health" type="health" x="1635.09" y="206.546">
    <point/>
   </object>
  </objectgroup>
@@ -473,7 +473,7 @@
   <object id="140" name="Fire" type="Fire" x="1813" y="136.5">
    <point/>
   </object>
-  <object id="164" name="goblin" type="goblin_attacker" x="1575.38" y="221.25">
+  <object id="164" name="goblin" type="goblin_attacker" x="1575.38" y="207.25">
    <properties>
     <property name="damage" type="float" value="2"/>
     <property name="faceLeft" type="bool" value="false"/>
