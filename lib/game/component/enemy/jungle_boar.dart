@@ -41,8 +41,10 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
   @override
   FutureOr<void> onLoad() {
     isFacingRight = false;
-    behavior.xVelocity = speed;
-    behavior.horizontalMovement = -1;
+    behavior
+      ..xVelocity = speed
+      ..horizontalMovement = -1
+      ..mass = 0.3;
     size = Vector2(assetSize.x * 1.5, assetSize.y * 1.5);
     lifeline = Lifeline(playerBoxWidth: width);
     final runningAnimation =
