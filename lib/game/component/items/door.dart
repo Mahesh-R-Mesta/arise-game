@@ -15,7 +15,9 @@ class Door extends GameObjectSprite with HasGameRef<AriseGame> {
 
   @override
   FutureOr<void> onLoad() async {
-    behavior.isOnGround = false;
+    behavior
+      ..isOnGround = false
+      ..mass = 0.2;
     sprite = await Sprite.load(GameAssets.door, images: gameRef.images);
     add(RectangleHitbox());
 

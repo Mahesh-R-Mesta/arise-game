@@ -24,6 +24,7 @@ class PlayerBehavior extends Behavior<Player> {
 
     buttonBridge.onLeftMove = (pressed) {
       if (pressed && !parent.hittingLeftWall) {
+        // if (parent.behavior.isOnGround)
         parent.current = PlayerState.running;
         if (parent.isFacingRight) {
           parent.flipHorizontallyAroundCenter();
@@ -42,6 +43,7 @@ class PlayerBehavior extends Behavior<Player> {
     buttonBridge.onRightMove = (pressed) {
       if (pressed && !parent.hittingRightWall) {
         // if (parent.current != PlayerState.jumping)
+        // if (parent.behavior.isOnGround)
         parent.current = PlayerState.running;
         if (!parent.isFacingRight) {
           parent.flipHorizontallyAroundCenter();
@@ -132,6 +134,9 @@ class PlayerBehavior extends Behavior<Player> {
         };
       }
     }
+    // if (parent.behavior.isOnGround && parent.behavior.horizontalMovement != 0) {
+    //   parent.current = PlayerState.running;
+    // }
     super.update(dt);
   }
 }

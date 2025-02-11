@@ -18,7 +18,7 @@ class ObjectBehavior<T extends EntityMixin> extends Behavior<T> {
       this.gravity = 9.8,
       this.isOnGround = true,
       this.drag = 0.05,
-      this.mass = 0.5,
+      this.mass = 0.4,
       this.horizontalMovement = 0});
 
   applyForceY(double force) => yVelocity = force / mass;
