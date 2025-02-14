@@ -9,7 +9,7 @@ class ToastMessage extends StatelessWidget {
 
   show() {
     final fToast = FToast();
-    fToast.showToast(child: ToastMessage(message: message), gravity: gravity, fadeDuration: Duration(seconds: 2));
+    fToast.showToast(child: ToastMessage(message: message), gravity: gravity, toastDuration: Duration(seconds: 2));
   }
 
   @override
@@ -17,12 +17,12 @@ class ToastMessage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 10.r),
       decoration: BoxDecoration(
-        color: Colors.black87,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Text(
         message,
-        style: TextStyle(color: Colors.white, fontSize: 16.sp),
+        style: TextStyle(color: Colors.black, fontSize: 16.sp),
       ),
     );
   }

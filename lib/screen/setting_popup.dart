@@ -1,13 +1,16 @@
 import 'package:arise_game/game/bloc/player_character.dart';
 import 'package:arise_game/service/audio.dart';
+import 'package:arise_game/service/leaderboard_database.dart';
 import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
+import 'package:arise_game/util/widget/toast.dart';
 
 import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 // import 'package:image/image.dart' as img;
 
@@ -23,6 +26,8 @@ class SettingsPopup extends StatelessWidget {
     final bgAudioEffectNotifier = ValueNotifier<bool>(audioPlayer.isBGPlaying());
     final gameSoundEffectNotifier = ValueNotifier<bool>(audioPlayer.enableGameSoundEffect);
     final isJoyStickControlNotifier = ValueNotifier<bool>(LocalStorage.instance.joystickState);
+    final nameTextController = TextEditingController(text: LocalStorage.instance.playerName);
+    final _focusNode = FocusNode();
 
     void updateControlState(bool isJoyStick) {
       LocalStorage.instance.enableJoystick = isJoyStick;
@@ -71,6 +76,35 @@ class SettingsPopup extends StatelessWidget {
                               alignment: Alignment.topRight,
                               child: IconButton(
                                   onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40.sp))),
+                          Row(
+                            children: [
+                              Text("Player name:", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 19, color: Colors.white)),
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                width: 200.w,
+                                child: TextField(
+                                  focusNode: _focusNode,
+                                  style: TextStyle(color: Colors.white, fontSize: 19),
+                                  controller: nameTextController,
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                      border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              InkWell(
+                                onTap: () async {
+                                  _focusNode.unfocus();
+                                  LocalStorage.instance.setPlayerName = nameTextController.text.trim();
+                                  await GetIt.I.get<LeaderboardDatabase>().updatePlayerName(nameTextController.text.trim());
+                                  ToastMessage(message: "Player name updated successfully", gravity: ToastGravity.BOTTOM).show();
+                                },
+                                child: Icon(Icons.check, color: Colors.white, size: 35),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          // Divider(color: Colors.white),
                           Text("CONTROL SETTINGS", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white)),
                           Divider(color: Colors.white),
                           ValueListenableBuilder(

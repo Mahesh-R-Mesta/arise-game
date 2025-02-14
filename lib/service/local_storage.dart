@@ -11,6 +11,7 @@ class LocalStorage {
   final String _reviewStatus = "REVIEW_STATUS";
   final String _levelStatus = "LEVEL_STATUS";
   final String _joystickType = "JOYSTICK_TYPE";
+  final String _playerName = "PLAYER_NAME";
 
   set enableBgSound(bool enable) {
     _box.write(_bgSoundEffect, enable);
@@ -29,6 +30,9 @@ class LocalStorage {
 
   set setMaxLevelCompleted(int level) => _box.write(_levelStatus, level);
   int get maxLevelCompleted => _box.read(_levelStatus) ?? 0;
+
+  set setPlayerName(String name) => _box.write(_playerName, name);
+  String? get playerName => _box.read<String>(_playerName);
 
   set setPlayerCharacter(PlayerCharacter character) => _box.write(_heroCharacter, character.index);
   PlayerCharacter get getPlayerCharacter => PlayerCharacter.values[_box.read<int>(_heroCharacter) ?? 0];

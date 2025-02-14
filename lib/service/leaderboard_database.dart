@@ -14,6 +14,12 @@ class LeaderboardDatabase {
     await reference.child(deviceInfo.id.replaceAll('.', '-')).set({"name": playerName, "score": score});
   }
 
+  updatePlayerName(String? playerName) async {
+    final deviceInfo = await DeviceInfoPlugin().androidInfo;
+    DatabaseReference reference = FirebaseDatabase.instance.ref(keyPath);
+    await reference.child(deviceInfo.id.replaceAll('.', '-')).update({"name": playerName});
+  }
+
   Future<List<PlayerRank>> loadUserScores() async {
     final database = FirebaseDatabase.instance.ref();
     final databaseEvent = await database.child(keyPath).orderByChild("score").limitToLast(100).once();
