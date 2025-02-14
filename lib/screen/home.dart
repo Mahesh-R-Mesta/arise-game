@@ -5,6 +5,7 @@ import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
 import 'package:arise_game/game/game.dart';
 import 'package:arise_game/screen/guide_popup.dart';
+import 'package:arise_game/screen/leader_board/add_player.dart';
 import 'package:arise_game/screen/leader_board/leader_board.dart';
 import 'package:arise_game/screen/popup/level_selection_popup.dart';
 import 'package:arise_game/service/audio.dart';
@@ -12,6 +13,7 @@ import 'package:arise_game/screen/popup/info_popup.dart';
 import 'package:arise_game/screen/popup/quit_confirm_popup.dart';
 import 'package:arise_game/screen/setting_popup.dart';
 import 'package:arise_game/service/leaderboard_database.dart';
+import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
@@ -39,6 +41,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     GetIt.I.get<LeaderboardDatabase>().listenForAddedPlayer();
     gameAudio.initialize();
     WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final playerName = LocalStorage.instance.playerName;
+      if (playerName == null) {
+        showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());
+      }
+    });
     updateApp();
     super.initState();
   }
@@ -80,6 +88,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SizedBox.expand(
         child: Stack(
           children: [

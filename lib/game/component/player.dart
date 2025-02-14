@@ -153,11 +153,11 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
 
     if (lifeline.health > 0) {
       // harmZone.blinkIt();
+      final prevState = current;
       current = PlayerState.harmed;
-      behavior.horizontalMovement = 0;
       animationTicker?.onFrame = (index) {
         if (animationTicker?.isLastFrame == true) {
-          if (current == PlayerState.harmed) current = PlayerState.idle;
+          if (current == PlayerState.harmed) current = prevState;
           animationTicker?.onFrame = null;
         }
       };

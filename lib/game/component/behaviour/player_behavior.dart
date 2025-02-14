@@ -79,7 +79,7 @@ class PlayerBehavior extends Behavior<Player> {
       if (pressed && parent.behavior.isOnGround) {
         parent.current = PlayerState.jumping;
         parent.behavior
-          ..applyForceY(-3.35)
+          ..applyForceY(-3.4)
           ..isOnGround = false;
         parent.isJumped = true;
       }
