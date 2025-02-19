@@ -145,6 +145,8 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
 
   bool get isHarmed => current == PlayerState.harmed;
 
+  PlayerState? stateBeforeHurt;
+
   void harmedBy(PositionComponent enemy, double damage, {bool playHurtingSound = true}) {
     if (enemy is ProjectileWeapon && !enemy.isStarted()) return;
 
@@ -153,11 +155,11 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
 
     if (lifeline.health > 0) {
       // harmZone.blinkIt();
-      final prevState = current;
+      stateBeforeHurt = current != PlayerState.harmed ? current : stateBeforeHurt;
       current = PlayerState.harmed;
       animationTicker?.onFrame = (index) {
         if (animationTicker?.isLastFrame == true) {
-          if (current == PlayerState.harmed) current = prevState;
+          if (current == PlayerState.harmed) current = stateBeforeHurt;
           animationTicker?.onFrame = null;
         }
       };
