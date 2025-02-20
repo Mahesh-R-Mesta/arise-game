@@ -28,6 +28,7 @@ class PlayerBehavior extends Behavior<Player> {
     buttonBridge.onLeftMove = (pressed) {
       if (pressed) {
         isPlayerHoldLeftRun = true;
+        isPlayerHoldRightRun = false;
         if (parent.hittingLeftWall) return;
         // if (parent.behavior.isOnGround)
         parent.current = PlayerState.running;
@@ -51,9 +52,9 @@ class PlayerBehavior extends Behavior<Player> {
         // if (parent.current != PlayerState.jumping)
         // if (parent.behavior.isOnGround)
         isPlayerHoldRightRun = true;
-        if (parent.hittingLeftWall) {
-          return;
-        }
+        isPlayerHoldLeftRun = false;
+        if (parent.hittingRightWall) return;
+
         parent.current = PlayerState.running;
         if (!parent.isFacingRight) {
           parent.flipHorizontallyAroundCenter();
@@ -101,6 +102,8 @@ class PlayerBehavior extends Behavior<Player> {
       if (parent.isAttacking) return lastTapped = true;
 
       swingSword() {
+        // isPlayerHoldRightRun = false;
+        // isPlayerHoldLeftRun = false;
         if (parent.behavior.isOnGround) {
           parent.current = PlayerState.attack;
         } else {
@@ -145,9 +148,14 @@ class PlayerBehavior extends Behavior<Player> {
         };
       }
     }
-    if (parent.behavior.horizontalMovement == 0 && !parent.isPlayerHittingWall) {
-      if (isPlayerHoldRightRun) parent.behavior.horizontalMovement = 1;
-      if (isPlayerHoldLeftRun) parent.behavior.horizontalMovement = -1;
+    // if (parent.behavior.horizontalMovement == 0 && !parent.isPlayerHittingWall) {
+    //   if (isPlayerHoldRightRun) parent.behavior.horizontalMovement = 1;
+    //   if (isPlayerHoldLeftRun) parent.behavior.horizontalMovement = -1;
+    // }
+
+    if (parent.behavior.horizontalMovement == 0 && !parent.isAttacking) {
+      if (isPlayerHoldRightRun && !parent.hittingRightWall) buttonBridge.onRightMove?.call(true); //parent.behavior.horizontalMovement = 1;
+      if (isPlayerHoldLeftRun && !parent.hittingLeftWall) buttonBridge.onLeftMove?.call(true); //parent.behavior.horizontalMovement = -1;
     }
 
     // if(parent.behavior.isOnGround && parent.current == PlayerState.running && parent.isPlayerHittingWall) {
