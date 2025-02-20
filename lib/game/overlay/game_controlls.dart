@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'dart:math' as math;
+// import 'dart:math' as math;
 
 class GameControls extends StatelessWidget {
   final AriseGame game;
@@ -62,7 +62,7 @@ class GameControls extends StatelessWidget {
                 left: 30,
                 child: Joystick(
                     base: JoystickBase(
-                      size: 170.w,
+                      size: 155.w,
                       decoration: JoystickBaseDecoration(color: Colors.white.withAlpha(50)),
                       arrowsDecoration: JoystickArrowsDecoration(color: Colors.white54),
                     ),

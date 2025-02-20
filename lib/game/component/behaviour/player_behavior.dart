@@ -16,6 +16,9 @@ class PlayerBehavior extends Behavior<Player> {
   final audioService = GetIt.I.get<AudioService>();
   Timer? attackTimer;
   Timer? swordPlayTimer;
+  bool isPlayerHoldRightRun = false;
+  bool isPlayerHoldLeftRun = false;
+
   @override
   FutureOr<void> onLoad() {
     stopSwordPlay() {
@@ -23,7 +26,9 @@ class PlayerBehavior extends Behavior<Player> {
     }
 
     buttonBridge.onLeftMove = (pressed) {
-      if (pressed && !parent.hittingLeftWall) {
+      if (pressed) {
+        isPlayerHoldLeftRun = true;
+        if (parent.hittingLeftWall) return;
         // if (parent.behavior.isOnGround)
         parent.current = PlayerState.running;
         if (parent.isFacingRight) {
@@ -34,6 +39,7 @@ class PlayerBehavior extends Behavior<Player> {
           ..xVelocity = 75
           ..horizontalMovement = -1;
       } else {
+        isPlayerHoldLeftRun = false;
         parent.current = PlayerState.idle;
         parent.behavior.horizontalMovement = 0;
       }
@@ -41,9 +47,13 @@ class PlayerBehavior extends Behavior<Player> {
     };
 
     buttonBridge.onRightMove = (pressed) {
-      if (pressed && !parent.hittingRightWall) {
+      if (pressed) {
         // if (parent.current != PlayerState.jumping)
         // if (parent.behavior.isOnGround)
+        isPlayerHoldRightRun = true;
+        if (parent.hittingLeftWall) {
+          return;
+        }
         parent.current = PlayerState.running;
         if (!parent.isFacingRight) {
           parent.flipHorizontallyAroundCenter();
@@ -53,6 +63,7 @@ class PlayerBehavior extends Behavior<Player> {
           ..applyForceX(37)
           ..horizontalMovement = 1;
       } else {
+        isPlayerHoldRightRun = false;
         parent.current = PlayerState.idle;
         parent.behavior
           ..applyForceX(37)
@@ -134,6 +145,14 @@ class PlayerBehavior extends Behavior<Player> {
         };
       }
     }
+    if (parent.behavior.horizontalMovement == 0 && !parent.isPlayerHittingWall) {
+      if (isPlayerHoldRightRun) parent.behavior.horizontalMovement = 1;
+      if (isPlayerHoldLeftRun) parent.behavior.horizontalMovement = -1;
+    }
+
+    // if(parent.behavior.isOnGround && parent.current == PlayerState.running && parent.isPlayerHittingWall) {
+
+    // }
     // if (parent.behavior.isOnGround && parent.behavior.horizontalMovement != 0) {
     //   parent.current = PlayerState.running;
     // }
