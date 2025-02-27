@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           designSize: AppConfig.designSize,
           minTextAdapt: true,
           child: MaterialApp(
-              title: 'First Game',
+              title: 'Arise: The monster invasion',
               debugShowCheckedModeBanner: false,
               theme: theme(),
               builder: (context, child) {
