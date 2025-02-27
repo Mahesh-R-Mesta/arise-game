@@ -316,7 +316,7 @@
   <object id="157" name="table" type="table" x="1338.67" y="147.167">
    <point/>
   </object>
-  <object id="159" name="table" type="table" x="1624.83" y="213.076">
+  <object id="159" name="table" type="table" x="1627.83" y="217.826">
    <point/>
   </object>
   <object id="160" name="leftChair" type="leftChair" x="1662.35" y="206.834">
@@ -351,7 +351,7 @@
   <object id="185" name="newSword" type="magicalSword" x="1696" y="223.667">
    <point/>
   </object>
-  <object id="190" name="health" type="health" x="1635.09" y="206.546">
+  <object id="190" name="health" type="health" x="1634.96" y="202.546">
    <point/>
   </object>
  </objectgroup>
