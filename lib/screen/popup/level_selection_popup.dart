@@ -1,3 +1,4 @@
+import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,8 +19,7 @@ class LevelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final levelCompleted = 4;
-    // LocalStorage.instance.maxLevelCompleted;
+    final levelCompleted = LocalStorage.instance.maxLevelCompleted;
     return Center(
         child: Material(
             elevation: 3,

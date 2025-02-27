@@ -34,6 +34,8 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
   final playerHitBox = RectangleHitbox(size: Vector2(45, 60), position: Vector2(32, 39));
   final audioService = GetIt.I.get<AudioService>();
 
+  final playerBehavior = PlayerBehavior();
+
   @override
   FutureOr<void> onLoad() async {
     debugMode = GameViewConfig.playerDebug;
@@ -124,7 +126,7 @@ class Player extends GroundCharacterEntity with HasGameRef<AriseGame>, KeyboardH
     };
     lifeline = Lifeline(playerBoxWidth: width, yPosition: 15);
     // harmZone = HarmZone(hitBoxSize: playerHitBox.position, playerSize: Vector2(getActorSize().width, getActorSize().height));
-    add(PlayerBehavior());
+    add(playerBehavior);
     add(lifeline);
     add(playerHitBox);
     // add(harmZone);

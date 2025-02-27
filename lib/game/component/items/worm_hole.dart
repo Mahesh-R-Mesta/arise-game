@@ -43,7 +43,9 @@ class WormHole extends GameObjectAnime with HasGameRef<AriseGame> {
     if (other is Player && type == Worm.incoming) {
       other
         ..current = PlayerState.idle
-        ..behavior.horizontalMovement = 0;
+        ..behavior.horizontalMovement = 0
+        ..playerBehavior.isPlayerHoldLeftRun = false
+        ..playerBehavior.isPlayerHoldRightRun = false;
       gameRef.overlays.remove("controller");
       gameRef.level.startConversation("wizardPortal", gameRef, onCompete: () {
         gameRef.overlays.remove("wormHole");

@@ -38,25 +38,25 @@ class _AddPlayerToLeaderBoardState extends State<AddPlayerToLeaderBoard> {
             Padding(
               padding: const EdgeInsets.only(top: 32.0),
               child: AlertDialog(
-                backgroundColor: Color(0xFFA1662F),
+                backgroundColor: Colors.white,
                 // backgroundColor: Color(0XFFbd885a),
                 title: Text(
                   'Enter Player Name',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 content: TextFormField(
                   key: _formKey,
                   controller: playerNameController,
-                  style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
+                  style: TextStyle(fontWeight: FontWeight.w300),
                   validator: (text) => text?.isNotEmpty == true ? null : "Please enter player name",
                   decoration: InputDecoration(
                       hintText: 'Player Name',
-                      hintStyle: TextStyle(fontWeight: FontWeight.w200, color: Colors.white),
-                      border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))),
+                      hintStyle: TextStyle(fontWeight: FontWeight.w200),
+                      border: UnderlineInputBorder(borderSide: BorderSide())),
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16.sp)),
+                    child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp)),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -74,7 +74,7 @@ class _AddPlayerToLeaderBoardState extends State<AddPlayerToLeaderBoard> {
                       database.registerPlayerScore(playerNameController.text, earnedCoinCubit.state);
                       Navigator.of(context).pop();
                     },
-                    child: Text('Submit', style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16.sp)),
+                    child: Text('Submit', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp)),
                   ),
                 ],
               ),
