@@ -76,6 +76,8 @@ class PlayerBehavior extends Behavior<Player> {
     buttonBridge.onStopMove = () {
       parent.current = PlayerState.idle;
       parent.behavior.horizontalMovement = 0;
+      isPlayerHoldRightRun = false;
+      isPlayerHoldLeftRun = false;
       stopSwordPlay();
     };
 
