@@ -2,6 +2,8 @@
 
 <img src="assets/images/app/logo.png" alt="Game Screenshot" width="150" height="150">
 
+Link: [Google Play](https://play.google.com/store/apps/details?id=com.geekcode.arise_game)
+
 Pixel Adventure Game is a thrilling **2D pixel-art platformer** built using **Flutter** and the **Flame** game engine. Embark on an epic journey as a warrior battling through a village overrun by goblins, skeletons, and powerful wizards. Slash through enemies, dodge traps, and conquer the ultimate boss to restore peace!
 
 ### 🔥 Features:
