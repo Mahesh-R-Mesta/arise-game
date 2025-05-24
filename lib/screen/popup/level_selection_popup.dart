@@ -1,6 +1,7 @@
 import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelSelection extends StatelessWidget {
@@ -19,6 +20,7 @@ class LevelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final duration = Duration(milliseconds: 300);
     final levelCompleted = LocalStorage.instance.maxLevelCompleted;
     return Center(
         child: Material(
@@ -52,6 +54,6 @@ class LevelSelection extends StatelessWidget {
                       child: WoodenButton(text: "Level-3", size: Size(150, 50.h), onTap: () => levelCompleted >= 3 ? onLevelSelect.call(3) : null)),
                 ],
               ),
-            )));
+            )).animate().fade(duration: duration, curve: Curves.easeInCubic).scale(duration: duration, curve: Curves.easeInCubic));
   }
 }
