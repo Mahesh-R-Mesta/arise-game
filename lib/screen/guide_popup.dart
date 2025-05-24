@@ -11,13 +11,14 @@ class GuidePopup extends StatelessWidget {
   final BuildContext context;
   const GuidePopup({required this.context, super.key});
 
-  show() async => await showDialog(barrierColor: Colors.black54, useSafeArea: true, context: context, builder: (ctx) => GuidePopup(context: ctx));
+  show() async =>
+      await showDialog(barrierColor: Colors.black87.withAlpha(190), useSafeArea: true, context: context, builder: (ctx) => GuidePopup(context: ctx));
 
   @override
   Widget build(BuildContext context) {
     return Material(
         elevation: 3,
-        color: Colors.black54,
+        color: Colors.transparent,
         child: Stack(
           children: [
             SizedBox.expand(
