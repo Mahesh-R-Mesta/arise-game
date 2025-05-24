@@ -1,0 +1,2 @@
+C:/Users/mahes/OneDrive/Documents/arise-game/android/app/.cxx/Debug/584m3h2p/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/mahes/OneDrive/Documents/arise-game/android/app/.cxx/Debug/584m3h2p/armeabi-v7a/CMakeFiles/rebuild_cache.dir

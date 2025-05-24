@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QuitConfirmation extends StatelessWidget {
@@ -10,6 +11,7 @@ class QuitConfirmation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final duration = Duration(milliseconds: 300);
     final size = MediaQuery.of(context).size;
     return Center(
         child: SizedBox(
@@ -40,6 +42,6 @@ class QuitConfirmation extends StatelessWidget {
               ])
             ],
           )),
-    ));
+    ).animate().fade(duration: duration, curve: Curves.easeInCubic).scale(duration: duration, curve: Curves.easeInCubic));
   }
 }
