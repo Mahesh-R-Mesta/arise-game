@@ -3,6 +3,7 @@ import 'package:arise_game/util/constant/account_link.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,6 +16,7 @@ class InfoPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final duration = Duration(milliseconds: 300);
     Widget linkWidget(String text, String img, String link) {
       return InkWell(
         onTap: () => launchUrl(Uri.parse(link)),
@@ -111,7 +113,7 @@ class InfoPopup extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      ).animate().fade(duration: duration, curve: Curves.easeInCubic).scale(duration: duration, curve: Curves.easeInCubic),
     );
   }
 }

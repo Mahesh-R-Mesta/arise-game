@@ -11,28 +11,26 @@ class GuidePopup extends StatelessWidget {
   final BuildContext context;
   const GuidePopup({required this.context, super.key});
 
-  show() async => await showDialog(context: context, builder: (ctx) => GuidePopup(context: ctx));
+  show() async => await showDialog(barrierColor: Colors.black54, useSafeArea: true, context: context, builder: (ctx) => GuidePopup(context: ctx));
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-          elevation: 3,
-          color: Colors.black54,
-          child: Stack(
-            children: [
-              SizedBox.expand(
-                child: Padding(padding: const EdgeInsets.all(15), child: _GameInfoView()),
-              ),
-              Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                      padding: EdgeInsets.all(20),
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: Icon(Icons.close, color: Colors.white, size: 40)))
-            ],
-          )),
-    );
+    return Material(
+        elevation: 3,
+        color: Colors.black54,
+        child: Stack(
+          children: [
+            SizedBox.expand(
+              child: Padding(padding: const EdgeInsets.all(15), child: _GameInfoView()),
+            ),
+            Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                    padding: EdgeInsets.all(20),
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: Icon(Icons.close, color: Colors.white, size: 40)))
+          ],
+        ));
   }
 }
 
@@ -40,7 +38,7 @@ class _GameInfoView extends StatelessWidget {
   const _GameInfoView();
 
   Widget guideContainer({required String asset, Widget? icon, required String text, required SpriteAnimationData data, bool flipX = false}) {
-    return SizedBox(
+    return SizedBox.expand(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
