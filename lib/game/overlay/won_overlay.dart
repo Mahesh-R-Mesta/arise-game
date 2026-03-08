@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
@@ -8,7 +9,9 @@ import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/toast.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
+import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
@@ -25,74 +28,121 @@ class GameWon extends StatelessWidget {
     if (LocalStorage.instance.maxLevelCompleted < level.levelValue + 1) {
       LocalStorage.instance.setMaxLevelCompleted = level.levelValue + 1;
     }
-    return Material(
-      color: Colors.black54,
-      child: SizedBox.expand(
-        child: Column(
-          spacing: 15.h,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(level.isFinal ? AppAsset.cup : AppAsset.logo, width: 0.3 * size.width, height: 0.3 * size.height),
-            Text(
-                level.levelValue == 0
-                    ? "Start The Game"
-                    : level.isFinal
-                        ? "🎉 Congratulations, You Won 🎉"
-                        : "You Won",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35.sp, color: Colors.white)),
-            SizedBox(
-              child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Image.asset(GameAssets.coin, width: 25.h, height: 25.h),
-                SizedBox(width: 5.w),
-                BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
-                  return Text(amount.toString(), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp, color: Colors.amber));
-                })
-              ]),
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(28.r),
+        child: Material(
+          color: Colors.black54,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: Container(
+              width: size.width * 0.9,
+              padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
+              decoration: BoxDecoration(
+                color: Colors.amber.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(28.r),
+                border: Border.all(color: Colors.amberAccent.withValues(alpha: 0.3), width: 2),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.85),
+                    Colors.amber.withValues(alpha: 0.2),
+                  ],
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(level.isFinal ? AppAsset.cup : AppAsset.logo, width: 0.25 * size.width, height: 0.25 * size.height)
+                      .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                      .rotate(begin: -0.05, end: 0.05, duration: 2.seconds, curve: Curves.easeInOut)
+                      .scale(begin: const Offset(1, 1), end: const Offset(1.1, 1.1), duration: 2.seconds),
+                  SizedBox(height: 16.h),
+                  Text(
+                    level.levelValue == 0
+                        ? "GO!"
+                        : level.isFinal
+                            ? "GRAND VICTORY"
+                            : "VICTORY",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 36.sp,
+                      color: Colors.amberAccent,
+                      letterSpacing: 4,
+                      shadows: [
+                        Shadow(color: Colors.amber.withValues(alpha: 0.5), blurRadius: 20),
+                      ],
+                    ),
+                  ).animate().fadeIn().scale(duration: 600.ms, curve: Curves.elasticOut),
+                  SizedBox(height: 16.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(GameAssets.coin, width: 26.h, height: 26.h),
+                        SizedBox(width: 10.w),
+                        BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
+                          return Text(
+                            amount.toString(),
+                            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 28.sp, color: Colors.amberAccent),
+                          );
+                        })
+                      ],
+                    ),
+                  ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2),
+                  SizedBox(height: 32.h),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (level.levelValue != 0)
+                          WoodenSquareButton(
+                              size: Size.square(65.h),
+                              onTap: () {
+                                game.overlays.remove("gameWon");
+                                context.read<GameBloc>().add(GameEnd());
+                                Navigator.of(context).pop();
+                              },
+                              widget: Icon(Icons.home_rounded, color: Colors.white, size: 32.sp)),
+                        if (level.levelValue != 0) SizedBox(width: 16.w),
+                        if (level.levelValue != 0)
+                          WoodenButton(
+                              size: Size(150.w, 65.h),
+                              onTap: () {
+                                final database = GetIt.I.get<LeaderboardDatabase>();
+                                final earnedCoinCubit = context.read<EarnedCoinCubit>();
+                                database.registerPlayerScore(LocalStorage.instance.playerName ?? "", earnedCoinCubit.state);
+                                ToastMessage(message: "Score Submitted!").show();
+                              },
+                              text: "SUBMIT"),
+                        if (!level.isFinal) SizedBox(width: 16.w),
+                        if (!level.isFinal)
+                          WoodenButton(
+                              size: Size(150.w, 65.h),
+                              onTap: () {
+                                nexLevel.call();
+                                final gameBloc = context.read<GameBloc>();
+                                context.read<EarnedCoinCubit>().checkLastPoint();
+                                gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
+                              },
+                              text: "NEXT"),
+                      ],
+                    ).animate().fadeIn(delay: 800.ms).scale(begin: const Offset(0.9, 0.9)),
+                  ),
+                ],
+              ),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (level.levelValue != 0)
-                  WoodenButton(
-                      size: Size(170.w, 55.h),
-                      onTap: () {
-                        game.overlays.remove("gameWon");
-                        context.read<GameBloc>().add(GameEnd());
-                        Navigator.of(context).pop();
-                      },
-                      text: "BACK"),
-                if (level.levelValue != 0)
-                  WoodenButton(
-                      size: Size(170.w, 55.h),
-                      onTap: () {
-                        final name = LocalStorage.instance.playerName;
-                        final database = GetIt.I.get<LeaderboardDatabase>();
-                        final earnedCoinCubit = context.read<EarnedCoinCubit>();
-                        database.registerPlayerScore(LocalStorage.instance.playerName ?? "", earnedCoinCubit.state);
-                        ToastMessage(message: "$name: Submitted your score as ${earnedCoinCubit.state}").show();
-                      },
-                      text: "SUBMIT SCORE"),
-                if (!level.isFinal)
-                  WoodenButton(
-                      size: Size(170.w, 55.h),
-                      onTap: () {
-                        nexLevel.call();
-                        final gameBloc = context.read<GameBloc>();
-                        context.read<EarnedCoinCubit>().checkLastPoint();
-                        gameBloc.add(GameNextLevel(level: gameBloc.state.level + 1));
-                      },
-                      text: "NEXT"),
-              ],
-            )
-            // ElevatedButton(
-            //     onPressed: () {
-            //       game.overlays.remove("gameWon");
-            //       Navigator.of(context).pop();
-            //     },
-            //     child: Text("", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20))),
-          ],
+          ),
         ),
       ),
-    );
+    ).animate().fadeIn(duration: 400.ms);
   }
 }
