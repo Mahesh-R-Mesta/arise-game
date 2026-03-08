@@ -1,7 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:ui';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/constant/color_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameActivityOverlayButton extends StatelessWidget {
@@ -25,51 +26,97 @@ class GameActivityOverlayButton extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Material(
-          color: Color(0xfffbedea),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r), side: BorderSide(width: 2.0, color: Color(0xff9a6c55))),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 350, minWidth: 200, minHeight: 69, maxHeight: 85.h),
-            // size: size,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(width: 12),
-                Image.asset(image,
-                    width: 40.h,
-                    height: 40.h,
-                    frameBuilder: (_, child, __, ___) => Material(
-                        shape:
-                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1.5, color: AppColor.darkOrange)),
-                        child: child)),
-                const SizedBox(width: 5),
-                Flexible(
-                  child: Text.rich(TextSpan(
-                      text: "$character:",
-                      children: [TextSpan(text: message, style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w200))],
-                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+        padding: EdgeInsets.only(top: 20.h),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16.r),
+          child: Material(
+            color: Color(0xfffbedea),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                constraints: BoxConstraints(maxWidth: 400.w, minWidth: 250.w),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.6),
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(color: Colors.white10, width: 1.5),
+                  boxShadow: [
+                    BoxShadow(color: Colors.black26, blurRadius: 10, offset: Offset(0, 4)),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                if (doText != null)
-                  ElevatedButton(
-                      onPressed: onTap,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        side: BorderSide(width: 1.4, color: AppColor.dimOrange),
-                        padding: EdgeInsets.all(3),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 48.h,
+                      height: 48.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        border: Border.all(color: AppColor.darkOrange, width: 2),
+                        image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
                       ),
-                      child: Text(doText!, style: TextStyle(color: Colors.white))),
-                const SizedBox(width: 5),
-                // Text(message, style: TextStyle(fontSize: 15))
-              ],
+                    ),
+                    SizedBox(width: 14.w),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            character.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.amberAccent,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          SizedBox(height: 2.h),
+                          Text(
+                            message,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white.withValues(alpha: 0.9),
+                              height: 1.2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (doText != null) ...[
+                      SizedBox(width: 14.w),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: onTap,
+                          borderRadius: BorderRadius.circular(8.r),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                            decoration: BoxDecoration(
+                              color: Colors.green.withValues(alpha: 0.8),
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(color: Colors.white24),
+                            ),
+                            child: Text(
+                              doText!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn().slideY(begin: -0.2);
   }
 }
