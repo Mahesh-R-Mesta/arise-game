@@ -1,24 +1,28 @@
+import 'dart:ui';
 import 'package:arise_game/game/bloc/player_character.dart';
 import 'package:arise_game/service/audio.dart';
 import 'package:arise_game/service/leaderboard_database.dart';
 import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/enum/player_enum.dart';
 import 'package:arise_game/util/widget/toast.dart';
-
 import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-// import 'package:image/image.dart' as img;
 
 class SettingsPopup extends StatelessWidget {
   final BuildContext context;
   const SettingsPopup({super.key, required this.context});
 
-  show() => showDialog(context: context, barrierColor: Colors.black87.withAlpha(190), builder: (ctx) => SettingsPopup(context: ctx));
+  show() => showDialog(
+        context: context,
+        barrierColor: Colors.black54,
+        builder: (ctx) => SettingsPopup(context: ctx),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -27,167 +31,377 @@ class SettingsPopup extends StatelessWidget {
     final gameSoundEffectNotifier = ValueNotifier<bool>(audioPlayer.enableGameSoundEffect);
     final isJoyStickControlNotifier = ValueNotifier<bool>(LocalStorage.instance.joystickState);
     final nameTextController = TextEditingController(text: LocalStorage.instance.playerName);
-    final _focusNode = FocusNode();
+    final focusNode = FocusNode();
 
-    void updateControlState(bool isJoyStick) {
-      LocalStorage.instance.enableJoystick = isJoyStick;
-      isJoyStickControlNotifier.value = isJoyStick;
-    }
+    final duration = 400.ms;
+    final delayStep = 100.ms;
 
-    return SizedBox.expand(
-      child: Material(
-        color: Colors.transparent,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Flexible(
-                flex: 1,
-                child: Column(
-                  spacing: 10,
+    return Center(
+      child: Container(
+        width: 0.85.sw,
+        height: 0.8.sh,
+        constraints: BoxConstraints(maxWidth: 600.w, maxHeight: 450.h),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24.r),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: Material(
+              color: Colors.black.withValues(alpha: 0.75),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white10, width: 1.5),
+                  borderRadius: BorderRadius.circular(24.r),
+                ),
+                child: Row(
                   children: [
-                    const SizedBox(height: 10),
-                    Text("Select character", style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.white)),
+                    // Character Sidebar
+                    _buildCharacterSidebar(delayStep),
+
+                    // Settings Main Content
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          spacing: 12,
-                          children: [
-                            CharacterBox(player: PlayerCharacter.blue, size: 116),
-                            CharacterBox(player: PlayerCharacter.red, size: 116),
-                            CharacterBox(player: PlayerCharacter.purple, size: 116),
-                            CharacterBox(player: PlayerCharacter.green, size: 116)
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-            Flexible(
-                flex: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Align(
-                            alignment: Alignment.topRight,
-                            child:
-                                IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close, color: Colors.white, size: 40.sp))),
-                        Row(
-                          children: [
-                            Text("Player name:", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 19, color: Colors.white)),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                              width: 200.w,
-                              child: TextField(
-                                focusNode: _focusNode,
-                                style: TextStyle(color: Colors.white, fontSize: 19),
-                                controller: nameTextController,
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
+                      child: Column(
+                        children: [
+                          _buildHeader(context),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildPlayerNameSection(nameTextController, focusNode, delayStep * 2),
+                                  SizedBox(height: 24.h),
+                                  _SectionTitle(title: "CONTROLS", delay: delayStep * 3),
+                                  _buildControlSettings(isJoyStickControlNotifier, delayStep * 4),
+                                  SizedBox(height: 24.h),
+                                  _SectionTitle(title: "AUDIO", delay: delayStep * 5),
+                                  _buildAudioSettings(audioPlayer, bgAudioEffectNotifier, gameSoundEffectNotifier, delayStep * 6),
+                                ],
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            TextButton.icon(
-                                onPressed: () async {
-                                  _focusNode.unfocus();
-                                  LocalStorage.instance.setPlayerName = nameTextController.text.trim();
-                                  await GetIt.I.get<LeaderboardDatabase>().updatePlayerName(nameTextController.text.trim());
-                                  ToastMessage(message: "Player name updated successfully", gravity: ToastGravity.BOTTOM).show();
-                                },
-                                icon: Icon(Icons.check, color: Colors.white, size: 35),
-                                label: Text("Done")),
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        // Divider(color: Colors.white),
-                        Text("CONTROL SETTINGS", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white)),
-                        Divider(color: Colors.white),
-                        ValueListenableBuilder(
-                            valueListenable: isJoyStickControlNotifier,
-                            builder: (context, isJoyStick, _) {
-                              return Row(
-                                children: [
-                                  InkWell(
-                                      onTap: () => updateControlState(false),
-                                      child: Text("Buttons control",
-                                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: Colors.white))),
-                                  Radio<bool>(
-                                      value: isJoyStick,
-                                      groupValue: false,
-                                      onChanged: (value) => updateControlState(false),
-                                      fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-                                        if (states.contains(WidgetState.disabled)) {
-                                          return Colors.white.withAlpha(100);
-                                        }
-                                        return Colors.white;
-                                      })),
-                                  SizedBox(width: 50.w),
-                                  InkWell(
-                                      onTap: () => updateControlState(true),
-                                      child: Text("Joystick control",
-                                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: Colors.white))),
-                                  Radio(
-                                      value: isJoyStick,
-                                      groupValue: true,
-                                      onChanged: (value) => updateControlState(true),
-                                      fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-                                        if (states.contains(WidgetState.disabled)) {
-                                          return Colors.white.withAlpha(100);
-                                        }
-                                        return Colors.white;
-                                      })),
-                                ],
-                              );
-                            }),
-                        SizedBox(height: 35.h),
-                        Text("SOUND SETTINGS", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white)),
-                        Divider(color: Colors.white),
-                        IconButton(
-                            onPressed: () {
-                              if (audioPlayer.isBGPlaying()) {
-                                audioPlayer.disableBgMusic();
-                                bgAudioEffectNotifier.value = false;
-                              } else if (audioPlayer.isBGNotPlaying()) {
-                                audioPlayer.enableBgMusic();
-                                bgAudioEffectNotifier.value = true;
-                              }
-                            },
-                            icon: Row(
-                              children: [
-                                ValueListenableBuilder<bool>(
-                                    valueListenable: bgAudioEffectNotifier,
-                                    builder: (context, isPlaying, _) {
-                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
-                                    }),
-                                SizedBox(width: 15.w),
-                                Text("BACKGROUND MUSIC", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
-                              ],
-                            )),
-                        IconButton(
-                            onPressed: () {
-                              gameSoundEffectNotifier.value = !gameSoundEffectNotifier.value;
-                              audioPlayer.enableGameSoundEffect = gameSoundEffectNotifier.value;
-                            },
-                            icon: Row(
-                              children: [
-                                ValueListenableBuilder<bool>(
-                                    valueListenable: gameSoundEffectNotifier,
-                                    builder: (context, isPlaying, _) {
-                                      return Icon(isPlaying ? Icons.volume_up_sharp : Icons.volume_off, color: Colors.white, size: 40.sp);
-                                    }),
-                                SizedBox(width: 15.w),
-                                Text("GAME SOUND EFFECT", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
-                              ],
-                            )),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ).animate().fadeIn(duration: duration).scale(begin: const Offset(0.9, 0.9), curve: Curves.easeOutCubic),
+    );
+  }
+
+  Widget _buildCharacterSidebar(Duration delay) {
+    return Container(
+      width: 130.w,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.03),
+        border: const Border(right: BorderSide(color: Colors.white10)),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.h),
+            child: Text(
+              "HEROES",
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              itemCount: PlayerCharacter.values.length,
+              separatorBuilder: (_, __) => SizedBox(height: 12.h),
+              itemBuilder: (context, index) {
+                return CharacterBox(
+                  player: PlayerCharacter.values[index],
+                  size: 100.w,
+                  delay: delay + (index * 50).ms,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'SETTINGS',
+            style: TextStyle(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w900,
+              color: Colors.white.withValues(alpha: 0.9),
+              letterSpacing: 2,
+            ),
+          ),
+          IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(Icons.close, color: Colors.white38, size: 28.sp),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlayerNameSection(TextEditingController controller, FocusNode focusNode, Duration delay) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "PLAYER NAME",
+          style: TextStyle(color: Colors.white54, fontSize: 11.sp, fontWeight: FontWeight.bold, letterSpacing: 1),
+        ),
+        SizedBox(height: 8.h),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                focusNode: focusNode,
+                controller: controller,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withValues(alpha: 0.05),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                    borderSide: BorderSide.none,
                   ),
-                ))
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                    borderSide: const BorderSide(color: Colors.blueAccent, width: 1.5),
+                  ),
+                  hintText: "Enter Name",
+                  hintStyle: const TextStyle(color: Colors.white24),
+                ),
+              ),
+            ),
+            SizedBox(width: 12.w),
+            _ActionButton(
+              onPressed: () async {
+                focusNode.unfocus();
+                final name = controller.text.trim();
+                LocalStorage.instance.setPlayerName = name;
+                await GetIt.I.get<LeaderboardDatabase>().updatePlayerName(name);
+                ToastMessage(message: "Name Saved!", gravity: ToastGravity.BOTTOM).show();
+              },
+              icon: Icons.check_rounded,
+              color: Colors.blueAccent,
+            ),
           ],
+        ),
+      ],
+    ).animate().fadeIn(delay: delay).slideX(begin: 0.05);
+  }
+
+  Widget _buildControlSettings(ValueNotifier<bool> notifier, Duration delay) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: notifier,
+      builder: (context, isJoystick, _) {
+        return Row(
+          children: [
+            Expanded(
+              child: _ToggleOption(
+                label: "Buttons",
+                isSelected: !isJoystick,
+                onTap: () {
+                  LocalStorage.instance.enableJoystick = false;
+                  notifier.value = false;
+                },
+              ),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: _ToggleOption(
+                label: "Joystick",
+                isSelected: isJoystick,
+                onTap: () {
+                  LocalStorage.instance.enableJoystick = true;
+                  notifier.value = true;
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    ).animate().fadeIn(delay: delay).slideX(begin: 0.05);
+  }
+
+  Widget _buildAudioSettings(AudioService audio, ValueNotifier<bool> bgN, ValueNotifier<bool> fxN, Duration delay) {
+    return Column(
+      children: [
+        _AudioToggle(
+          label: "Music",
+          notifier: bgN,
+          onToggle: (val) {
+            val ? audio.enableBgMusic() : audio.disableBgMusic();
+          },
+        ),
+        SizedBox(height: 12.h),
+        _AudioToggle(
+          label: "Effects",
+          notifier: fxN,
+          onToggle: (val) {
+            audio.enableGameSoundEffect = val;
+          },
+        ),
+      ],
+    ).animate().fadeIn(delay: delay).slideX(begin: 0.05);
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String title;
+  final Duration delay;
+  const _SectionTitle({required this.title, required this.delay});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: Colors.amberAccent.withValues(alpha: 0.7),
+          fontWeight: FontWeight.w900,
+          fontSize: 12.sp,
+          letterSpacing: 2,
+        ),
+      ).animate().fadeIn(delay: delay).slideX(begin: -0.1),
+    );
+  }
+}
+
+class _ToggleOption extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _ToggleOption({required this.label, required this.isSelected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12.r),
+      child: AnimatedContainer(
+        duration: 200.ms,
+        padding: EdgeInsets.symmetric(vertical: 12.h),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.amberAccent.withValues(alpha: 0.1) : Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(
+            color: isSelected ? Colors.amberAccent.withValues(alpha: 0.5) : Colors.white10,
+            width: 1.5,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            label.toUpperCase(),
+            style: TextStyle(
+              color: isSelected ? Colors.amberAccent : Colors.white60,
+              fontWeight: FontWeight.w700,
+              fontSize: 12.sp,
+              letterSpacing: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AudioToggle extends StatelessWidget {
+  final String label;
+  final ValueNotifier<bool> notifier;
+  final Function(bool) onToggle;
+
+  const _AudioToggle({required this.label, required this.notifier, required this.onToggle});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: notifier,
+      builder: (context, enabled, _) {
+        return InkWell(
+          onTap: () {
+            notifier.value = !enabled;
+            onToggle(notifier.value);
+          },
+          borderRadius: BorderRadius.circular(12.r),
+          child: Container(
+            padding: EdgeInsets.all(12.w),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: Colors.white10),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  enabled ? Icons.volume_up_rounded : Icons.volume_off_rounded,
+                  color: enabled ? Colors.blueAccent : Colors.white24,
+                  size: 22.sp,
+                ),
+                SizedBox(width: 12.w),
+                Text(
+                  label,
+                  style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w600),
+                ),
+                const Spacer(),
+                Switch.adaptive(
+                  value: enabled,
+                  activeColor: Colors.blueAccent,
+                  onChanged: (val) {
+                    notifier.value = val;
+                    onToggle(val);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final IconData icon;
+  final Color color;
+
+  const _ActionButton({required this.onPressed, required this.icon, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color.withValues(alpha: 0.1),
+      borderRadius: BorderRadius.circular(12.r),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(12.r),
+        child: Container(
+          width: 48.h,
+          height: 48.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: color.withValues(alpha: 0.4)),
+          ),
+          child: Icon(icon, color: color, size: 24.sp),
         ),
       ),
     );
@@ -197,28 +411,59 @@ class SettingsPopup extends StatelessWidget {
 class CharacterBox extends StatelessWidget {
   final PlayerCharacter player;
   final double size;
-  const CharacterBox({super.key, required this.player, required this.size});
+  final Duration delay;
+  const CharacterBox({super.key, required this.player, required this.size, required this.delay});
 
   @override
   Widget build(BuildContext context) {
-    final spriteAnimation = SpriteAnimationWidget.asset(
-        key: Key(player.name),
-        path: player.asset2,
-        loadingBuilder: (ctx) => CircularProgressIndicator(),
-        data:
-            SpriteAnimationData.sequenced(texturePosition: Vector2(0, 10), amount: 10, amountPerRow: 8, stepTime: 0.1, textureSize: Vector2(56, 56)));
-    return BlocBuilder<PlayerCharacterCubit, PlayerCharacter>(builder: (context, selectedPlayer) {
-      final isSelected = selectedPlayer == player;
-      return InkWell(
-        onTap: () => context.read<PlayerCharacterCubit>().setPlayerType(player),
-        child: DecoratedBox(
-          decoration: BoxDecoration(border: Border.all(color: isSelected ? Colors.blueAccent : Colors.white, width: isSelected ? 3 : 1)),
-          child: SizedBox.fromSize(
-            size: Size.square(size), //(58 * 2, 58 * 2),
-            child: spriteAnimation,
+    return BlocBuilder<PlayerCharacterCubit, PlayerCharacter>(
+      builder: (context, selectedPlayer) {
+        final isSelected = selectedPlayer == player;
+        return InkWell(
+          onTap: () => context.read<PlayerCharacterCubit>().setPlayerType(player),
+          borderRadius: BorderRadius.circular(16.r),
+          child: AnimatedScale(
+            scale: isSelected ? 1.0 : 0.9,
+            duration: 200.ms,
+            child: AnimatedContainer(
+              duration: 200.ms,
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                color: isSelected ? Colors.blueAccent.withValues(alpha: 0.1) : Colors.white.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(
+                  color: isSelected ? Colors.blueAccent : Colors.white10,
+                  width: isSelected ? 2 : 1,
+                ),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: Colors.blueAccent.withValues(alpha: 0.3),
+                          blurRadius: 10,
+                          spreadRadius: -2,
+                        )
+                      ]
+                    : null,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.r),
+                child: SpriteAnimationWidget.asset(
+                  key: Key(player.name),
+                  path: player.asset2,
+                  data: SpriteAnimationData.sequenced(
+                    texturePosition: Vector2(0, 10),
+                    amount: 10,
+                    amountPerRow: 8,
+                    stepTime: 0.1,
+                    textureSize: Vector2(56, 56),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    ).animate().fadeIn(delay: delay).scale(begin: const Offset(0.8, 0.8));
   }
 }
