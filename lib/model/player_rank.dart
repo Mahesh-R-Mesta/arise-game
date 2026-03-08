@@ -4,7 +4,7 @@ import 'dart:convert';
 class PlayerRank {
   final String id;
   final String name;
-  final int amount;
+  final int? amount;
   PlayerRank({
     required this.id,
     required this.name,

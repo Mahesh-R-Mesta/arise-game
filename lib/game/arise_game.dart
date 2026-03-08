@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:flutter/services.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:arise_game/service/levels.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/input.dart';
-import 'package:flutter/material.dart';
 import 'package:leap/leap.dart';
 
 class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollisionDetection {
@@ -13,11 +13,16 @@ class AriseGame extends LeapGame with HasKeyboardHandlerComponents, HasCollision
   final Size screenSize;
   AriseGame({required this.level, required this.screenSize, required super.tileSize, required super.world});
 
-  // @override
-  // Color backgroundColor() => const Color(0xFFBBDEFB);
   @override
   FutureOr<void> onLoad() async {
-    await images.loadAllImages();
+    final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+    final imagePaths = manifest
+        .listAssets()
+        .where((path) => path.startsWith('assets/images/') && RegExp(r'\.(png|jpg|jpeg|svg|gif|webp|bmp|wbmp)$', caseSensitive: false).hasMatch(path))
+        .map((path) => path.replaceFirst('assets/images/', ''))
+        .toList();
+    await images.loadAll(imagePaths);
+
     await loadWorldAndMap(tiledMapPath: level.map); //level.map);
     debugMode = GameViewConfig.debugMode;
 
