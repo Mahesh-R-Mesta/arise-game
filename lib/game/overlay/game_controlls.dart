@@ -35,30 +35,33 @@ class GameControls extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.r),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: Colors.white10),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(GameAssets.coin, width: 22.h, height: 22.h),
-                      SizedBox(width: 8.w),
-                      BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
-                        return Text(
-                          amount.toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20.sp,
-                            color: Colors.amberAccent,
-                            letterSpacing: 1,
-                          ),
-                        );
-                      })
-                    ],
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.4),
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(color: Colors.white10),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(GameAssets.coin, width: 22.h, height: 22.h),
+                        SizedBox(width: 8.w),
+                        BlocBuilder<EarnedCoinCubit, int>(builder: (ctx, amount) {
+                          return Text(
+                            amount.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 20.sp,
+                              color: Colors.amberAccent,
+                              letterSpacing: 1,
+                            ),
+                          );
+                        })
+                      ],
+                    ),
                   ),
                 ),
               ),
