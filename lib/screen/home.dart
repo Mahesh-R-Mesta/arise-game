@@ -18,6 +18,7 @@ import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:arise_game/util/widget/wooden_square_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -87,71 +88,138 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final duration = 600.ms;
+    final delay = 200.ms;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox.expand(
         child: Stack(
           children: [
+            // Background Layer
             Opacity(
               opacity: 0.9,
               child: Container(
-                decoration: BoxDecoration(image: DecorationImage(image: AssetImage(AppAsset.sunRise), fit: BoxFit.fill)),
-                child: BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), child: SizedBox.expand()),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppAsset.sunRise),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withValues(alpha: 0.4),
+                        ],
+                        radius: 1.2,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
+
+            // Top Left: Guide
             Positioned(
-                top: 15,
-                right: 15,
-                child: WoodenSquareButton(
-                    size: Size.square(55.w),
-                    onTap: () => InfoPopup(context: context).show(),
-                    widget: Icon(Icons.info_outline, size: 30.sp, color: Colors.white))),
+              top: 20,
+              left: 20,
+              child: WoodenSquareButton(
+                size: Size.square(55.w),
+                onTap: () => GuidePopup(context: context).show(),
+                widget: Icon(Icons.question_mark, size: 28.sp, color: Colors.white),
+              ).animate().fadeIn(duration: duration).slideX(begin: -0.2),
+            ),
+
+            // Top Right: Info
             Positioned(
-                top: 15,
-                left: 15,
-                child: WoodenSquareButton(
-                    size: Size.square(55.w),
-                    onTap: () => GuidePopup(context: context).show(),
-                    widget: Icon(Icons.question_mark, size: 30.sp, color: Colors.white))),
+              top: 20,
+              right: 20,
+              child: WoodenSquareButton(
+                size: Size.square(55.w),
+                onTap: () => InfoPopup(context: context).show(),
+                widget: Icon(Icons.info_outline, size: 28.sp, color: Colors.white),
+              ).animate().fadeIn(duration: duration).slideX(begin: 0.2),
+            ),
+
+            // Bottom Left: Leaderboard
             Positioned(
-                bottom: 15,
-                left: 15,
-                child: WoodenSquareButton(
-                    size: Size.square(55.w),
-                    onTap: () async => await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LeaderBoardScreen())),
-                    widget: Icon(Icons.leaderboard, size: 30.sp, color: Colors.white))),
+              bottom: 20,
+              left: 20,
+              child: WoodenSquareButton(
+                size: Size.square(55.w),
+                onTap: () async => await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (ctx) => const LeaderBoardScreen()),
+                ),
+                widget: Icon(Icons.leaderboard, size: 28.sp, color: Colors.white),
+              ).animate().fadeIn(duration: duration).slideX(begin: -0.2),
+            ),
+
+            // Main Menu
             SizedBox.expand(
               child: Column(
-                spacing: 8.h,
+                spacing: 12.h,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppAsset.logo, width: 130.h, height: 130.h),
+                  // Logo with Breathing Animation
+                  Image.asset(AppAsset.logo, width: 140.h, height: 140.h)
+                      .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                      .scale(
+                        begin: const Offset(1, 1),
+                        end: const Offset(1.05, 1.05),
+                        duration: 2000.ms,
+                        curve: Curves.easeInOut,
+                      )
+                      .animate()
+                      .fadeIn(duration: duration)
+                      .slideY(begin: -0.1),
+                  
+                  SizedBox(height: 10.h),
+
+                  // Menu Buttons with Staggered Animation
                   WoodenButton(
-                      size: Size(150, 50.h),
-                      text: 'STORY',
-                      onTap: () async {
-                        context.read<GameBloc>().add(GameStart(level: 0));
-                        await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
-                        context.read<EarnedCoinCubit>().reset();
-                      }),
+                    size: Size(160.w, 52.h),
+                    text: 'STORY',
+                    onTap: () async {
+                      context.read<GameBloc>().add(GameStart(level: 0));
+                      await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const GamePage()));
+                      if (context.mounted) context.read<EarnedCoinCubit>().reset();
+                    },
+                  ).animate().fadeIn(delay: delay, duration: duration).slideY(begin: 0.2),
+
                   WoodenButton(
-                      size: Size(150.w, 50.h),
-                      text: 'NEW GAME',
-                      onTap: () async {
-                        LevelSelection(
-                            context: context,
-                            onLevelSelect: (level) async {
-                              context.read<GameBloc>().add(GameStart(level: level));
-                              await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GamePage()));
-                            }).show();
-                        context.read<EarnedCoinCubit>().reset();
-                      }),
-                  WoodenButton(size: Size(140.w, 50.h), text: 'SETTINGS', onTap: () => SettingsPopup(context: context).show()),
-                  WoodenButton(size: Size(90.w, 50.h), text: 'QUIT', onTap: () => QuitConfirmation(context: context).show())
+                    size: Size(160.w, 52.h),
+                    text: 'NEW GAME',
+                    onTap: () async {
+                      LevelSelection(
+                        context: context,
+                        onLevelSelect: (level) async {
+                          context.read<GameBloc>().add(GameStart(level: level));
+                          await Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const GamePage()));
+                        },
+                      ).show();
+                      context.read<EarnedCoinCubit>().reset();
+                    },
+                  ).animate().fadeIn(delay: delay + 100.ms, duration: duration).slideY(begin: 0.2),
+
+                  WoodenButton(
+                    size: Size(150.w, 52.h),
+                    text: 'SETTINGS',
+                    onTap: () => SettingsPopup(context: context).show(),
+                  ).animate().fadeIn(delay: delay + 200.ms, duration: duration).slideY(begin: 0.2),
+
+                  WoodenButton(
+                    size: Size(100.w, 52.h),
+                    text: 'QUIT',
+                    onTap: () => QuitConfirmation(context: context).show(),
+                  ).animate().fadeIn(delay: delay + 300.ms, duration: duration).slideY(begin: 0.2),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
