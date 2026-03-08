@@ -114,7 +114,7 @@ class GuidePopup extends StatelessWidget {
       children: [
         _ControlCard(
           asset: GameAssets.characterBlue,
-          icon: Image.asset(GameAssets.arrowLeft, width: 22.h, height: 22.h),
+          icon: RotatedBox(quarterTurns: 2, child: Image.asset(GameAssets.arrowLeft, width: 22.h, height: 22.h)),
           text: "Move Left",
           flipX: true,
           delay: delay,

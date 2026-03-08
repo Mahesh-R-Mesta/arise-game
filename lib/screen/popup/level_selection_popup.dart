@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:arise_game/service/local_storage.dart';
 import 'package:arise_game/util/widget/wooden_button.dart';
 import 'package:flutter/material.dart';
@@ -20,40 +21,112 @@ class LevelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final duration = Duration(milliseconds: 300);
     final levelCompleted = LocalStorage.instance.maxLevelCompleted;
+    final size = MediaQuery.of(context).size;
+
     return Center(
-        child: Material(
-            elevation: 3,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            color: Colors.black54,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24.r),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: size.width * 0.5,
+              padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 25.w),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.7),
+                borderRadius: BorderRadius.circular(24.r),
+                border: Border.all(color: Colors.white10, width: 1.5),
+              ),
               child: Column(
-                spacing: 10.h,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  WoodenButton(
-                      text: "Level-1",
-                      size: Size(150, 50.h),
-                      onTap: () {
-                        // if (levelCompleted == 0) {
-                        //   onLevelSelect.call(0);
-                        //   LocalStorage.instance.setMaxLevelCompleted = levelCompleted + 1;
-                        //   return;
-                        // }
-                        // LocalStorage.instance.setMaxLevelCompleted = 0;
-                        onLevelSelect.call(1);
-                      }),
-                  Opacity(
-                      opacity: levelCompleted >= 2 ? 1 : 0.5,
-                      child: WoodenButton(text: "Level-2", size: Size(150, 50.h), onTap: () => levelCompleted >= 2 ? onLevelSelect.call(2) : null)),
-                  Opacity(
-                      opacity: levelCompleted >= 3 ? 1 : 0.5,
-                      child: WoodenButton(text: "Level-3", size: Size(150, 50.h), onTap: () => levelCompleted >= 3 ? onLevelSelect.call(3) : null)),
+                  Text(
+                    "SELECT LEVEL",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 24.sp,
+                      color: Colors.amberAccent,
+                      letterSpacing: 2.5,
+                    ),
+                  ).animate().fadeIn().slideY(begin: -0.3),
+                  SizedBox(height: 25.h),
+                  _LevelItem(
+                    level: 1,
+                    label: "LEVEL 1",
+                    isLocked: false,
+                    onSelect: onLevelSelect,
+                    delay: 100,
+                  ),
+                  SizedBox(height: 12.h),
+                  _LevelItem(
+                    level: 2,
+                    label: "LEVEL 2",
+                    isLocked: levelCompleted < 2,
+                    onSelect: onLevelSelect,
+                    delay: 200,
+                  ),
+                  SizedBox(height: 12.h),
+                  _LevelItem(
+                    level: 3,
+                    label: "LEVEL 3",
+                    isLocked: levelCompleted < 3,
+                    onSelect: onLevelSelect,
+                    delay: 300,
+                  ),
+                  SizedBox(height: 10.h),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      "CLOSE",
+                      style: TextStyle(color: Colors.white38, fontSize: 12.sp, fontWeight: FontWeight.bold, letterSpacing: 1),
+                    ),
+                  ).animate().fadeIn(delay: 500.ms),
                 ],
               ),
-            )).animate().fade(duration: duration, curve: Curves.easeInCubic).scale(duration: duration, curve: Curves.easeInCubic));
+            ),
+          ),
+        ),
+      ),
+    ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.9, 0.9));
+  }
+}
+
+class _LevelItem extends StatelessWidget {
+  final int level;
+  final String label;
+  final bool isLocked;
+  final Function(int) onSelect;
+  final int delay;
+
+  const _LevelItem({
+    required this.level,
+    required this.label,
+    required this.isLocked,
+    required this.onSelect,
+    required this.delay,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: isLocked ? 0.5 : 1,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          WoodenButton(
+            text: label,
+            size: Size(180.w, 55.h),
+            onTap: isLocked ? () {} : () => onSelect.call(level),
+          ),
+          if (isLocked)
+            Positioned(
+              right: 15.w,
+              child: Icon(Icons.lock_outline_rounded, color: Colors.white24, size: 20.sp),
+            ),
+        ],
+      ),
+    ).animate().fadeIn(delay: delay.ms).slideX(begin: 0.1);
   }
 }

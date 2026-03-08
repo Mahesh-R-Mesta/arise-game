@@ -24,7 +24,7 @@ class GameResumeOverlay extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(28.r),
         child: Material(
-          color: Colors.black54,
+          color: Colors.transparent,
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
             child: Container(
