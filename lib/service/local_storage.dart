@@ -12,6 +12,7 @@ class LocalStorage {
   final String _levelStatus = "LEVEL_STATUS";
   final String _joystickType = "JOYSTICK_TYPE";
   final String _playerName = "PLAYER_NAME";
+  final String _tourSeen = "TOUR_SEEN";
 
   set enableBgSound(bool enable) {
     _box.write(_bgSoundEffect, enable);
@@ -36,4 +37,7 @@ class LocalStorage {
 
   set setPlayerCharacter(PlayerCharacter character) => _box.write(_heroCharacter, character.index);
   PlayerCharacter get getPlayerCharacter => PlayerCharacter.values[_box.read<int>(_heroCharacter) ?? 0];
+
+  set setTourSeen(bool seen) => _box.write(_tourSeen, seen);
+  bool get tourSeen => _box.read<bool>(_tourSeen) ?? false;
 }

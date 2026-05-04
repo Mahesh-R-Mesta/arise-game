@@ -24,6 +24,14 @@ class GameControls extends StatelessWidget {
     final audioPlayNotifier = ValueNotifier<bool>(gameAudio.isBGPlaying());
     final buttonBridge = GetIt.I.get<GameButtonBridge>();
 
+    if (!LocalStorage.instance.tourSeen) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!game.overlays.isActive("gameTour")) {
+          game.overlays.add("gameTour");
+        }
+      });
+    }
+
     return SizedBox.expand(
       child: Stack(
         children: [

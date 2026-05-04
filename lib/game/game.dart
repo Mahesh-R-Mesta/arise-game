@@ -8,6 +8,7 @@ import 'package:arise_game/game/overlay/game_controlls.dart';
 import 'package:arise_game/game/overlay/game_lost.dart';
 import 'package:arise_game/game/overlay/game_resume.dart';
 import 'package:arise_game/game/overlay/game_start_intro.dart';
+import 'package:arise_game/game/overlay/game_tour.dart';
 import 'package:arise_game/game/overlay/won_overlay.dart';
 import 'package:arise_game/util/constant/assets_constant.dart';
 import 'package:arise_game/service/levels.dart';
@@ -40,7 +41,8 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
             "controller": (context, game) => GameControls(game: game as AriseGame),
             "gameWon": (context, game) => GameWon(game: game as AriseGame, level: currentLevel, nexLevel: () => gameKey = UniqueKey()),
             "gameLost": (context, game) => GameLost(game: game as AriseGame, restart: () => gameKey = UniqueKey()),
-            "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame)
+            "resumeGame": (ctx, game) => GameResumeOverlay(game: game as AriseGame),
+            "gameTour": (ctx, game) => GameTour(game: game as AriseGame)
           },
           initialActiveOverlays: ["startGame"],
           loadingBuilder: (ctx) => Center(child: Image.asset(AppAsset.logo, width: size.height * 0.5, height: size.height * 0.5)),
