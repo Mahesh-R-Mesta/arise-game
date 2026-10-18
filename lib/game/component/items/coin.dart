@@ -26,7 +26,7 @@ class Coin extends SpriteAnimationComponent with HasGameRef<AriseGame>, Collisio
   FutureOr<void> onLoad() {
     animation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("coins.png"),
         SpriteAnimationData.sequenced(amount: 6, amountPerRow: 6, stepTime: 0.3, textureSize: Vector2.all(200)));
-    add(RectangleHitbox(size: size));
+    add(RectangleHitbox(size: size, collisionType: CollisionType.passive));
     return super.onLoad();
   }
 }

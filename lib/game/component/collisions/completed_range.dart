@@ -9,7 +9,7 @@ class CompletedRange extends GameField with CollisionCallbacks, HasGameRef<Arise
   CompletedRange({super.position, super.size});
   @override
   void onLoad() {
-    add(RectangleHitbox(position: Vector2(width / 2, height / 2), size: size, anchor: Anchor.center));
+    add(RectangleHitbox(position: Vector2(width / 2, height / 2), size: size, anchor: Anchor.center, collisionType: CollisionType.passive));
     super.onLoad();
   }
 

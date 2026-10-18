@@ -106,7 +106,6 @@ class MonsterCharacter extends GroundCharacterEntity with HasGameRef<AriseGame> 
       ..applyForceY(-1.5)
       ..applyForceX(40)
       ..horizontalMovement = 1;
-    print(" X:${bomb.behavior.xVelocity} Y:${bomb.behavior.yVelocity}  ${bomb.behavior.horizontalMovement} ");
     await add(bomb);
   }
 

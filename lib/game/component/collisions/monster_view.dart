@@ -13,7 +13,12 @@ class ViewSight extends GameField with CollisionCallbacks {
   void onLoad() {
     anchor = Anchor.center;
     // debugMode = true;
-    add(RectangleHitbox(anchor: anchor, position: Vector2(parentSize.x / 2, parentSize.y / 2), size: visibleRange));
+    add(RectangleHitbox(
+      anchor: anchor,
+      position: Vector2(parentSize.x / 2, parentSize.y / 2),
+      size: visibleRange,
+      collisionType: CollisionType.passive,
+    ));
     super.onLoad();
   }
 

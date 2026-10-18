@@ -13,11 +13,11 @@ class HealthSyrup extends GameObjectSprite with HasGameRef<AriseGame> {
   HealthSyrup({super.position}) : super(scale: Vector2(1.5, 1.5));
 
   @override
-  FutureOr<void> onLoad() async {
+  FutureOr<void> onLoad() {
     behavior
       ..isOnGround = false
       ..mass = 0.2;
-    sprite = await Sprite.load(GameAssets.syrup, images: gameRef.images);
+    sprite = Sprite(gameRef.images.fromCache(GameAssets.syrup));
     add(RectangleHitbox());
 
     return super.onLoad();

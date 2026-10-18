@@ -4,9 +4,8 @@ import 'package:arise_game/game/component/helper/object_entity.dart';
 import 'package:arise_game/game/component/player.dart';
 import 'package:arise_game/game/config.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame/src/components/position_component.dart';
+import 'package:flame/components.dart';
 import 'package:leap/leap.dart';
-import 'package:vector_math/vector_math_64.dart';
 
 enum GroundType {
   bottom("ground"),
@@ -37,7 +36,7 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
   FutureOr<void> onLoad() async {
     debugMode = GameViewConfig.groundAllDebugMode;
     if (type == GroundType.bottom && GameViewConfig.onlyBottomGroundDebug) debugMode = true;
-    add(RectangleHitbox());
+    add(RectangleHitbox(collisionType: CollisionType.passive));
     return super.onLoad();
   }
 
@@ -61,8 +60,6 @@ class GroundBlock extends PhysicalEntity with CollisionCallbacks {
       if (groundLevelThreshold > 3) {
         other.position.y -= groundLevelThreshold;
       }
-      print("${other.position.y + other.height}   ${position.y}");
-      print("digged -> ${(other.position.y + other.height) - position.y}");
     }
 
     if (other is GameObjectAnimeGroup) {

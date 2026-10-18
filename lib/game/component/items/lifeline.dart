@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:arise_game/game/config.dart';
 import 'package:flame/components.dart';
@@ -28,21 +27,27 @@ class Lifeline extends PositionComponent {
     return super.onLoad();
   }
 
+  static final Paint _borderPaint = Paint()
+    ..color = Colors.white
+    ..strokeWidth = 1
+    ..style = PaintingStyle.stroke;
+  static final Paint _redFillPaint = Paint()..color = Colors.red;
+  static final Paint _greenFillPaint = Paint()..color = Colors.green;
+  static const Radius _barRadius = Radius.circular(6);
+
   @override
   void render(Canvas canvas) {
-    final borderPaint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-    final fillPaint = Paint()..color = _health < 50 ? Colors.red : Colors.green;
+    final fillPaint = _health < 50 ? _redFillPaint : _greenFillPaint;
     final halfBox = playerBoxWidth / 2;
+    final left = halfBox + position.x;
+    final top = position.y + yPosition;
+    final bottom = top + 5;
     canvas.drawRRect(
-        RRect.fromLTRBR(halfBox + position.x, position.y + yPosition, halfBox + position.x + width, position.y + 5 + yPosition, Radius.circular(6)),
-        borderPaint);
+        RRect.fromLTRBR(left, top, left + width, bottom, _barRadius),
+        _borderPaint);
     canvas.drawRRect(
-        RRect.fromLTRBR(halfBox + position.x, position.y + yPosition, halfBox + position.x + ((_health) * width / 100), position.y + 5 + yPosition,
-            Radius.circular(6)),
-        fillPaint); // canvas.drawRRect(RRect.fromLTRBR(position.x, position.y, position.x + 100, position.y + 10, Radius.circular(6)), borderPaint);
+        RRect.fromLTRBR(left, top, left + (_health * width / 100), bottom, _barRadius),
+        fillPaint);
     super.render(canvas);
   }
 }

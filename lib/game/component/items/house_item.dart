@@ -37,7 +37,6 @@ class HouseItemSprite extends GameObjectSprite with HasGameRef<AriseGame> {
     behavior
       ..isOnGround = false
       ..mass = 0.1;
-    ;
     switch (item) {
       case HouseItems.table:
         scale = Vector2(1.5, 1.5);
@@ -49,7 +48,7 @@ class HouseItemSprite extends GameObjectSprite with HasGameRef<AriseGame> {
         scale = Vector2(1.2, 1.2);
     }
 
-    sprite = await Sprite.load(item.image, images: gameRef.images);
+    sprite = Sprite(gameRef.images.fromCache(item.image));
     if (item == HouseItems.leftChair) {
       flipHorizontallyAroundCenter();
     }

@@ -47,6 +47,7 @@ class Villager extends GroundCharacterEntity with HasGameRef<AriseGame> {
   @override
   FutureOr<void> onLoad() {
     // debugMode = true;
+    didPlayerSawUs = false;
     behavior
       ..horizontalMovement = -1
       ..xVelocity = 20;

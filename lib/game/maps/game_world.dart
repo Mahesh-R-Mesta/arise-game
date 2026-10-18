@@ -29,6 +29,7 @@ import 'package:leap/leap.dart';
 class GameWorld extends LeapWorld {
   late TiledComponent tileComponent;
   late Player player;
+  bool isPlayerReady = false;
   final playerSize = Vector2(100, 100);
   final cameraAnchor = Anchor(300, 800);
   @override
@@ -54,6 +55,7 @@ class GameWorld extends LeapWorld {
               damageCapacity: spawn.properties.byName["damageCap"]!.value as double,
               runSpeed: spawn.properties.byName["runSpeed"]!.value as double,
               jumpForce: spawn.properties.byName["jumpForce"]!.value as double);
+          isPlayerReady = true;
           add(player);
         }
       }

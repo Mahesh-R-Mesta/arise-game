@@ -21,16 +21,19 @@ class ProjectileWeapon extends GameObjectAnime with HasGameRef<AriseGame> {
   @override
   FutureOr<void> onLoad() {
     position = Vector2(position.x + posAdjust.x, position.y + posAdjust.y);
+    removeOnFinish = true;
     animation = SpriteAnimation.fromFrameData(
         gameRef.images.fromCache(projectile.asset),
         SpriteAnimationData.sequenced(
-            amount: projectile.frameCount, stepTime: projectile.blastInt / projectile.frameCount, textureSize: Vector2.all(projectile.size)));
+            amount: projectile.frameCount,
+            stepTime: projectile.blastInt / projectile.frameCount,
+            textureSize: Vector2.all(projectile.size),
+            loop: false));
     add(CircleHitbox(position: Vector2(projectile.size / 2, projectile.size / 2), radius: hitBoxSize.x, anchor: Anchor.center));
     add(BombingZone(this, damageCapacity, projectile));
     animationTicker?.onFrame = (frame) {
       if (frame == projectile.damageFrame) audioPlayer.playBlastSound();
     };
-    Future.delayed(Duration(seconds: projectile.blastInt.toInt()), () => removeFromParent());
     return super.onLoad();
   }
 

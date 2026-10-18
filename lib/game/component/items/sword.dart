@@ -12,11 +12,11 @@ class Sword extends GameObjectSprite with HasGameRef<AriseGame> {
   Sword({super.position}) : super(scale: Vector2(1.5, 1.5));
 
   @override
-  FutureOr<void> onLoad() async {
+  FutureOr<void> onLoad() {
     behavior
       ..isOnGround = false
       ..mass = 0.3;
-    sprite = await Sprite.load(GameAssets.sword, images: gameRef.images);
+    sprite = Sprite(gameRef.images.fromCache(GameAssets.sword));
     add(RectangleHitbox());
 
     return super.onLoad();

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:arise_game/game/arise_game.dart';
 import 'package:arise_game/game/bloc/coin_cubit.dart';
 import 'package:arise_game/game/bloc/player/game_bloc.dart';
 import 'package:arise_game/game/bloc/player/game_event.dart';
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     gameAudio.initialize();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      AriseGame.preloadAssets();
       final playerName = LocalStorage.instance.playerName;
       if (playerName == null) {
         showDialog(context: context, builder: (ctx) => AddPlayerToLeaderBoard());

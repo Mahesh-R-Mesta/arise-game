@@ -27,11 +27,16 @@ class WormHole extends GameObjectAnime with HasGameRef<AriseGame> {
 
   @override
   FutureOr<void> onLoad() {
-    // behavior.isOnGround = false;
+    behavior.isOnGround = true;
     // debugMode = true;
     animation = SpriteAnimation.fromFrameData(gameRef.images.fromCache(GameAssets.wormhole),
         SpriteAnimationData.sequenced(amount: 20, amountPerRow: 4, stepTime: 0.2, textureSize: Vector2(96, 80)));
-    add(RectangleHitbox(position: Vector2(width / 2, height / 2), size: Vector2(width + 100, height), anchor: Anchor.center));
+    add(RectangleHitbox(
+      position: Vector2(width / 2, height / 2),
+      size: Vector2(width + 100, height),
+      anchor: Anchor.center,
+      collisionType: CollisionType.passive,
+    ));
     if (type == Worm.out) {
       Future.delayed(const Duration(seconds: 4), () => removeFromParent());
     }

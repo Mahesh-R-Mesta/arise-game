@@ -14,11 +14,11 @@ class Door extends GameObjectSprite with HasGameRef<AriseGame> {
   Door(this.id, this.front, {super.position}) : super(scale: Vector2(1.5, 1.5), key: ComponentKey.named(id + (front ? "front" : "back")));
 
   @override
-  FutureOr<void> onLoad() async {
+  FutureOr<void> onLoad() {
     behavior
       ..isOnGround = false
       ..mass = 0.2;
-    sprite = await Sprite.load(GameAssets.door, images: gameRef.images);
+    sprite = Sprite(gameRef.images.fromCache(GameAssets.door));
     add(RectangleHitbox());
 
     return super.onLoad();

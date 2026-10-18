@@ -11,8 +11,9 @@ class CameraBehavior extends Component implements ReadOnlyPositionProvider {
   double xRangeMin = 100;
   double xRangeMax = 200;
 
-  double getYAxisBound() {
-    final mapSize = game.world.map.tiledMap.scaledSize;
+  final Vector2 _cachedPosition = Vector2.zero();
+
+  double getYAxisBound(Vector2 mapSize) {
     if (character.y > (mapSize.y * 0.32)) {
       return character.y;
     } else {
@@ -20,8 +21,7 @@ class CameraBehavior extends Component implements ReadOnlyPositionProvider {
     }
   }
 
-  double getXAxisBound() {
-    final mapSize = game.world.map.tiledMap.scaledSize;
+  double getXAxisBound(Vector2 mapSize) {
     if (character.x <= (mapSize.x * 0.06)) {
       return mapSize.x * 0.06;
     }
@@ -33,6 +33,8 @@ class CameraBehavior extends Component implements ReadOnlyPositionProvider {
 
   @override
   Vector2 get position {
-    return Vector2(getXAxisBound(), getYAxisBound());
+    final mapSize = game.world.map.tiledMap.scaledSize;
+    _cachedPosition.setValues(getXAxisBound(mapSize), getYAxisBound(mapSize));
+    return _cachedPosition;
   }
 }

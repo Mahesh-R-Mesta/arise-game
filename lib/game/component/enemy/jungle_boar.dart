@@ -160,6 +160,7 @@ class JungleBoar extends GroundCharacterEntity with HasGameRef<AriseGame> {
 
   @override
   void update(double dt) {
+    if (behavior.isOnGround && !isWithinActiveViewport) return;
     position.x += (speed * dt * behavior.horizontalMovement);
     super.update(dt);
   }

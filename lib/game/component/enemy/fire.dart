@@ -17,7 +17,7 @@ class Fire extends GameObjectAnime with HasGameRef<AriseGame> {
     debugMode = GameViewConfig.debugMode;
     animation = SpriteAnimation.fromFrameData(gameRef.images.fromCache(GameAssets.fire),
         SpriteAnimationData.sequenced(amount: 19, amountPerRow: 4, stepTime: 0.1, textureSize: Vector2.all(96)));
-    add(RectangleHitbox(position: Vector2(96 / 2, 96 / 2), size: Vector2(32, 53), anchor: Anchor.topCenter));
+    add(RectangleHitbox(position: Vector2(96 / 2, 96 / 2), size: Vector2(32, 53), anchor: Anchor.topCenter, collisionType: CollisionType.passive));
     return super.onLoad();
   }
 

@@ -200,6 +200,13 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
   async.Timer? guardingWalk;
   walk() {
     guardingWalk = async.Timer.periodic(Duration(seconds: 2), (_) {
+      if (!isWithinActiveViewport) {
+        if (behavior.horizontalMovement != 0) {
+          behavior.horizontalMovement = 0;
+          current = WizardState.idle;
+        }
+        return;
+      }
       if (isFacingRight) {
         turnLeft();
         moveLeft();
@@ -208,6 +215,12 @@ class Wizard extends GroundCharacterEntity with HasGameRef<AriseGame> {
         moveRight();
       }
     });
+  }
+
+  @override
+  void onRemove() {
+    guardingWalk?.cancel();
+    super.onRemove();
   }
 
   @override

@@ -8,9 +8,9 @@ import 'package:flame/components.dart';
 class FireStick extends GameObjectAnime with HasGameRef<AriseGame> {
   FireStick({super.position, super.size}) : super(scale: Vector2(1.3, 1.3));
   @override
-  FutureOr<void> onLoad() async {
+  FutureOr<void> onLoad() {
     animation = SpriteAnimation.spriteList(
-        [for (int i = 0; i < 5; i++) await Sprite.load("${GameAssets.fireStickFolder}torch_big_${i + 1}.png", images: gameRef.images)],
+        [for (int i = 0; i < 5; i++) Sprite(gameRef.images.fromCache("${GameAssets.fireStickFolder}torch_big_${i + 1}.png"))],
         stepTime: 0.1);
     return super.onLoad();
   }

@@ -15,7 +15,7 @@ class VisibleRange extends GameField with CollisionCallbacks {
   @override
   FutureOr<void> onLoad() async {
     debugMode = GameViewConfig.debugMode;
-    add(RectangleHitbox(size: rangeSize, position: Vector2(0, 10)));
+    add(RectangleHitbox(size: rangeSize, position: Vector2(0, 10), collisionType: CollisionType.passive));
     return super.onLoad();
   }
 

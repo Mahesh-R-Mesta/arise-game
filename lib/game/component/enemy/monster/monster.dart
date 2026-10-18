@@ -98,6 +98,13 @@ abstract class Monster extends GroundCharacterEntity {
   async.Timer? guardingWalk;
   takeARound(int millis) {
     guardingWalk = async.Timer.periodic(Duration(milliseconds: millis), (_) {
+      if (!isWithinActiveViewport) {
+        if (behavior.horizontalMovement != 0) {
+          behavior.horizontalMovement = 0;
+          current = MonsterState.idle;
+        }
+        return;
+      }
       if (isFacingRight) {
         turnLeft();
         moveLeft(walkSpeed());
@@ -106,6 +113,12 @@ abstract class Monster extends GroundCharacterEntity {
         moveRight(walkSpeed());
       }
     });
+  }
+
+  @override
+  void onRemove() {
+    guardingWalk?.cancel();
+    super.onRemove();
   }
 
   double walkSpeed();

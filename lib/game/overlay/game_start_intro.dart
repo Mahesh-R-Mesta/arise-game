@@ -89,6 +89,7 @@ class GameStartIntro extends StatelessWidget {
                           size: Size(180.w, 60.h),
                           onTap: () {
                             game.overlays.remove("startGame");
+                            if (game.paused) game.resumeEngine();
                             final restarted = context.read<GameBloc>().state.restart > 0;
                             if (level.conversation.any((talk) => talk.key == "playStart") && !restarted) {
                               level.startConversation("playStart", game, onCompete: () => game.overlays.add("controller"));
