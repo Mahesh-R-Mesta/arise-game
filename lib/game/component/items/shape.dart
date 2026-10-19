@@ -10,11 +10,11 @@ class GameShop extends GameObjectAnime with HasGameRef<AriseGame> {
 
   @override
   FutureOr<void> onLoad() {
-    behavior.isOnGround = true;
+    behavior.isOnGround = false;
     animation = SpriteAnimation.fromFrameData(gameRef.images.fromCache("background/decorations/shop_anim.png"),
         SpriteAnimationData.sequenced(amount: 6, stepTime: 0.3, textureSize: Vector2(118, 128)));
 
-    add(RectangleHitbox(size: size, collisionType: CollisionType.passive));
+    add(RectangleHitbox(size: size));
     return super.onLoad();
   }
 }
